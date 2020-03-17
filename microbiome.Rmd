@@ -1,0 +1,596 @@
+---
+title: "Microbiome Analysis using `microbiome` in R"
+author: "Nabiilah Ardini Fauziyyah"
+date: "12/16/2019"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    toc_collapsed: true
+    theme: flatly
+    highlight: kate
+    number_sections: false
+    df_print: paged
+---
+
+<style>
+h1.title {
+  text-align: center;
+}
+h4.author {
+  text-align: center;
+}
+h4.date {
+  text-align: center;
+}
+
+body {
+text-align: justify}
+
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+# Introduction
+
+Abundant number of microbes lives everywhere on earth and in our bodies. Microbiome Analysis aims to get to know them to utilize them for our benefit. 
+
+Human Microbiome is one of the focus in microbiome research in this past few years. Researchers are trying to find out the microbial community profile and dynamics that lives inside the human body and possibly indirectly steer our whims and behaviour through out the day.  
+
+There are various tools we can use to perform microbiome analysis, and one of them is using R. One of the package that helps with microbiome analysis is `microbiome`. **microbiome** R package facilitates exploration and analysis of microbiome profiling data, in particular [16S taxonomic profiling](https://www.sevenbridges.com/taxonomic-profiling-of-metagenomics-samples-get-to-know-your-loyal-residents/) whereas we use 16S rRNA gene sequences as profiles for each microbe. The microbiome package extends the [phyloseq data format](https://joey711.github.io/phyloseq/) and includes a comprehensive tutorial for large-scale microbiome analysis and visualization.
+
+This package is under the development and maintained by **Leo Lahti, et al. (Bioconductor, 2017-2019)**. You can find the detailed source and documentation for this package in [here](https://microbiome.github.io/tutorials/). 
+
+In this article, We will try some microbiome analysis by studying the microbial community profile of Human's Digestive System between African Americans and Native South Africans and its relation to colon cancer risk as previously studied by O’Keefe, Stephen J. D. et. al. (2016)[^1]. 
+
+<br>
+<center>
+![](image/coloncancer.jpg)
+</center>
+<br>
+
+Colon cancer is the second leading cause of cancer death in the west. It is previously known that African Americans has higher colon cancer rates (65:100000) than Native South Africans (<5:1000000). There are certain microbes that act as biomarkers of colon cancer. it is said that the microbes lives inside our digestion system are influenced by the type of diet we eat. A 2-week food exchanges (diet-swap) experiment is performed on subjects from the same populations where African Americans were fed a high-fibre low-fat African-style diet while Native South Africans were fed a low-fibre western-style diet. Digestive system's microbial community profile were obtained from fecal sample of each subject. The idea is to see whether the diet-swap changes the composition of microbes lives inside our digestive system and can possibly alter the risk of colon cancer. 
+
+# Import Library
+
+The R package we are going to use, `microbiome`, is available from [Bioconductor](https://bioconductor.org/). The current release of Bioconductor is version 3.10 and works with R version 3.6.0. Meanwhile the development version of Bioconductor is version 3.11 and works with R version 4.0.0. To install the package we need specify certain command. First, we will install Bioconductor base packages for v.3.10 which works with R v.3.6.0:
+
+```{r eval=FALSE}
+# install Bioconductor base packages
+if (!requireNamespace("BiocManager", quietly = TRUE))
+install.packages("BiocManager")
+BiocManager::install(version = "3.10")
+
+# install `microbiome` package
+BiocManager::install("microbiome")
+```
+
+```{r message=FALSE, warning=FALSE}
+# import library
+library(microbiome)
+```
+
+# The Data
+
+The microbiome package relies on the independent *phyloseq data format* which may consist of: 
+
+* OTU table (species/taxa abundance), 
+* sample metadata (age, BMI, sex, etc),
+* taxonomy table (mapping between OTUs and higher-level taxonomic classifications)
+* phylogenetic tree (relations between the taxa).
+
+Below is the example data from the experiment (as described before) which was already provided inside the `microbiome` package. The data already stored in a phyloseq format and therefore *we will not perform data pre-processing*. 
+
+```{r}
+data("dietswap")
+dietswap
+```
+
+Alternatively, we can also read our own raw dataset and convert it into phyloseq format by following the tutorial provided [here](http://joey711.github.io/phyloseq/import-data). The raw dataset is usually a sequence data from the Next Generation Sequencing (NGS) platform. The NGS platform allows the DNA sequencing practice to all the microbes present in numerous microbial communities simultaneously. The NGS raw data may be pre-processed first using a software Quantitative Insight to Microbial Ecology (QIIME2), but because such discussion may be quite long and is better in the detailed version, I am planning on discussing it in a separate article. 
+
+As you can see, we already have: 
+
+**1. an OTU Table containing 130 species (taxa) from 222 samples**
+
+The columns here indicate the samples from the experiment while the rows indicate operational taxonomic units (OTUs) or we may as well called it estimated species. 
+
+Each sample here is a community of microbes that was sampled from a person's mucosa that undergoes the diet-swap treatment in specific time point. The number in each column indicates the total number for each species for each sampling. There are 130 species that may be present in the sample.
+
+```{r}
+# first 10 microbes for first 7 sample
+data.frame(dietswap@otu_table@.Data[1:10,1:7])
+```
+
+**2. a Sample Data (metadata) containing 8 variables**
+
+The metadata contains detailed information about sample data. From this we can see how the experiment was done. We can vaguely see the research design, the number of persons and timepoints the researcher used to obtain the full data.
+
+```{r}
+# converting metadata into data.frame
+metadata <- meta(dietswap)
+
+metadata <- metadata %>% 
+  mutate(timepoint = as.factor(timepoint),
+         timepoint.within.group = as.factor(timepoint.within.group))
+
+metadata
+```
+
+```{r}
+# you can also use summary
+summary(metadata)
+```
+
+Description for each column is below:
+
+* **subject**: initials of the subject being experimented
+* **sex**: sex of the subject
+* **nationality**: Nationality (AFR: Native South Africans, AAM: African Americans)
+* **group**: Sample treatment group (Dietary intervention (DI) / Home environment or consuming usual diets(HE) / [Solid stool pre-colonoscopy](https://ada.com/preparing-for-a-colonoscopy/) (ED))
+* **sample**: sample ID
+* **timepoint**: Time point in the overall data set (ED1 - HE1 - HE2 - DI1 - DI2 - ED2 ie. 1- 2- 3- 4- 5- 6)
+* **timepoint.within.group**: Time point (1/2) within the group (ED/HE/DI)
+* **bmi_group**: Standard body-mass classification(lean: 18.5-25; overweight: 25-30; obese: 30-35)
+
+A more detailed information about the research design and experiment can be accessed [here](https://www.nature.com/articles/ncomms7342#Tab1).
+
+The diet-swap treatment were diveded into three stages group as described above. As total, there are 6 timepoints in the experiment:
+
+* ED1: initial endoscopy as the micrbial community profile while on their usual diet before the diet-swap tretment
+* HE (1&2): Home environment while on their usual diet prior to diet-swap
+* DI (1&2): Dietary environment while on diet-swap treatment
+* ED 2: final endoscopy as the microbial community profile at the conclusion of the diet-swap experiment 
+
+<br>
+<center>
+![](image/diettable.PNG)
+</center>
+<br>
+
+**3. a Taxonomy Table for 130 species with 3 taxonomic ranks (Genus, Family, Phylum) for each species.**
+
+```{r}
+taxon <- tax_table(dietswap)
+head(taxon)
+```
+
+Lastly is the Taxonomy Table which shows the Taxonomy of each species.
+
+We can also join all those three component into a data.frame using `psmelt()`. The data.frame format might be easier for visualization.
+
+```{r}
+diet <- psmelt(dietswap)
+str(diet)
+```
+
+```{r fig.align='center'}
+# EDA for bmi group proportion for each nationality
+plot_frequencies(sample_data(dietswap), "bmi_group", "nationality")
+```
+
+Based on the plot, we can see that African American people generally dominates the proportion for overweight and obese category, while Native Africans dominates the lean category. Additionaly, it is also widely known that obesity may also promotes colon cancer. 
+
+The following discussion will focuses on the microbial community analysis that can support the discussion from this section. There might be some specific microbes that appear higher in African Americans or the other way around.
+
+# Microbiome Analysis
+
+The main focus in microbiome analysis is to explore and gain insight from the **microbial community profile** provided. The community is usually visualized using barplot containing all the present microbes in the sample. For easier viewing and examples, We will use the subsetted data from our full `dietswap` data. 
+
+### Data Aggregation for Visualization
+
+```{r}
+# filtering only prevalent taxa/species in the data
+# prevalent means frequently appear in all of the samples in our data
+core_diet <- core(x = dietswap, 
+                  detection =  50, # detection treshold for presence/appearance for each OTU in a sample
+                  prevalence = 50/100) # prevalence treshold ranging 0-1, calculates the fraction of OTU that exceeds the detection treshold
+core_diet # after filtering, there is only 17 species that are prevalent in the data.
+```
+
+```{r}
+# filtering data based on label/condition
+diet_AfrED1 <- subset_samples(core_diet, group == "ED" & nationality == "AFR" & timepoint.within.group == 1) # Male African w/ HE treatment on timepoint 1
+diet_AfrED2 <- subset_samples(core_diet, group == "ED" & nationality == "AFR" & timepoint.within.group == 2)
+diet_AmED1 <- subset_samples(core_diet, group == "ED" & nationality == "AAM" & timepoint.within.group == 1)
+diet_AmED2 <- subset_samples(core_diet, group == "ED" & nationality == "AAM" & timepoint.within.group == 2)
+
+diet_AfrHE1 <- subset_samples(core_diet, group == "HE" & nationality == "AFR" & timepoint.within.group == 1) # African w/ HE treatment on timepoint 1
+diet_AfrHE2 <- subset_samples(core_diet, group == "HE" & nationality == "AFR" & timepoint.within.group == 2)
+diet_AmHE1 <- subset_samples(core_diet, group == "HE" & nationality == "AAM" & timepoint.within.group == 1)
+diet_AmHE2 <- subset_samples(core_diet, group == "HE" & nationality == "AAM" & timepoint.within.group == 2)
+
+diet_AfrDI1 <- subset_samples(core_diet, group == "DI" & nationality == "AFR" & timepoint.within.group == 1) 
+diet_AfrDI2 <- subset_samples(core_diet, group == "DI" & nationality == "AFR" & timepoint.within.group == 2)
+diet_AmDI1 <- subset_samples(core_diet, group == "DI" & nationality == "AAM" & timepoint.within.group == 1)
+diet_AmDI2 <- subset_samples(core_diet, group == "DI" & nationality == "AAM" & timepoint.within.group == 2)
+```
+
+### Microbial Composition Barplots
+
+Microbial communities are often visualized in the form of Stacked Barplot. Each bar representing one sample community and harbours different abundance and diversity of microbes. One can analyze the dominant microbes for each sample community or each group sample. These are some examples:
+
+```{r}
+# data.frame of full prevalent taxa/species
+core_diet %>% 
+  psmelt() %>% 
+  arrange(bmi_group, nationality, sex, group, timepoint.within.group) %>% 
+  select(bmi_group, nationality, sex, group, timepoint.within.group, everything(), -Sample)
+
+```
+
+```{r fig.width= 15, fig.height=10, fig.align='center'}
+# Microbial Composition of Native Africans vs. African Americans
+
+core_diet %>% # a phyloseq object
+    plot_composition(plot.type = "barplot", 
+                     group_by = "nationality", # faceted by
+                     otu.sort = "abundance", # sorting OTU based on abundance
+                     sample.sort = "bmi_group", # sorting sample (x axis)
+                     x.label = "bmi_group") + # label for x axis
+    labs(x = "",
+         y = "Abundance",
+         title = "Microbial Composition of Africans and Americans") +
+    theme(legend.text = element_text(size = 12),
+          axis.text.x = element_blank(),
+          # axis.text = element_text(angle = 90,
+          #                            size = 12),
+          title = element_text(size = 18),
+          axis.ticks.x = element_blank(),
+          panel.background = element_rect(fill = "#ebebeb"),
+          panel.grid = element_blank(),
+          legend.title = element_blank()
+          )
+```
+
+As we can see from the plot above, microbial community profile of Native Africans shown higher abundance of microbes in general, and specifically in *Prevotella melaninogenica et rel.* 
+
+To inspect it with more depth, we can use the subsetted data (by sex, nationality, and treatment group) and plot it to compare for each treatment:
+
+```{r fig.width=10, fig.align='center'}
+# plot total sample
+p_AfrHE1 <- plot_composition(diet_AfrHE1,
+              taxonomic.level = "Genus",
+              sample.sort = "bmi_group",
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "Abundance",
+          title = "Abundance data",
+          subtitle = "Africans - Home environment treatment I") +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12))
+
+p_AfrHE1
+```
+
+Meanwhile there is also a way to plot it averaged by group:
+
+```{r fig.width=8, fig.align='center'}
+# plot averaged sample
+pavg_AfrHE1 <- plot_composition(diet_AfrHE1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "Abundance",
+          title = "Abundance data",
+          subtitle = "Africans - Home Environment I") +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 0,
+                                      size = 12,
+                                      hjust = 0.5))
+
+pavg_AfrHE1
+```
+
+To capture the overall picture of microbial community for each treatment I will use the averaged plot and combine the plot from all treatment using `ggarrange()` from `ggpubr` package.
+
+```{r}
+pavg_AfrHE1 <- plot_composition(diet_AfrHE1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+```
+
+```{r fig.width= 2.5, fig.height= 3}
+# plot the rest of averaged sample
+pavg_AfrED1 <- plot_composition(diet_AfrED1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "Abundance",
+          title = "",
+          subtitle = "Africans") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           )
+
+pavg_AfrHE2 <- plot_composition(diet_AfrHE2,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+
+pavg_AfrDI1 <- plot_composition(diet_AfrDI1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+
+pavg_AfrDI2 <- plot_composition(diet_AfrDI2,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank() 
+           )
+
+pavg_AfrED2 <- plot_composition(diet_AfrED2,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+```
+
+```{r fig.width= 2.5, fig.height= 3}
+pavg_AmED1 <- plot_composition(diet_AmED1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "Abundance",
+          title = "",
+          subtitle = "Americans") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black")
+           )
+
+pavg_AmHE1 <- plot_composition(diet_AmHE1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+
+pavg_AmHE2 <- plot_composition(diet_AmHE2,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+
+pavg_AmDI1 <- plot_composition(diet_AmDI1,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+
+pavg_AmDI2 <- plot_composition(diet_AmDI2,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+
+pavg_AmED2 <- plot_composition(diet_AmED2,
+              taxonomic.level = "Genus",
+              average_by = "bmi_group", # average by bmi_group
+              otu.sort = "abundance",
+              x.label = "bmi_group") +
+     guides(fill = guide_legend(ncol = 1)) +
+     labs(x = "",
+          y = "",
+          title = "",
+          subtitle = "") +
+     scale_y_continuous(limits = c(0,20000)) +
+     theme(legend.text = element_text(size = 12),
+           axis.text.x = element_text(angle = 90,
+                                      size = 12,
+                                      hjust = 0.5),
+           legend.position = "none",
+           panel.background = element_rect(fill = "white"),
+           axis.line = element_line(colour = "black"),
+           axis.text.y = element_blank()
+           )
+```
+
+```{r}
+library(ggpubr)
+# combine plots
+afr <- ggarrange(pavg_AfrED1,
+pavg_AfrHE1,
+pavg_AfrHE2,
+pavg_AfrDI1,
+pavg_AfrDI2,
+pavg_AfrED2,
+          labels = c("ED1", "HE1", "HE2", "DI1", "DI2", "ED2"), label.x = 0.4,
+          nrow = 1, widths = c(1.4,1,1,1,1,1))
+
+am <- ggarrange(pavg_AmED1,
+pavg_AmHE1,
+pavg_AmHE2,
+pavg_AmDI1,
+pavg_AmDI2,
+pavg_AmED2,
+          # labels = c("ED1", "HE1", "HE2", "DI1", "DI2", "ED2"), label.x = 0.4,
+          nrow = 1, widths = c(1.4,1,1,1,1,1))
+```
+
+```{r fig.height=10, fig.width=12}
+ggarrange(afr, am, nrow = 2)
+```
+
+<br>
+<center>
+![](image/otu.PNG)
+</center>
+<br>
+
+Above is the final compiled plot of microbial community dynamics throughout diet-experiment. There are changes in microbial community after the diet swap treatment for both Native Africans and African Americans subject. 
+
+In general, diet-swap treatment can affect microbial composition inside our digestive system. Diet swap treatment decrease microbial abundance inside the digestive treatment of Native Africans, and slightly lower in African Americans. Throughout dietary interventions (DI), a decrease of *Prevotella melaninogenica et rel.* followed by the increase of *Oscillospira guillermondii et rel.* can also be seen. The decrease and microbial abundance switching may be caused by different nutrients that were supplied from the diets during diet-swap treatment. The different nutrients facilitates different microbes inside the digestive system to grow or to die.
+
+Further analysis about what microbes increased/decreased in growth on subject with specific target (healthy/colon cancer) might give us some light about the microbial composition connection to colon cancer and what actually happened inside our digestive system. In fact, a more throughout scientific study using this data and a couple of additional data has already been done and published. If you're interested, I encourage you to look to the read the published article as stated in the footnote. 
+
+There are so much more that can be explored and our journey is only starting here. The realms of Microbiome Analysis is very interesting and I hope this simple article can help you start your Microbiome Analysis journey. Feel free to explore on other functions and packages in R, Python, or other tools to help you discover this magnificent world. 
+
+Thank you for reading and Happy Learning!
+
+[^1]: O’Keefe, S., Li, J., Lahti, L. et al. [Fat, fibre and cancer risk in African Americans and rural Africans](https://www.nature.com/articles/ncomms7342). Nat Commun 6, 6342 (2015) doi:10.1038/ncomms7342
+
+---
