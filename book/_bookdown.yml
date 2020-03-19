@@ -1,0 +1,10 @@
+book_filename: "microbiome"
+rmd_files:
+  - "index.Rmd"
+  - "01-INTRO.Rmd"
+  - "02-FLOW.Rmd"
+output_dir: "book"
+new_session: true
+language:
+  ui:
+    chapter_name: "Chapter "

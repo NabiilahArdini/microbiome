@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Microbiome Analysis Workflow | microbiome: Exploring microbiome analysis using R</title>
+  <meta name="description" content="Chapter 2 Microbiome Analysis Workflow | microbiome: Exploring microbiome analysis using R" />
+  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Microbiome Analysis Workflow | microbiome: Exploring microbiome analysis using R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Microbiome Analysis Workflow | microbiome: Exploring microbiome analysis using R" />
+  
+  
+  
+
+<meta name="author" content="Nabiilah Ardini Fauziyyah" />
+
+
+<meta name="date" content="2020-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="microbiome-and-beyond.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Forewords</a></li>
+<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">microbiome: Exploring microbiome analysis using R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="microbiome-analysis-workflow" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Microbiome Analysis Workflow</h1>
+<p>The workflow of microbiome analysis has evolved through out the years. The development of next generation sequencing (NGS) and Bioinformatics has made a massive increment on the generation of genomic data that is used for microbiome analysis. Therefore, the use of programming tools such as R and its packages is becoming more widely used.</p>
+<p>If I may put it into 2 major steps, microbiome analysis consist of the <strong>Lab Work</strong> and the <strong>Bioinformatic Analysis</strong>. The lab work of a microbiome analysis is quite plenty and mostly technical, which I will not explain it detail in here. Meanwhile, the bioinformatic analysis will be explained in this book with some tutorial. We will be using R languages and its packages as bioinformatics tools.</p>
+<p>We will first discuss about <strong>the lab work</strong> of microbiome analysis. Every lab work of a microbiome analysis begins by taking a sample of microbial community from either soil, water, swab of a surface, saliva, or any other habitat. The microbes present in that sample will then be filtered and extracted for their DNA. Each microbial DNA will be sequenced to retrieve its genetic code, specifically in the region of 16S rRNA gene.</p>
+<p>For those of you who are not familiar with cell and molecular biology, these are a brief explanation. DNA is a molecule that harbors genes or sequences of genetic code of a living things. This DNA can be used as a taxonomic marker that differentiate each microbial species from one another. A specific region of DNA called the <em>16S rRNA gene</em> is usually used for comparation, for this gene exist in all of microbes but has slightly different sequence for each microbes. The difference between each sequence will be calculated to determine how distant or related a microbial species with one another.</p>
+<p>After we have the sequencing result, <strong>the bioinformatic analysis</strong> can be performed. In brief, this steps aims to compare the sample DNA sequences to the annotated DNA sequences in biological database (ie. GenBank or personal database). This is to determine each microbes identity. After all microbes from the community has been identified, we can analyze the community structure and diversity by calculating the abundance of each microbes. We will able to know which microbes dominates over the other, what microbial activities it can do that may affect the environment being studied, etc. This microbial community profile will help us understand the phenomenon happen in a specific environment. We may even discover potential biomarker for industrial application.</p>
+<p>From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the more detailed steps, adapted from [Callahan et al, 2016] which also featured in Bioconductor [footnote on Bioconductor] website.</p>
+<ol style="list-style-type: decimal">
+<li>Amplicons bioinformatic: from amplicons read to tables</li>
+<li>Data cleaning: trim and filtering</li>
+<li>Data pre-processing: Infer sequence variants</li>
+<li>Data pre-processing: construct sequence tables &amp; remove chimeras</li>
+<li>Assign taxonomy</li>
+<li>Microbiome analysis: multiple sequence alignment to construct phylogenetic tree</li>
+<li>Microbiome analysis: community structure, abundance, and diversity</li>
+<li>Microbiome analysis: community profile visualization using PCA</li>
+<li>Microbiome analysis: Supervised learning</li>
+<li>Microbiome analysis: graph analysis using network visualization</li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="microbiome-and-beyond.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
