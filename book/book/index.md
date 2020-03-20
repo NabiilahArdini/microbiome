@@ -1,5 +1,6 @@
 ---
-title: "microbiome: Exploring microbiome analysis using R"
+title: "microbiome"
+subtitle: "Exploring microbiome analysis using R"
 author: "Nabiilah Ardini Fauziyyah"
 date: "March 19, 2020"
 documentclass: book
