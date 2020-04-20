@@ -1,13 +1,20 @@
 ---
-title: "microbiome"
+title: "Microbiome in R"
 subtitle: "Exploring microbiome analysis using R"
 author: "Nabiilah Ardini Fauziyyah"
 date: "March 19, 2020"
 documentclass: book
+bibliography: "citation.bib" 
+biblio-style: "apalike"
+link-citation: true
 ---
 
 # Forewords {-}
 
+All praises be to Allah, The Beneficent and The Ever-Providing, who have given me the time, well-being, and intention to develop a companion book on Microbiome Study in R. 
+
+This work is far from completed and will not be possible without the help many many friends and parties. With the hope of helping many people who ought to learn Microbiome Analysis as soon as possible, this work was published and will be continually updated.
+
 **Microbiome Analysis** is the analysis of a community of microorganisms (such as bacteria, fungi, and viruses) that inhabit a particular environment. The understanding of microbial community profiles from a specific environment, its dynamics, and clearer understanding of microbial role in the environment will provide us a huge lift on scientific discoveries and the initiation of further research for the improvement of human lives.
 
-With the development bioinformatics tools and package in R, microbiome analysis is getting more easier and accessible than ever. This book is made with the intention to bring microbiome analysis closer to you. This book hopefully shed a light on how microbiome analysis is performed, providing a comprehensive review and tutorial on the process of transforming microbiome raw data into valuable insight. Happy reading!
+With the development bioinformatics tools and package in R, microbiome analysis is getting more easier and accessible than ever. This book is made with the intention to bring microbiome analysis using R closer to you. You may be a data scientist with curiousity about microbiome or may be a biologist trying to learn new technology i.e. R to tackle your research project. This book hopefully shed a light on how microbiome analysis is performed, providing a comprehensive review and tutorial on the process of transforming microbiome raw data into valuable insight. Happy reading!

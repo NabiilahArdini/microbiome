@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Amplicon Bioinformatics: Data Cleaning | Microbiome in R</title>
+  <meta name="description" content="Chapter 4 Amplicon Bioinformatics: Data Cleaning | Microbiome in R" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Amplicon Bioinformatics: Data Cleaning | Microbiome in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Amplicon Bioinformatics: Data Cleaning | Microbiome in R" />
+  
+  
+  
+
+<meta name="author" content="Nabiilah Ardini Fauziyyah" />
+
+
+<meta name="date" content="2020-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bioconductor-installation.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Forewords</a></li>
+<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics: Data Cleaning</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#infer-ribosomal-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Ribosomal Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#merging-forward-reverse-dna-sequences"><i class="fa fa-check"></i><b>4.5</b> Merging Forward &amp; Reverse DNA Sequences</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#construct-sequence-table"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#remove-chimeras"><i class="fa fa-check"></i><b>4.7</b> Remove Chimeras</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#track-reads-through-the-pipeline"><i class="fa fa-check"></i><b>4.8</b> Track Reads through the Pipeline</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Microbiome in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="amplicon-bioinformatics-data-cleaning" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Amplicon Bioinformatics: Data Cleaning</h1>
+<p>This section demonstrates the first step of performing microbiome analysis in R. Amplicon bioinformatics is the steps of how we prepare a raw data into format needed for analysis. The steps include <strong>construction of the raw reads from sequencing result into the table we ought to analyze</strong>.</p>
+<div id="libraries" class="section level2">
+<h2><span class="header-section-number">4.1</span> Libraries</h2>
+<p>First, we should load the necessary packages. You might also want to install some packages if you haven’t installed them to your machine.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># install packages</span></a>
+<a class="sourceLine" id="cb3-2" title="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;BiocStyle&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># libraries</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(knitr) <span class="co"># for reporting</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">library</span>(ggplot2) <span class="co"># for graph visualization</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">library</span>(gridExtra) <span class="co"># additional mapping for ggplot2</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw">library</span>(BiocStyle)</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">library</span>(dada2)</a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">library</span>(phyloseq)</a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">library</span>(DECIPHER)</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">library</span>(phangorn)</a></code></pre></div>
+</div>
+<div id="dataset" class="section level2">
+<h2><span class="header-section-number">4.2</span> Dataset</h2>
+<p>The dataset for microbiome analysis is usually a set of <strong>raw reads of DNA sequences</strong> a.k.a. <strong>amplicons</strong> stored in a digital format as a result of <strong>DNA sequencing method</strong> performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the <strong>Next Generation Sequencing (NGS)</strong> technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences.</p>
+<p>You are free to use your own amplicons dataset while following the tutorial provided in this book. Meanwhile, if you don’t have one, you can use the data provided free in <a href="http://www.mothur.org/MiSeqDevelopmentData/StabilityNoMetaG.tar">here</a>. The data is also used on the original “Bioconductor Workflow for Microbiome Data Analysis”. The data consisted of amplicons from the V4 region of the 16S rRNA gene sequenced through <a href="https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/">Illumina Miseq NGS technology</a>. The <strong>V4 region</strong> stands for the more specific region of the <strong>16S rRNA gene</strong>, the “fingerprint gene” which we will use to explain the identity of microbial species inside the community we ought to analyze. The data contains <strong>DNA samples of microbial communities</strong> from a 360 fecal samples, collected from 12 mice over the first year of life. This samples were investigated for analyzing the development and stabilization of the murine microbiome <span class="citation">(PD Schloss 2012)</span>.</p>
+<p>These are the steps for reading the data:</p>
+<ol style="list-style-type: decimal">
+<li>The data can be downloaded in the link provided above. The data will be in <code>.tar</code> format. It stands for <em>Tape Archive</em> or <em>Consolidated Unix Archive format</em>.</li>
+<li>You will need to extract it to obtain the amplicons in <code>.fastq.gz</code> stands for <em>gzip compressed archive</em> format.</li>
+</ol>
+<p>There will be <strong>724 files</strong> consisted of:</p>
+<ul>
+<li>360 forward reads of community DNA samples</li>
+<li>360 reverse reads of community DNA samples</li>
+<li>2 forward reads of control (mock) samples</li>
+<li>2 reverse reads of control (mock) samples</li>
+</ul>
+<p>For those of you who are interested in understanding more about the sample it is a good idea to read the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3463496/">original research publication</a> and perhaps also <a href="https://drive5.com/usearch/manual/otu_qc_controls.html">articles</a> about designing an experiment including its control.</p>
+<p>The amplicons are stored with a standard naming system with an “R1” and "R2 label as forward and reverse reads respectively. Forward and reverse reads came from the sequencing method itself which sequenced DNA in two direction just as illustrated in <strong>Fig 4.1</strong>. Here is a great <a href="https://www.youtube.com/watch?v=ONGdehkB8jU">video</a> about DNA sequencing for more detailed process.</p>
+<p>FIG 4.1 [dna sequencing with r/f primers]</p>
+<p>Before further analysis, forward and reverse reads of DNA need to be “cleaned” first for its low quality reads and then joined to obtain the full DNA. The data cleaning process is called <strong>Trimming and Filtering</strong> which we will discuss in the next section. Below, the amplicons will be tagged for data cleaning process.</p>
+<p>The amplicons are still in its compressed format but luckily most bioinformatics tools have the ability to process the compressed files. This is quite a convenience as most microbiome analysis deals with large-sized data and compressed files are, well, more “compressed”. The code below will try to list all the amplicons stored in our working directory and separate them between the reverse or forward reads for the data cleaning process.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># list all sequence files</span></a>
+<a class="sourceLine" id="cb5-2" title="2">amplicons &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/miseq&quot;</span>, <span class="co"># location of your amplicon files</span></a>
+<a class="sourceLine" id="cb5-3" title="3">                             <span class="dt">full.names =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb5-4" title="4"><span class="kw">head</span>(amplicons)</a></code></pre></div>
+<pre><code>## [1] &quot;data/miseq/F3D0_S188_L001_R1_001.fastq.gz&quot; 
+## [2] &quot;data/miseq/F3D0_S188_L001_R2_001.fastq.gz&quot; 
+## [3] &quot;data/miseq/F3D1_S189_L001_R1_001.fastq.gz&quot; 
+## [4] &quot;data/miseq/F3D1_S189_L001_R2_001.fastq.gz&quot; 
+## [5] &quot;data/miseq/F3D11_S198_L001_R1_001.fastq.gz&quot;
+## [6] &quot;data/miseq/F3D11_S198_L001_R2_001.fastq.gz&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># search for a pattern in the list </span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co"># R1 = DNA forward sequences; R2 = DNA reverse sequences</span></a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4">amplicons_F &lt;-<span class="st"> </span>amplicons[<span class="kw">grepl</span>(<span class="st">&quot;R1&quot;</span>, amplicons)] </a>
+<a class="sourceLine" id="cb7-5" title="5">amplicons_R &lt;-<span class="st"> </span>amplicons[<span class="kw">grepl</span>(<span class="st">&quot;R2&quot;</span>, amplicons)]</a></code></pre></div>
+</div>
+<div id="trimming-filtering" class="section level2">
+<h2><span class="header-section-number">4.3</span> Trimming &amp; Filtering</h2>
+<p>After we have separate the sequences into reverse/forward, we need to perform data cleaning by <strong>trimming &amp; filtering</strong>. Raw reads are often have regions with low-quality reads. Most Illumina sequencing data shows a trend of decreasing average quality towards the end of sequencing reads <span class="citation">(Ben J. Callahan 2016)</span>.</p>
+<p>To know which regions have low quality reads, we can plot it using <code>plotQualityProfile()</code> from <strong>dada2</strong> package for amplicon analysis. This function plots a visual summary of the distribution of <a href="https://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf"><strong>quality scores</strong></a> for each sequence position. For more clarity, one amplicon files consist of numerous DNA sequences from each microbial present in one community sample. Each sequences calculated for its quality score in each sequence position (first to last). The plot will generate the summary of quality score from all the DNA sequences in one sample.</p>
+<p>Let’s take the first 3 observation and plot its reverse and forward reads for its quality profile. From there we can determine which position with low quality reads and trim them later.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="co"># plotting 1st observation</span></a>
+<a class="sourceLine" id="cb8-2" title="2">f_plot &lt;-<span class="st"> </span><span class="kw">plotQualityProfile</span>(amplicons_F[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sequence Position&quot;</span>)</a>
+<a class="sourceLine" id="cb8-3" title="3">r_plot &lt;-<span class="st"> </span><span class="kw">plotQualityProfile</span>(amplicons_R[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sequence Position&quot;</span>)</a>
+<a class="sourceLine" id="cb8-4" title="4"></a>
+<a class="sourceLine" id="cb8-5" title="5"><span class="kw">grid.arrange</span>(f_plot,r_plot,<span class="dt">ncol =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="assets/04/ggarr.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The distribution of quality scores at each sequence position is shown as a grey-scale heatmap. The darker color represent higher frequency of each quality score at each sequence position. Notice that I’ve intentionally changed the x label for easier interpretation. It also shown the quality score summary:</p>
+<ul>
+<li><strong>green line</strong>: mean quality score</li>
+<li><strong>orange line-solid</strong>: median quality score</li>
+<li><strong>orange line-dashed</strong>: 25th and 75th quantiles</li>
+<li><strong>Reads</strong>: number of reads (DNA sequences present in a sample)</li>
+<li><strong>red line</strong>: scaled proportion of reads that extend to at least that position (this is more useful for other sequencing technologies, as Illumina reads are typically all the same length, hence resulting a flat red line).</li>
+</ul>
+<p>The forward reads are in good quality, but it is still better to trim a few of the first/last position of a sequence to avoid errors that can arise there. In this example, we will trim the first 10 positions because based on empirical observations across many Illumina datasets, the first or last 10 positions are particularly likely to contain pathological errors <span class="citation">(Ben J. Callahan 2016)</span>. Meanwhile, the reverse reads are more worse in quality, especially at the end. From the plot result, we will trim the last 160 positions from the reverse reads.</p>
+<p>After determining the trimming position for each forward &amp; reverse reads, we will combine it with the standard filtering parameters <code>maxEE = 2</code> (the maximum number of expected errors allowed in a read is 2)<span class="citation">(Ben J. Callahan 2016)</span>. Trimming and filtering is performed on paired reads jointly, i.e. both reads must pass the filter for the pair to pass.</p>
+<p>In the code below, we first create a file path for our filtered reads in the working directory and then perform the trimming and filtering.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># creating file path for filtered reads</span></a>
+<a class="sourceLine" id="cb9-2" title="2">filtered_path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;filtered&quot;</span>) <span class="co"># path: &quot;data/filtered&quot;</span></a>
+<a class="sourceLine" id="cb9-3" title="3"></a>
+<a class="sourceLine" id="cb9-4" title="4"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file_test</span>(<span class="st">&quot;-d&quot;</span>, filtered_path)) <span class="co">#&quot;if there is no directory `filt_path`,</span></a>
+<a class="sourceLine" id="cb9-5" title="5">  <span class="kw">dir.create</span>(filtered_path) <span class="co"># &quot;create one&quot;</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="co"># prepare the file path for each filtered read</span></a>
+<a class="sourceLine" id="cb10-2" title="2">filtered_F &lt;-<span class="st"> </span><span class="kw">file.path</span>(filtered_path, <span class="kw">basename</span>(amplicons_F))</a>
+<a class="sourceLine" id="cb10-3" title="3">filtered_R &lt;-<span class="st"> </span><span class="kw">file.path</span>(filtered_path, <span class="kw">basename</span>(amplicons_R))</a></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># check the file path</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">head</span>(filtered_F, <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;data/filtered/F3D0_S188_L001_R1_001.fastq.gz&quot; 
+## [2] &quot;data/filtered/F3D1_S189_L001_R1_001.fastq.gz&quot; 
+## [3] &quot;data/filtered/F3D11_S198_L001_R1_001.fastq.gz&quot;</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># trimming &amp; filtering</span></a>
+<a class="sourceLine" id="cb13-2" title="2"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(amplicons_F)) {</a>
+<a class="sourceLine" id="cb13-3" title="3">  </a>
+<a class="sourceLine" id="cb13-4" title="4">  <span class="kw">fastqPairedFilter</span>(<span class="kw">c</span>(amplicons_F[[i]], amplicons_R[[i]]), <span class="co"># input: raw amplicons</span></a>
+<a class="sourceLine" id="cb13-5" title="5">                    <span class="kw">c</span>(filtered_F[[i]], filtered_R[[i]]), <span class="co"># output: amplicons after trimming &amp; filtering</span></a>
+<a class="sourceLine" id="cb13-6" title="6">                    </a>
+<a class="sourceLine" id="cb13-7" title="7">                    <span class="co"># trimming</span></a>
+<a class="sourceLine" id="cb13-8" title="8">                    <span class="dt">trimLeft=</span><span class="dv">10</span>, <span class="co"># trim the first n observation from each reads</span></a>
+<a class="sourceLine" id="cb13-9" title="9">                    <span class="dt">truncLen=</span><span class="kw">c</span>(<span class="dv">245</span>,<span class="dv">160</span>), <span class="co"># truncate reads after this position; c(Forward/Reverse)</span></a>
+<a class="sourceLine" id="cb13-10" title="10">                    </a>
+<a class="sourceLine" id="cb13-11" title="11">                    <span class="co"># filtering</span></a>
+<a class="sourceLine" id="cb13-12" title="12">                    <span class="dt">maxN=</span><span class="dv">0</span>, <span class="dt">maxEE=</span><span class="dv">2</span>, <span class="dt">truncQ=</span><span class="dv">2</span>, <span class="co"># max expected error (MEE) = 2</span></a>
+<a class="sourceLine" id="cb13-13" title="13">                    </a>
+<a class="sourceLine" id="cb13-14" title="14">                    <span class="co"># additional setting</span></a>
+<a class="sourceLine" id="cb13-15" title="15">                    <span class="dt">compress=</span><span class="ot">TRUE</span>) <span class="co"># whether the output should be compressed</span></a>
+<a class="sourceLine" id="cb13-16" title="16">                    </a>
+<a class="sourceLine" id="cb13-17" title="17">}</a></code></pre></div>
+<p>Wait for a while as your machine processing your request to trim and filter the amplicons. When it is done, the resulting amplicons will be located in the <code>filtered_path</code> you have stated earlier.</p>
+</div>
+<div id="infer-ribosomal-sequence-variants" class="section level2">
+<h2><span class="header-section-number">4.4</span> Infer Ribosomal Sequence Variants</h2>
+<p>After filtering, typical workflow will continue to perform <strong>clustering</strong> of the DNA sequences into <strong>Operational Taxonomic Units (OTUs)</strong> or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput <strong>DADA2</strong> method was developed. This method can infer <strong>ribosomal sequence variants (RSVs)</strong> from our amplicons data. RSVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. RSVs are considered as <strong>the true biological sequences</strong> and therefore will be used for further analysis.</p>
+<p>DADA2 works by making use of a <strong>parametric error model</strong> <code>err</code> to distinguish between true biological sequences (RSVs) and those generated by error <span class="citation">Ben J. Callahan (2016)</span>. This error model learns the maximum possible error rates of our amplicons data using the <code>learnErrors()</code> function. The error model will later be used in the DADA2 algorithm using <code>dada()</code> function. The following code was adapted from <strong>DADA2 pipeline tutorial for dada2 v1.12</strong> <span class="citation">(Callahan, n.d.)</span> for the more updated version.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># error model for forward reads</span></a>
+<a class="sourceLine" id="cb14-2" title="2">error_F &lt;-<span class="st"> </span><span class="kw">learnErrors</span>(filtered_F) <span class="co">#input: file path for filtered reads</span></a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># error model for reverse reads</span></a>
+<a class="sourceLine" id="cb15-2" title="2">error_R &lt;-<span class="st"> </span><span class="kw">learnErrors</span>(filtered_R)</a></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co">#infer sequence variants</span></a>
+<a class="sourceLine" id="cb16-2" title="2">dada_F &lt;-<span class="st"> </span><span class="kw">dada</span>(filtered_F, <span class="dt">err =</span> error_F, <span class="dt">verbose =</span> <span class="dv">0</span>) <span class="co"># verbose = 0; no text output for 362 samples</span></a>
+<a class="sourceLine" id="cb16-3" title="3">dada_R &lt;-<span class="st"> </span><span class="kw">dada</span>(filtered_R, <span class="dt">err =</span> error_R, <span class="dt">verbose =</span> <span class="dv">0</span>)</a></code></pre></div>
+</div>
+<div id="merging-forward-reverse-dna-sequences" class="section level2">
+<h2><span class="header-section-number">4.5</span> Merging Forward &amp; Reverse DNA Sequences</h2>
+<p>The DADA2 algorithm removed (nearly) all substitution errors from the data and the data are now ready to be merged.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">merged &lt;-<span class="st"> </span><span class="kw">mergePairs</span>(<span class="dt">dadaF =</span> dada_F, <span class="co"># dada result</span></a>
+<a class="sourceLine" id="cb17-2" title="2">                     <span class="dt">derepF =</span> filtered_F, <span class="co"># path of filtered reads</span></a>
+<a class="sourceLine" id="cb17-3" title="3">                     <span class="dt">dadaR =</span> dada_R,</a>
+<a class="sourceLine" id="cb17-4" title="4">                     <span class="dt">derepR =</span> filtered_R)</a></code></pre></div>
+</div>
+<div id="construct-sequence-table" class="section level2">
+<h2><span class="header-section-number">4.6</span> Construct Sequence Table</h2>
+<p>Using the merged pairs of the amplicon data, a sequence table or in this case an <strong>amplicon sequence variant (ASV) table</strong> can be generated. This table is in <code>matrix</code> format with rows stores the <strong>sample names</strong> and the columns stores the <strong>number of each ASVs</strong>. From this table we can inspect the number of ASVs (representing each microbial species) in each sample. ASV table is a higher-resolution version of the OTU table produced by tradisional method.</p>
+<p>We can construct a sequence table using <code>makeSequenceTable()</code>.</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">seqtab &lt;-<span class="st"> </span><span class="kw">makeSequenceTable</span>(merged)</a></code></pre></div>
+<p>Below is a glimpse of what our <code>seqtab</code> matrix looks like:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># first 3 observation; first 3 ASV (named by its DNA sequence)</span></a>
+<a class="sourceLine" id="cb19-2" title="2">seqtab[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>##                                 GCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGCAGGCGGAAGATCAAGTCAGCGGTAAAATTGAGAGGCTCAACCTCTTCGAGCCGTTGAAACTGGTTTTCTTGAGTGAGCGAGAAGTATGCGGAATGCGTGGTGTAGCGGTGAAATGCATAGATATCACGCAGAACTCCGATTGCGAAGGCAGCATACCGGCGCTCAACTGACGCTCATGCACGAAAGTGTGGGTATC
+## F3D0_S188_L001_R1_001.fastq.gz                                                                                                                                                                                                                                          582
+## F3D1_S189_L001_R1_001.fastq.gz                                                                                                                                                                                                                                          416
+## F3D11_S198_L001_R1_001.fastq.gz                                                                                                                                                                                                                                        3193
+##                                 GCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGCAGGCGGACTCTCAAGTCAGCGGTCAAATCGCGGGGCTCAACCCCGTTCCGCCGTTGAAACTGGGAGCCTTGAGTGCGCGAGAAGTAGGCGGAATGCGTGGTGTAGCGGTGAAATGCATAGATATCACGCAGAACTCCGATTGCGAAGGCAGCCTACCGGCGCGCAACTGACGCTCATGCACGAAAGCGTGGGTATC
+## F3D0_S188_L001_R1_001.fastq.gz                                                                                                                                                                                                                                          341
+## F3D1_S189_L001_R1_001.fastq.gz                                                                                                                                                                                                                                          353
+## F3D11_S198_L001_R1_001.fastq.gz                                                                                                                                                                                                                                        1817
+##                                 GCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGTAGGCGGGCTGTTAAGTCAGCGGTCAAATGTCGGGGCTCAACCCCGGCCTGCCGTTGAAACTGGCGGCCTCGAGTGGGCGAGAAGTATGCGGAATGCGTGGTGTAGCGGTGAAATGCATAGATATCACGCAGAACTCCGATTGCGAAGGCAGCATACCGGCGCCCGACTGACGCTGAGGCACGAAAGCGTGGGTATC
+## F3D0_S188_L001_R1_001.fastq.gz                                                                                                                                                                                                                                          448
+## F3D1_S189_L001_R1_001.fastq.gz                                                                                                                                                                                                                                          232
+## F3D11_S198_L001_R1_001.fastq.gz                                                                                                                                                                                                                                        2054</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">dim</span>(seqtab)</a></code></pre></div>
+<pre><code>## [1] 362 684</code></pre>
+<p>We have a total of maximum 684 ASVs or microbial species that may present in a community sample.</p>
+</div>
+<div id="remove-chimeras" class="section level2">
+<h2><span class="header-section-number">4.7</span> Remove Chimeras</h2>
+</div>
+<div id="track-reads-through-the-pipeline" class="section level2">
+<h2><span class="header-section-number">4.8</span> Track Reads through the Pipeline</h2>
+
+<div id="refs" class="references">
+<div>
+<p>Ben J. Callahan, Julia A. Fukuyama, Kris Sankaran. 2016. “Bioconductor Workflow for Microbiome Data Analysis: From Raw Reads to Community Analyses [Version 2; Referees: 3 Approved].” <em>F1000Research</em> 5 (1492). <a href="https://doi.org/10.12688/f1000research.8986.2">https://doi.org/10.12688/f1000research.8986.2</a>.</p>
+</div>
+<div>
+<p>Bioconductor. 2020. “Bioconductor: Using Bioconductor.” Online.</p>
+</div>
+<div>
+<p>Callahan, Benjamin. n.d. <em>DADA2 Pipeline Tutorial (1.12)</em>.</p>
+</div>
+<div>
+<p>PD Schloss, JP Zackular, AM Schuber. 2012. “Stabilization of the Murine Gut Microbiome Following Weaning.” <em>Gut Microbiomes</em> 3 (4). <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3463496/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3463496/</a>.</p>
+</div>
+<div>
+<p>Sally Temraz, Rihab Nasr, Farah Nassar. 2019. “Gut Microbiome: A Promising Biomarker for Immunotherapy in Colorectal Cancer.” <em>International Journal of Molecular Sciences</em> 20 (17). <a href="https://doi.org/10.3390/ijms20174155">https://doi.org/10.3390/ijms20174155</a>.</p>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bioconductor-installation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

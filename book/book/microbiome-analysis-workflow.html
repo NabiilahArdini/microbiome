@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Microbiome Analysis Workflow | microbiome</title>
-  <meta name="description" content="Chapter 2 Microbiome Analysis Workflow | microbiome" />
-  <meta name="generator" content="bookdown 0.17 and GitBook 2.6.7" />
+  <title>Chapter 2 Microbiome Analysis Workflow | Microbiome in R</title>
+  <meta name="description" content="Chapter 2 Microbiome Analysis Workflow | Microbiome in R" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Microbiome Analysis Workflow | microbiome" />
+  <meta property="og:title" content="Chapter 2 Microbiome Analysis Workflow | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Microbiome Analysis Workflow | microbiome" />
+  <meta name="twitter:title" content="Chapter 2 Microbiome Analysis Workflow | Microbiome in R" />
   
   
   
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="microbiome-and-beyond.html"/>
-
+<link rel="next" href="bioconductor-installation.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -52,6 +52,68 @@
 
 
 
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 </head>
 
@@ -71,6 +133,17 @@
 <li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
 <li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
+<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics: Data Cleaning</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#infer-ribosomal-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Ribosomal Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#merging-forward-reverse-dna-sequences"><i class="fa fa-check"></i><b>4.5</b> Merging Forward &amp; Reverse DNA Sequences</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#construct-sequence-table"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#remove-chimeras"><i class="fa fa-check"></i><b>4.7</b> Remove Chimeras</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#track-reads-through-the-pipeline"><i class="fa fa-check"></i><b>4.8</b> Track Reads through the Pipeline</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -80,7 +153,7 @@
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">microbiome</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Microbiome in R</a>
           </h1>
         </div>
 
@@ -90,7 +163,7 @@
             <section class="normal" id="section-">
 <div id="microbiome-analysis-workflow" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Microbiome Analysis Workflow</h1>
-<p>The workflow of microbiome analysis has evolved through out the years. The development of next generation sequencing (NGS) and Bioinformatics has made a massive increment on the generation of genomic data that is used for microbiome analysis. Therefore, the use of programming tools such as R and its packages is becoming more widely used.</p>
+<p>The workflow of microbiome analysis has evolved through out the years. The development of technology and Bioinformatics has made a massive increment on the generation of genomic data that is used for microbiome analysis. Therefore, the use of programming tools such as R and its packages is becoming more widely used.</p>
 <p>If I may put it into 2 major steps, microbiome analysis consist of “Lab Work” and “Bioinformatic Analysis”. The lab work of a microbiome analysis is quite plenty and mostly technical, which I will not explain it detail in here. Meanwhile, the bioinformatic analysis will be explained in this book with some tutorial. We will be using R languages and its packages as bioinformatics tools.</p>
 <br>
 <center>
@@ -99,28 +172,39 @@
 <p><br></p>
 <div id="the-lab-work" class="section level2">
 <h2><span class="header-section-number">2.1</span> The Lab Work</h2>
-<p>Every lab work of a microbiome analysis begins by taking a sample of microbial community from either soil, water, swab of a surface, saliva, or any other habitat. The microbes present in that sample will then be filtered and extracted for their DNA. Each microbial DNA will be sequenced to retrieve its genetic code, specifically in the region of <em>16S ribosomal RNA (16S rRNA) gene</em>.</p>
+<p>Every lab work of a microbiome analysis begins by taking a sample of microbial community from either soil, water, swab of a surface, saliva, or any other habitat. The microbes present in that sample will then be filtered and extracted for their DNA. Each microbial DNA will be sequenced to retrieve its genetic code, specifically in the region of a “fingerprint gene” called the <em>16S ribosomal RNA (16S rRNA)</em>.</p>
 <p>For those of you who are not familiar with cell and molecular biology, these are a brief explanation. DNA is a molecule that harbors genes or sequences of genetic code of a living things. This DNA can be used as a taxonomic marker that differentiate each microbial species from one another. A specific region of DNA called the 16S rRNA gene is usually used for comparation, for this gene exist in all of microbes but has slightly different sequence for each microbes. The difference between each sequence will be calculated to determine how distant or related a microbial species with one another.</p>
 </div>
 <div id="bioinformatic-analysis" class="section level2">
 <h2><span class="header-section-number">2.2</span> Bioinformatic Analysis</h2>
 <p>After we have the sequencing result, the bioinformatic analysis can be performed. In brief, this steps aims to compare the sample DNA sequences to the annotated DNA sequences in biological database (ie. <a href="https://www.ncbi.nlm.nih.gov/genbank/">GenBank</a> or personal database). This is done through alignment of those sequences and the construction of <em>phylogenetic tree</em> aka. the tree of life. Unknown DNA sample will be identified based on its most related species from the database, on condition that the DNA similarity reached a certail treshold.</p>
 <p>After all microbes from the community has been identified, we can analyze the community structure and diversity by calculating the abundance of each microbes. We will able to know which microbes dominates over the other, what microbial activities it can do that may affect the environment being studied, etc. This microbial community profile will help us understand the phenomenon happen in a specific environment. We may even discover potential biomarker for industrial application.</p>
-<p>From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the summary of Bioconductor Workflow for Microbiome Data Analysis adapted from (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4955027/">Callahan et al. 2016</a>). <a href="https://www.bioconductor.org/">Bioconductor</a> is an
-open source software for Bioinformatics and based on packages written primarily in the R programming language.</p>
+<p>From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the summary of Bioconductor Workflow for Microbiome Data Analysis adapted from <span class="citation">Ben J. Callahan (2016)</span>. <a href="https://www.bioconductor.org/">Bioconductor</a> is a repositories of
+open source software for Bioinformatics, based on packages written primarily in the R programming language.</p>
 <ol style="list-style-type: decimal">
-<li>Amplicons bioinformatic: from amplicons read to tables</li>
-<li>Data cleaning: trim and filtering</li>
-<li>Data pre-processing: Infer sequence variants</li>
-<li>Data pre-processing: construct sequence tables &amp; remove chimeras</li>
-<li>Assign taxonomy</li>
-<li>Microbiome analysis: multiple sequence alignment to construct phylogenetic tree</li>
+<li>Amplicon bioinformatics: Data Cleaning</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>Trimming and Filtering</li>
+<li>Infer Sequence Variants</li>
+<li>Merge Forward-Reverse DNA Sequences</li>
+<li>Construct Sequence Tables &amp; Remove Chimeras</li>
+</ol>
+<ol start="2" style="list-style-type: decimal">
+<li>Amplicon Bioinformatics: Phylogenetic Analysis</li>
+</ol>
+<ol style="list-style-type: lower-roman">
+<li>Assign Taxonomy</li>
+<li>Construct Phylogenetic Tree</li>
+<li>Combine data into Phylosec Object</li>
+</ol>
+<ol start="3" style="list-style-type: decimal">
 <li>Microbiome analysis: community structure, abundance, and diversity</li>
 <li>Microbiome analysis: community profile visualization using PCA</li>
 <li>Microbiome analysis: Supervised learning</li>
 <li>Microbiome analysis: graph analysis using network visualization</li>
 </ol>
-<p>We will discuss deeper for each steps of microbiome analysis and the packages related to it in the following section.</p>
+<p>We will discuss deeper for each steps of microbiome analysis and the packages related to it in the following section. A tutorial installing Bioconductor packages also provided in the next section, for it is slightly different than what we usually do when installing packages from <a href="https://cran.r-project.org">CRAN</a>.</p>
 
 </div>
 </div>
@@ -129,8 +213,8 @@ open source software for Bioinformatics and based on packages written primarily 
           </div>
         </div>
       </div>
-<a href="microbiome-and-beyond.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="microbiome-and-beyond.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bioconductor-installation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

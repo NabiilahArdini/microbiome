@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Amplicon bioinformatics | microbiome</title>
+  <meta name="description" content="Chapter 4 Amplicon bioinformatics | microbiome" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Amplicon bioinformatics | microbiome" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Amplicon bioinformatics | microbiome" />
+  
+  
+  
+
+<meta name="author" content="Nabiilah Ardini Fauziyyah" />
+
+
+<meta name="date" content="2020-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="bioconductor-installation.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Forewords</a></li>
+<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon bioinformatics</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">microbiome</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="amplicon-bioinformatics" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Amplicon bioinformatics</h1>
+<p>This section demonstrates the steps of how we can do amplicon bioinformatics: from raw reads to tables. The steps include <strong>construction of the raw reads from sequencing result into the table we ought to analyze</strong>.</p>
+<div id="libraries" class="section level2">
+<h2><span class="header-section-number">4.1</span> Libraries</h2>
+<p>First, we should load the necessary packages. You might also want to install some packages if you haven’t installed them to your machine.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># install packages</span></a>
+<a class="sourceLine" id="cb3-2" title="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;BiocStyle&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># libraries</span></a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(knitr) <span class="co"># for reporting</span></a>
+<a class="sourceLine" id="cb4-3" title="3"><span class="kw">library</span>(ggplot2) <span class="co"># for graph visualization</span></a>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb4-5" title="5"><span class="kw">library</span>(gridExtra) <span class="co"># additional mapping for ggplot2</span></a>
+<a class="sourceLine" id="cb4-6" title="6"><span class="kw">library</span>(BiocStyle)</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">library</span>(dada2)</a>
+<a class="sourceLine" id="cb4-8" title="8"><span class="kw">library</span>(phyloseq)</a>
+<a class="sourceLine" id="cb4-9" title="9"><span class="kw">library</span>(DECIPHER)</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">library</span>(phangorn)</a></code></pre></div>
+</div>
+<div id="dataset" class="section level2">
+<h2><span class="header-section-number">4.2</span> Dataset</h2>
+<p>The data we will be using is an raw reads of DNA sequences (amplicons) from the V4 region of the 16S rRNA gene sequenced through <a href="https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/">Illumina Miseq NGS technology</a>. The data contains DNA samples of microbial communities from a 360 fecal samples, collected from 12 mice over the first year of life. This samples were investigated for analyzing the development and stabilization of the murine microbiome (<span class="citation">@Schloss</span> et al., 2012).</p>
+<p>As a side note, We will be using some scientific terms that are necessary throughout this book, but it will not be very helpful for us to discuss it in a very deeply manner. Therefore I will try to give a brief explaination about it in each section and leave some link for further readings if you need one. Below is some examples and hopefully it will help you.</p>
+<p>The <strong>raw reads</strong> of a DNA sequence is a result of a sequencing process of the DNA. DNA of a microbial species needs to be sequenced to retrieve the information regarding to it and to store it in a digitilized form. There are various tools for DNA sequencing with the <strong>Next Generation Sequencing (NGS)</strong> technology being the technology commonly used today. It allows rapid sequencing for a massive load of DNA sequences. Meanwhile, the <strong>V4 region</strong> stands for the more specific region of the <strong>16S rRNA gene</strong>. This also called the “fingerprint gene” for its sequence can explain the identity of microbial species inside the community we ought to analyze.</p>
+<p>The data can be downloaded <a href="http://www.mothur.org/MiSeqDevelopmentData/StabilityNoMetaG.tar">here</a>. The data will be in <code>.tar</code> format and you will need to extract it to obtain the sequences in <code>.fastq.gz</code> (<strong>gzip compressed archive</strong>) format.</p>
+<p>There are 724 files consisted of <strong>362 forward and 362 reverse DNA sequences</strong>, each with a standard naming system i.e. <code>x_x_x_x_x</code>. If you are confused about why there are forward and reverse sequences, it’s because DNA is sequenced in two direction. This allows for … Below is the illustration of DNA sequencing and <a href="">click here</a> for further explanation.</p>
+<p>IMAGE</p>
+<p>The sequence files are still in its compressed format but luckily most bioinformatics tools have the ability to process the compressed sequence. This is quite convinience as most microbiome analysis deals with large sized data and compressed files are, well, more “compressed”. In the code below we try to tag each files using reverse or forward tag.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># list all sequence files</span></a>
+<a class="sourceLine" id="cb5-2" title="2">fns &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/miseq&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb5-3" title="3"><span class="kw">head</span>(fns)</a></code></pre></div>
+<pre><code>## [1] &quot;data/miseq/F3D0_S188_L001_R1_001.fastq.gz&quot; 
+## [2] &quot;data/miseq/F3D0_S188_L001_R2_001.fastq.gz&quot; 
+## [3] &quot;data/miseq/F3D1_S189_L001_R1_001.fastq.gz&quot; 
+## [4] &quot;data/miseq/F3D1_S189_L001_R2_001.fastq.gz&quot; 
+## [5] &quot;data/miseq/F3D11_S198_L001_R1_001.fastq.gz&quot;
+## [6] &quot;data/miseq/F3D11_S198_L001_R2_001.fastq.gz&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># search for a pattern in the list </span></a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="co"># R1 = DNA forward sequences; R2 = DNA reverse sequences</span></a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4">fnFs &lt;-<span class="st"> </span>fns[<span class="kw">grepl</span>(<span class="st">&quot;R1&quot;</span>, fns)] </a>
+<a class="sourceLine" id="cb7-5" title="5">fnRs &lt;-<span class="st"> </span>fns[<span class="kw">grepl</span>(<span class="st">&quot;R2&quot;</span>, fns)]</a>
+<a class="sourceLine" id="cb7-6" title="6"></a>
+<a class="sourceLine" id="cb7-7" title="7"><span class="co"># check the number of reverse/forward sequences </span></a>
+<a class="sourceLine" id="cb7-8" title="8"><span class="kw">length</span>(fnFs)</a></code></pre></div>
+<pre><code>## [1] 362</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">length</span>(fnRs)</a></code></pre></div>
+<pre><code>## [1] 362</code></pre>
+</div>
+<div id="trimming-filtering" class="section level2">
+<h2><span class="header-section-number">4.3</span> Trimming &amp; Filtering</h2>
+<p>After we have separate the sequences into reverse/forward, we need to perform data cleaning by <strong>trimming &amp; filtering</strong>. Raw reads are often have regions with low-quality reads. These reads needs to be trimmed and filtered first for its low quality region before combining it (the reverse and forward sequences) into one DNA sequence. Most Illumina sequencing data shows a trend of decreasing average quality towards the end of sequencing reads (<span class="citation">@Callahan</span> et al. 2016).</p>
+<p>To know which regions have low quality reads, we can plot it using <code>plotQualityProfile()</code> from <strong>dada2</strong> package. dada2 offers various functions for accurate, high-resolution sample inference from amplicon sequencing data. Let’s take the first observation for a sample from each of reverse and forward reads and plot its quality profile.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># plotting forward reads</span></a>
+<a class="sourceLine" id="cb11-2" title="2"><span class="kw">plotQualityProfile</span>(fnFs[<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="04-amplicon_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># plotting reverse reads</span></a>
+<a class="sourceLine" id="cb12-2" title="2"><span class="kw">plotQualityProfile</span>(fnRs[<span class="dv">1</span>])</a></code></pre></div>
+<p><img src="04-amplicon_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>The plot shows
+Interpret the graph: cycle, quality score, total reads, a single fastq.gz file for 1 community, count, teal-orange-dashed-black fill mean? also the 0-100 benchmark below?</p>
+<p>What is quality scores? how to calculate one?
+Is there any minimum number of samples to determine which region we should trim?
+is there any standard trimming procedure for illumina sequences? there should be because there is no way that we have to check each samples, but there should a justification for the number of samples.</p>
+<p>Here, the forward reads maintain high quality throughout, while the quality of the reverse reads drops significantly at about position 160. Therefore, we choose to truncate the forward reads at position 245, and the reverse reads at position 160. We also choose to trim the first 10 nucleotides of each read based on empirical observations across many Illumina
+datasets that these base positions are particularly likely to contain pathological errors.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># creating file path for filtered reads</span></a>
+<a class="sourceLine" id="cb13-2" title="2">filt_path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;filtered&quot;</span>)</a>
+<a class="sourceLine" id="cb13-3" title="3"></a>
+<a class="sourceLine" id="cb13-4" title="4"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file_test</span>(<span class="st">&quot;-d&quot;</span>, filt_path)) <span class="kw">dir.create</span>(filt_path)</a>
+<a class="sourceLine" id="cb13-5" title="5">filtFs &lt;-<span class="st"> </span><span class="kw">file.path</span>(filt_path, <span class="kw">basename</span>(fnFs))</a>
+<a class="sourceLine" id="cb13-6" title="6">filtRs &lt;-<span class="st"> </span><span class="kw">file.path</span>(filt_path, <span class="kw">basename</span>(fnRs))</a>
+<a class="sourceLine" id="cb13-7" title="7"></a>
+<a class="sourceLine" id="cb13-8" title="8"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(fnFs)) {</a>
+<a class="sourceLine" id="cb13-9" title="9">  </a>
+<a class="sourceLine" id="cb13-10" title="10">  <span class="kw">fastqPairedFilter</span>(<span class="kw">c</span>(fnFs[[i]], fnRs[[i]]),</a>
+<a class="sourceLine" id="cb13-11" title="11">                    <span class="kw">c</span>(filtFs[[i]], filtRs[[i]]),</a>
+<a class="sourceLine" id="cb13-12" title="12">                    <span class="dt">trimLeft=</span><span class="dv">10</span>, <span class="dt">truncLen=</span><span class="kw">c</span>(<span class="dv">245</span>, </a>
+<a class="sourceLine" id="cb13-13" title="13">                                            <span class="dv">160</span>),</a>
+<a class="sourceLine" id="cb13-14" title="14">                    <span class="dt">maxN=</span><span class="dv">0</span>, <span class="dt">maxEE=</span><span class="dv">2</span>, <span class="dt">truncQ=</span><span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb13-15" title="15">                    <span class="dt">compress=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb13-16" title="16">}</a></code></pre></div>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bioconductor-installation.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
