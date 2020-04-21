@@ -3,7 +3,7 @@
 
 The workflow of microbiome analysis has evolved through out the years. The development of technology and Bioinformatics has made a massive increment on the generation of genomic data that is used for microbiome analysis. Therefore, the use of programming tools such as R and its packages is becoming more widely used. 
 
-If I may put it into 2 major steps, microbiome analysis consist of "Lab Work" and "Bioinformatic Analysis". The lab work of a microbiome analysis is quite plenty and mostly technical, which I will not explain it detail in here. Meanwhile, the bioinformatic analysis will be explained in this book with some tutorial. We will be using R languages and its packages as bioinformatics tools.
+If I may put it into 2 major steps, microbiome analysis consist of "Lab Work" and "Bioinformatic Analysis" (**Fig 2.1**). The lab work of a microbiome analysis is quite plenty and mostly technical, which I will not explain it detail in here. Meanwhile, the bioinformatic analysis will be explained in this book with some tutorial. We will be using R languages and its packages as bioinformatics tools.
 
 <br>
 <center>
@@ -30,7 +30,7 @@ open source software for Bioinformatics, based on packages written primarily in 
   i. Trimming and Filtering
   ii. Infer Sequence Variants
   iii. Merge Forward-Reverse DNA Sequences 
-  iv. Construct Sequence Tables & Remove Chimeras
+  iv. Construct Sequence Table & Remove Chimeras
 2. Amplicon Bioinformatics: Phylogenetic Analysis
   i. Assign Taxonomy
   ii. Construct Phylogenetic Tree

@@ -138,11 +138,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
 <li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
-<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#infer-ribosomal-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Ribosomal Sequence Variants</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
 <li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#merging-forward-reverse-dna-sequences"><i class="fa fa-check"></i><b>4.5</b> Merging Forward &amp; Reverse DNA Sequences</a></li>
-<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#construct-sequence-table"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table</a></li>
-<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#remove-chimeras"><i class="fa fa-check"></i><b>4.7</b> Remove Chimeras</a></li>
-<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#track-reads-through-the-pipeline"><i class="fa fa-check"></i><b>4.8</b> Track Reads through the Pipeline</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
 </ul></li>
 </ul>
 
@@ -164,6 +162,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="amplicon-bioinformatics-data-cleaning" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Amplicon Bioinformatics: Data Cleaning</h1>
 <p>This section demonstrates the first step of performing microbiome analysis in R. Amplicon bioinformatics is the steps of how we prepare a raw data into format needed for analysis. The steps include <strong>construction of the raw reads from sequencing result into the table we ought to analyze</strong>.</p>
+<p>Below is an illustration of what we are going to do in amplicon bioinformatics especially for the data cleaning part (<strong>Fig 4.1</strong>).</p>
+<p><img src="assets/04/amplicon-wf.PNG" width="100%" style="display: block; margin: auto;" /></p>
 <div id="libraries" class="section level2">
 <h2><span class="header-section-number">4.1</span> Libraries</h2>
 <p>First, we should load the necessary packages. You might also want to install some packages if you haven’t installed them to your machine.</p>
@@ -182,7 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="dataset" class="section level2">
 <h2><span class="header-section-number">4.2</span> Dataset</h2>
-<p>The dataset for microbiome analysis is usually a set of <strong>raw reads of DNA sequences</strong> a.k.a. <strong>amplicons</strong> stored in a digital format as a result of <strong>DNA sequencing method</strong> performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the <strong>Next Generation Sequencing (NGS)</strong> technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences.</p>
+<p>The dataset for microbiome analysis is usually a set of <strong>raw reads of DNA sequences</strong> a.k.a. <strong>amplicons</strong> stored in a digital format as a result of DNA sequencing method performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the Next Generation Sequencing (NGS) technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences.</p>
 <p>You are free to use your own amplicons dataset while following the tutorial provided in this book. Meanwhile, if you don’t have one, you can use the data provided free in <a href="http://www.mothur.org/MiSeqDevelopmentData/StabilityNoMetaG.tar">here</a>. The data is also used on the original “Bioconductor Workflow for Microbiome Data Analysis”. The data consisted of amplicons from the V4 region of the 16S rRNA gene sequenced through <a href="https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/">Illumina Miseq NGS technology</a>. The <strong>V4 region</strong> stands for the more specific region of the <strong>16S rRNA gene</strong>, the “fingerprint gene” which we will use to explain the identity of microbial species inside the community we ought to analyze. The data contains <strong>DNA samples of microbial communities</strong> from a 360 fecal samples, collected from 12 mice over the first year of life. This samples were investigated for analyzing the development and stabilization of the murine microbiome <span class="citation">(PD Schloss 2012)</span>.</p>
 <p>These are the steps for reading the data:</p>
 <ol style="list-style-type: decimal">
@@ -198,7 +198,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>For those of you who are interested in understanding more about the sample it is a good idea to read the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3463496/">original research publication</a> and perhaps also <a href="https://drive5.com/usearch/manual/otu_qc_controls.html">articles</a> about designing an experiment including its control.</p>
 <p>The amplicons are stored with a standard naming system with an “R1” and "R2 label as forward and reverse reads respectively. Forward and reverse reads came from the sequencing method itself which sequenced DNA in two direction just as illustrated in <strong>Fig 4.1</strong>. Here is a great <a href="https://www.youtube.com/watch?v=ONGdehkB8jU">video</a> about DNA sequencing for more detailed process.</p>
-<p>FIG 4.1 [dna sequencing with r/f primers]</p>
 <p>Before further analysis, forward and reverse reads of DNA need to be “cleaned” first for its low quality reads and then joined to obtain the full DNA. The data cleaning process is called <strong>Trimming and Filtering</strong> which we will discuss in the next section. Below, the amplicons will be tagged for data cleaning process.</p>
 <p>The amplicons are still in its compressed format but luckily most bioinformatics tools have the ability to process the compressed files. This is quite a convenience as most microbiome analysis deals with large-sized data and compressed files are, well, more “compressed”. The code below will try to list all the amplicons stored in our working directory and separate them between the reverse or forward reads for the data cleaning process.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># list all sequence files</span></a>
@@ -271,10 +270,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb13-17" title="17">}</a></code></pre></div>
 <p>Wait for a while as your machine processing your request to trim and filter the amplicons. When it is done, the resulting amplicons will be located in the <code>filtered_path</code> you have stated earlier.</p>
 </div>
-<div id="infer-ribosomal-sequence-variants" class="section level2">
-<h2><span class="header-section-number">4.4</span> Infer Ribosomal Sequence Variants</h2>
-<p>After filtering, typical workflow will continue to perform <strong>clustering</strong> of the DNA sequences into <strong>Operational Taxonomic Units (OTUs)</strong> or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput <strong>DADA2</strong> method was developed. This method can infer <strong>ribosomal sequence variants (RSVs)</strong> from our amplicons data. RSVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. RSVs are considered as <strong>the true biological sequences</strong> and therefore will be used for further analysis.</p>
-<p>DADA2 works by making use of a <strong>parametric error model</strong> <code>err</code> to distinguish between true biological sequences (RSVs) and those generated by error <span class="citation">Ben J. Callahan (2016)</span>. This error model learns the maximum possible error rates of our amplicons data using the <code>learnErrors()</code> function. The error model will later be used in the DADA2 algorithm using <code>dada()</code> function. The following code was adapted from <strong>DADA2 pipeline tutorial for dada2 v1.12</strong> <span class="citation">(Callahan, n.d.)</span> for the more updated version.</p>
+<div id="infer-sequence-variants" class="section level2">
+<h2><span class="header-section-number">4.4</span> Infer Sequence Variants</h2>
+<p>After filtering, typical workflow will continue to perform <strong>clustering</strong> of the DNA sequences into <strong>Operational Taxonomic Units (OTUs)</strong> or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput <strong>DADA2</strong> method was developed. This method can infer <strong>amplicon sequence variants (ASVs)</strong> from our amplicons data. ASVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. ASVs are considered as <strong>the true biological sequences</strong> and therefore will be used for further analysis.</p>
+<p>DADA2 works by making use of a <strong>parametric error model</strong> <code>err</code> to distinguish between true biological sequences (ASVs) and those generated by error <span class="citation">Ben J. Callahan (2016)</span>. This error model learns the maximum possible error rates of our amplicons data using the <code>learnErrors()</code> function. The error model will later be used in the DADA2 algorithm using <code>dada()</code> function. The following code was adapted from <strong>DADA2 pipeline tutorial for dada2 v1.12</strong> <span class="citation">(Callahan, n.d.)</span> for the more updated version.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># error model for forward reads</span></a>
 <a class="sourceLine" id="cb14-2" title="2">error_F &lt;-<span class="st"> </span><span class="kw">learnErrors</span>(filtered_F) <span class="co">#input: file path for filtered reads</span></a></code></pre></div>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># error model for reverse reads</span></a>
@@ -291,8 +290,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <a class="sourceLine" id="cb17-3" title="3">                     <span class="dt">dadaR =</span> dada_R,</a>
 <a class="sourceLine" id="cb17-4" title="4">                     <span class="dt">derepR =</span> filtered_R)</a></code></pre></div>
 </div>
-<div id="construct-sequence-table" class="section level2">
-<h2><span class="header-section-number">4.6</span> Construct Sequence Table</h2>
+<div id="construct-sequence-table-remove-chimeras" class="section level2">
+<h2><span class="header-section-number">4.6</span> Construct Sequence Table &amp; Remove Chimeras</h2>
 <p>Using the merged pairs of the amplicon data, a sequence table or in this case an <strong>amplicon sequence variant (ASV) table</strong> can be generated. This table is in <code>matrix</code> format with rows stores the <strong>sample names</strong> and the columns stores the <strong>number of each ASVs</strong>. From this table we can inspect the number of ASVs (representing each microbial species) in each sample. ASV table is a higher-resolution version of the OTU table produced by tradisional method.</p>
 <p>We can construct a sequence table using <code>makeSequenceTable()</code>.</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">seqtab &lt;-<span class="st"> </span><span class="kw">makeSequenceTable</span>(merged)</a></code></pre></div>
@@ -313,13 +312,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F3D11_S198_L001_R1_001.fastq.gz                                                                                                                                                                                                                                        2054</code></pre>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">dim</span>(seqtab)</a></code></pre></div>
 <pre><code>## [1] 362 684</code></pre>
-<p>We have a total of maximum 684 ASVs or microbial species that may present in a community sample.</p>
-</div>
-<div id="remove-chimeras" class="section level2">
-<h2><span class="header-section-number">4.7</span> Remove Chimeras</h2>
-</div>
-<div id="track-reads-through-the-pipeline" class="section level2">
-<h2><span class="header-section-number">4.8</span> Track Reads through the Pipeline</h2>
+<p>We have a total of maximum 684 ASVs or expected microbial species that may present in a community sample.</p>
+<p>The last data cleaning step that we can do is to remove chimeras. <strong>Chimeras</strong> are DNA sequences which are formed from 2 or more biological sequences joined together (<strong>Fig 4.2</strong>). These chimeras can act as distinct microbial species alone when in fact it is not a true microbial sequences.</p>
+<p>FIG 4.2 [chimeras]</p>
+<p>Chimeras can be identified if they can be exactly reconstructed by combining a left-segment and a right-segment from two more abundant “parent” or biological sequences. We can remove chimeras using function <code>removeBimeraDenovo()</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">seqtab_nochim &lt;-<span class="st"> </span><span class="kw">removeBimeraDenovo</span>(seqtab,</a>
+<a class="sourceLine" id="cb23-2" title="2">                                    <span class="dt">method =</span> <span class="st">&quot;consensus&quot;</span>,</a>
+<a class="sourceLine" id="cb23-3" title="3">                                    <span class="dt">multithread =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1"><span class="kw">dim</span>(seqtab_nochim)</a></code></pre></div>
+<pre><code>## [1] 362 419</code></pre>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="kw">sum</span>(seqtab_nochim)<span class="op">/</span><span class="kw">sum</span>(seqtab)</a></code></pre></div>
+<pre><code>## [1] 0.9621193</code></pre>
+<p>Removing chimeras leave us with 419 ASVs from the original 684 ASVs we previously have. Even so, if you calculate the percentage of chimeric sequences from the total abundance of all sequences, it only accounts for 4% of the data. This amount is small and acceptable. On the other hand, if your analysis indicates a lot of chimeric sequences there might be some upstream processes that have gone wrong such as not removing the primer sequences from the fasta prior to reading the data <span class="citation">Callahan (n.d.)</span>.</p>
+<p>As an additional final steps for amplicon bioinformatics: data cleaning process, you can track the number of reads or sequences that made it through each step of the processes by making your own function. But I’ll leave it out to you for further exploration in the detailed <a href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 1.12 Pipeline Tutorial</a>.</p>
 
 <div id="refs" class="references">
 <div>

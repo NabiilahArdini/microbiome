@@ -3,6 +3,12 @@
 
 This section demonstrates the first step of performing microbiome analysis in R. Amplicon bioinformatics is the steps of how we prepare a raw data into format needed for analysis. The steps include **construction of the raw reads from sequencing result into the table we ought to analyze**. 
 
+Below is an illustration of what we are going to do in amplicon bioinformatics especially for the data cleaning part (**Fig 4.1**).
+
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("assets/04/amplicon-wf.PNG")
+```
+
 ## Libraries
 
 First, we should load the necessary packages. You might also want to install some packages if you haven't installed them to your machine.
@@ -35,7 +41,7 @@ rm(list = ls())
 load("assets/04/amplicon.RData")
 ```
 
-The dataset for microbiome analysis is usually a set of **raw reads of DNA sequences** a.k.a. **amplicons** stored in a digital format as a result of **DNA sequencing method** performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the **Next Generation Sequencing (NGS)** technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences. 
+The dataset for microbiome analysis is usually a set of **raw reads of DNA sequences** a.k.a. **amplicons** stored in a digital format as a result of DNA sequencing method performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the Next Generation Sequencing (NGS) technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences. 
 
 You are free to use your own amplicons dataset while following the tutorial provided in this book. Meanwhile, if you don't have one, you can use the data provided free in [here](http://www.mothur.org/MiSeqDevelopmentData/StabilityNoMetaG.tar). The data is also used on the original "Bioconductor Workflow for Microbiome Data Analysis". The data consisted of amplicons from the V4 region of the 16S rRNA gene sequenced through [Illumina Miseq NGS technology](https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/). The **V4 region** stands for the more specific region of the **16S rRNA gene**, the "fingerprint gene" which we will use to explain the identity of microbial species inside the community we ought to analyze. The data contains **DNA samples of microbial communities** from a 360 fecal samples, collected from 12 mice over the first year of life. This samples were investigated for analyzing the development and stabilization of the murine microbiome [@schloss12].
 
@@ -54,8 +60,6 @@ There will be **724 files** consisted of:
 For those of you who are interested in understanding more about the sample it is a good idea to read the [original research publication](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3463496/) and perhaps also [articles](https://drive5.com/usearch/manual/otu_qc_controls.html) about designing an experiment including its control.
 
 The amplicons are stored with a standard naming system with an "R1" and "R2 label as forward and reverse reads respectively. Forward and reverse reads came from the sequencing method itself which sequenced DNA in two direction just as illustrated in **Fig 4.1**. Here is a great [video](https://www.youtube.com/watch?v=ONGdehkB8jU) about DNA sequencing for more detailed process.
-
-FIG 4.1 [dna sequencing with r/f primers]
 
 Before further analysis, forward and reverse reads of DNA need to be "cleaned" first for its low quality reads and then joined to obtain the full DNA. The data cleaning process is called **Trimming and Filtering** which we will discuss in the next section. Below, the amplicons will be tagged for data cleaning process. 
 
@@ -151,11 +155,11 @@ for(i in seq_along(amplicons_F)) {
 
 Wait for a while as your machine processing your request to trim and filter the amplicons. When it is done, the resulting amplicons will be located in the `filtered_path` you have stated earlier.
 
-## Infer Ribosomal Sequence Variants
+## Infer Sequence Variants
 
-After filtering, typical workflow will continue to perform **clustering** of the DNA sequences into **Operational Taxonomic Units (OTUs)** or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput **DADA2** method was developed. This method can infer **ribosomal sequence variants (RSVs)** from our amplicons data. RSVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. RSVs are considered as **the true biological sequences** and therefore will be used for further analysis.
+After filtering, typical workflow will continue to perform **clustering** of the DNA sequences into **Operational Taxonomic Units (OTUs)** or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput **DADA2** method was developed. This method can infer **amplicon sequence variants (ASVs)** from our amplicons data. ASVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. ASVs are considered as **the true biological sequences** and therefore will be used for further analysis.
 
-DADA2 works by making use of a **parametric error model** `err` to distinguish between true biological sequences (RSVs) and those generated by error @callahan16. This error model learns the maximum possible error rates of our amplicons data using the `learnErrors()` function. The error model will later be used in the DADA2 algorithm using `dada()` function. The following code was adapted from **DADA2 pipeline tutorial for dada2 v1.12** [@dada2pipeline] for the more updated version.
+DADA2 works by making use of a **parametric error model** `err` to distinguish between true biological sequences (ASVs) and those generated by error @callahan16. This error model learns the maximum possible error rates of our amplicons data using the `learnErrors()` function. The error model will later be used in the DADA2 algorithm using `dada()` function. The following code was adapted from **DADA2 pipeline tutorial for dada2 v1.12** [@dada2pipeline] for the more updated version.
 
 ```{r eval=FALSE}
 # error model for forward reads
@@ -184,7 +188,7 @@ merged <- mergePairs(dadaF = dada_F, # dada result
                      derepR = filtered_R)
 ```
 
-## Construct Sequence Table
+## Construct Sequence Table & Remove Chimeras
 
 Using the merged pairs of the amplicon data, a sequence table or in this case an **amplicon sequence variant (ASV) table** can be generated. This table is in `matrix` format with rows stores the **sample names** and the columns stores the **number of each ASVs**. From this table we can inspect the number of ASVs (representing each microbial species) in each sample. ASV table is a higher-resolution version of the OTU table produced by tradisional method. 
 
@@ -205,8 +209,28 @@ seqtab[1:3,1:3]
 dim(seqtab)
 ```
 
-We have a total of maximum 684 ASVs or microbial species that may present in a community sample.
+We have a total of maximum 684 ASVs or expected microbial species that may present in a community sample.
 
-## Remove Chimeras
+The last data cleaning step that we can do is to remove chimeras. **Chimeras** are DNA sequences which are formed from 2 or more biological sequences joined together (**Fig 4.2**). These chimeras can act as distinct microbial species alone when in fact it is not a true microbial sequences.
 
-## Track Reads through the Pipeline
+FIG 4.2 [chimeras]
+
+Chimeras can be identified if they can be exactly reconstructed by combining a left-segment and a right-segment from two more abundant "parent" or biological sequences. We can remove chimeras using function `removeBimeraDenovo()`.
+
+```{r}
+seqtab_nochim <- removeBimeraDenovo(seqtab,
+                                    method = "consensus",
+                                    multithread = FALSE)
+```
+```{r}
+dim(seqtab_nochim)
+```
+
+```{r}
+sum(seqtab_nochim)/sum(seqtab)
+```
+
+Removing chimeras leave us with 419 ASVs from the original 684 ASVs we previously have. Even so, if you calculate the percentage of chimeric sequences from the total abundance of all sequences, it only accounts for 4% of the data. This amount is small and acceptable. On the other hand, if your analysis indicates a lot of chimeric sequences there might be some upstream processes that have gone wrong such as not removing the primer sequences from the fasta prior to reading the data @dada2pipeline. 
+
+As an additional final steps for amplicon bioinformatics: data cleaning process, you can track the number of reads or sequences that made it through each step of the processes by making your own function. But I'll leave it out to you for further exploration in the detailed [DADA2 1.12 Pipeline Tutorial](https://benjjneb.github.io/dada2/tutorial.html).
+
