@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="microbiome-analysis-workflow.html"/>
-<link rel="next" href="amplicon-bioinformatics-data-cleaning.html"/>
+<link rel="next" href="amplicon-bioinformatics.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -134,13 +134,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
-<li class="chapter" data-level="4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics: Data Cleaning</a><ul>
-<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
-<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
-<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
-<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
-<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#merging-forward-reverse-dna-sequences"><i class="fa fa-check"></i><b>4.5</b> Merging Forward &amp; Reverse DNA Sequences</a></li>
-<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics-data-cleaning.html"><a href="amplicon-bioinformatics-data-cleaning.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merging-forward-reverse-dna-sequences"><i class="fa fa-check"></i><b>4.5</b> Merging Forward &amp; Reverse DNA Sequences</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#combine-data-into-phyloseq-object"><i class="fa fa-check"></i><b>4.8</b> Combine Data into Phyloseq Object</a></li>
 </ul></li>
 </ul>
 
@@ -175,10 +177,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>That’s its way to notice you that there are some packages (usually from CRAN repository) that is out-of-date. You can type <code>a</code> in the console to install the latest updates or any other option available (some or none). You may also install the latest updates manually from the ‘Packages’ panel.</p>
 <p>To install specific packages from Bioconductor, use the following commands:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># packages for microbiome analysis</span></a>
-<a class="sourceLine" id="cb2-2" title="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;dada2&quot;</span>, </a>
-<a class="sourceLine" id="cb2-3" title="3">                       <span class="st">&quot;phyloseq&quot;</span>, </a>
-<a class="sourceLine" id="cb2-4" title="4">                       <span class="st">&quot;DECIPHER&quot;</span>, </a>
-<a class="sourceLine" id="cb2-5" title="5">                       <span class="st">&quot;phangorn&quot;</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb2-2" title="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;BiocStyle&quot;</span>,</a>
+<a class="sourceLine" id="cb2-3" title="3">                       <span class="st">&quot;dada2&quot;</span>, </a>
+<a class="sourceLine" id="cb2-4" title="4">                       <span class="st">&quot;phyloseq&quot;</span>))</a></code></pre></div>
 <p>Now, many have questioned why there is a need to use <code>BiocManager::install()</code> to install packages from Bioconductor. This is because Bioconductor has a repository and release schedule that differs from R. A consequence of the mismatch between R and Bioconductor release schedules is that the Bioconductor version identified by <code>install.packages()</code> is sometimes not the most recent ‘release’ available. The BiocManager package serves as the primary way to ensure that the appropriate Bioconductor installation is used with respect to the version of R in use regardless of the R and Bioconductor release cycles <span class="citation">(Bioconductor 2020)</span>.</p>
 <p>For further documentation of the installation of Bioconductor, click <a href="https://www.bioconductor.org/install/">here</a>.</p>
 
@@ -189,7 +190,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="microbiome-analysis-workflow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="amplicon-bioinformatics-data-cleaning.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="amplicon-bioinformatics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

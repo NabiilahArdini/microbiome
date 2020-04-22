@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 4 Amplicon bioinformatics | microbiome</title>
-  <meta name="description" content="Chapter 4 Amplicon bioinformatics | microbiome" />
+  <title>Chapter 4 Amplicon Bioinformatics | Microbiome in R</title>
+  <meta name="description" content="Chapter 4 Amplicon Bioinformatics | Microbiome in R" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 4 Amplicon bioinformatics | microbiome" />
+  <meta property="og:title" content="Chapter 4 Amplicon Bioinformatics | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 4 Amplicon bioinformatics | microbiome" />
+  <meta name="twitter:title" content="Chapter 4 Amplicon Bioinformatics | Microbiome in R" />
   
   
   
@@ -134,10 +134,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
-<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon bioinformatics</a><ul>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
 <li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
 <li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
 <li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merging-forward-reverse-dna-sequences"><i class="fa fa-check"></i><b>4.5</b> Merging Forward &amp; Reverse DNA Sequences</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#combine-data-into-phyloseq-object"><i class="fa fa-check"></i><b>4.8</b> Combine Data into Phyloseq Object</a></li>
 </ul></li>
 </ul>
 
@@ -148,7 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">microbiome</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Microbiome in R</a>
           </h1>
         </div>
 
@@ -157,88 +162,441 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="amplicon-bioinformatics" class="section level1">
-<h1><span class="header-section-number">Chapter 4</span> Amplicon bioinformatics</h1>
-<p>This section demonstrates the steps of how we can do amplicon bioinformatics: from raw reads to tables. The steps include <strong>construction of the raw reads from sequencing result into the table we ought to analyze</strong>.</p>
+<h1><span class="header-section-number">Chapter 4</span> Amplicon Bioinformatics</h1>
+<p>This section demonstrates the first step of performing microbiome analysis in R. Amplicon bioinformatics include <strong>construction of the raw reads from sequencing result into the table we ought to analyze</strong>. Below is an illustration of what we are going to do in amplicon bioinformatics (<strong>Fig 4.1</strong>).</p>
+<p><img src="assets/04/ampliconb.png" width="100%" style="display: block; margin: auto;" /></p>
 <div id="libraries" class="section level2">
 <h2><span class="header-section-number">4.1</span> Libraries</h2>
 <p>First, we should load the necessary packages. You might also want to install some packages if you haven’t installed them to your machine.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># install packages</span></a>
-<a class="sourceLine" id="cb3-2" title="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="st">&quot;BiocStyle&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># libraries</span></a>
-<a class="sourceLine" id="cb4-2" title="2"><span class="kw">library</span>(knitr) <span class="co"># for reporting</span></a>
-<a class="sourceLine" id="cb4-3" title="3"><span class="kw">library</span>(ggplot2) <span class="co"># for graph visualization</span></a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb4-5" title="5"><span class="kw">library</span>(gridExtra) <span class="co"># additional mapping for ggplot2</span></a>
-<a class="sourceLine" id="cb4-6" title="6"><span class="kw">library</span>(BiocStyle)</a>
-<a class="sourceLine" id="cb4-7" title="7"><span class="kw">library</span>(dada2)</a>
-<a class="sourceLine" id="cb4-8" title="8"><span class="kw">library</span>(phyloseq)</a>
-<a class="sourceLine" id="cb4-9" title="9"><span class="kw">library</span>(DECIPHER)</a>
-<a class="sourceLine" id="cb4-10" title="10"><span class="kw">library</span>(phangorn)</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="co"># CRAN libraries</span></a>
+<a class="sourceLine" id="cb3-2" title="2"><span class="kw">library</span>(knitr) <span class="co"># for reporting</span></a>
+<a class="sourceLine" id="cb3-3" title="3"><span class="kw">library</span>(ggplot2) <span class="co"># for graph visualization</span></a>
+<a class="sourceLine" id="cb3-4" title="4"><span class="kw">library</span>(gridExtra) <span class="co"># additional mapping for ggplot2</span></a>
+<a class="sourceLine" id="cb3-5" title="5"><span class="kw">library</span>(tidyverse) <span class="co"># for general data cleaning/manipulation</span></a>
+<a class="sourceLine" id="cb3-6" title="6"></a>
+<a class="sourceLine" id="cb3-7" title="7"><span class="co"># Bioconductor libraries</span></a>
+<a class="sourceLine" id="cb3-8" title="8"><span class="kw">library</span>(dada2)</a>
+<a class="sourceLine" id="cb3-9" title="9"><span class="kw">library</span>(phyloseq)</a>
+<a class="sourceLine" id="cb3-10" title="10"><span class="kw">library</span>(Biostrings)</a></code></pre></div>
+<p>We will be using a lot of functions from <strong>DADA2 package</strong> for amplicon analysis and therefore I will be following <a href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 Pipeline Tutorial (1.12)</a> <span class="citation">Callahan (n.d.)</span>. Through out the tutorial, I will try to explain each step in hopefully a more friendly manner for people who are new to this analysis.</p>
 </div>
 <div id="dataset" class="section level2">
 <h2><span class="header-section-number">4.2</span> Dataset</h2>
-<p>The data we will be using is an raw reads of DNA sequences (amplicons) from the V4 region of the 16S rRNA gene sequenced through <a href="https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/">Illumina Miseq NGS technology</a>. The data contains DNA samples of microbial communities from a 360 fecal samples, collected from 12 mice over the first year of life. This samples were investigated for analyzing the development and stabilization of the murine microbiome (<span class="citation">@Schloss</span> et al., 2012).</p>
-<p>As a side note, We will be using some scientific terms that are necessary throughout this book, but it will not be very helpful for us to discuss it in a very deeply manner. Therefore I will try to give a brief explaination about it in each section and leave some link for further readings if you need one. Below is some examples and hopefully it will help you.</p>
-<p>The <strong>raw reads</strong> of a DNA sequence is a result of a sequencing process of the DNA. DNA of a microbial species needs to be sequenced to retrieve the information regarding to it and to store it in a digitilized form. There are various tools for DNA sequencing with the <strong>Next Generation Sequencing (NGS)</strong> technology being the technology commonly used today. It allows rapid sequencing for a massive load of DNA sequences. Meanwhile, the <strong>V4 region</strong> stands for the more specific region of the <strong>16S rRNA gene</strong>. This also called the “fingerprint gene” for its sequence can explain the identity of microbial species inside the community we ought to analyze.</p>
-<p>The data can be downloaded <a href="http://www.mothur.org/MiSeqDevelopmentData/StabilityNoMetaG.tar">here</a>. The data will be in <code>.tar</code> format and you will need to extract it to obtain the sequences in <code>.fastq.gz</code> (<strong>gzip compressed archive</strong>) format.</p>
-<p>There are 724 files consisted of <strong>362 forward and 362 reverse DNA sequences</strong>, each with a standard naming system i.e. <code>x_x_x_x_x</code>. If you are confused about why there are forward and reverse sequences, it’s because DNA is sequenced in two direction. This allows for … Below is the illustration of DNA sequencing and <a href="">click here</a> for further explanation.</p>
-<p>IMAGE</p>
-<p>The sequence files are still in its compressed format but luckily most bioinformatics tools have the ability to process the compressed sequence. This is quite convinience as most microbiome analysis deals with large sized data and compressed files are, well, more “compressed”. In the code below we try to tag each files using reverse or forward tag.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># list all sequence files</span></a>
-<a class="sourceLine" id="cb5-2" title="2">fns &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/miseq&quot;</span>, <span class="dt">full.names =</span> <span class="ot">TRUE</span>))</a>
-<a class="sourceLine" id="cb5-3" title="3"><span class="kw">head</span>(fns)</a></code></pre></div>
-<pre><code>## [1] &quot;data/miseq/F3D0_S188_L001_R1_001.fastq.gz&quot; 
-## [2] &quot;data/miseq/F3D0_S188_L001_R2_001.fastq.gz&quot; 
-## [3] &quot;data/miseq/F3D1_S189_L001_R1_001.fastq.gz&quot; 
-## [4] &quot;data/miseq/F3D1_S189_L001_R2_001.fastq.gz&quot; 
-## [5] &quot;data/miseq/F3D11_S198_L001_R1_001.fastq.gz&quot;
-## [6] &quot;data/miseq/F3D11_S198_L001_R2_001.fastq.gz&quot;</code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="co"># search for a pattern in the list </span></a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="co"># R1 = DNA forward sequences; R2 = DNA reverse sequences</span></a>
-<a class="sourceLine" id="cb7-3" title="3"></a>
-<a class="sourceLine" id="cb7-4" title="4">fnFs &lt;-<span class="st"> </span>fns[<span class="kw">grepl</span>(<span class="st">&quot;R1&quot;</span>, fns)] </a>
-<a class="sourceLine" id="cb7-5" title="5">fnRs &lt;-<span class="st"> </span>fns[<span class="kw">grepl</span>(<span class="st">&quot;R2&quot;</span>, fns)]</a>
-<a class="sourceLine" id="cb7-6" title="6"></a>
-<a class="sourceLine" id="cb7-7" title="7"><span class="co"># check the number of reverse/forward sequences </span></a>
-<a class="sourceLine" id="cb7-8" title="8"><span class="kw">length</span>(fnFs)</a></code></pre></div>
-<pre><code>## [1] 362</code></pre>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">length</span>(fnRs)</a></code></pre></div>
-<pre><code>## [1] 362</code></pre>
+<p>The dataset for microbiome analysis is usually a set of <strong>raw reads of DNA sequences</strong> a.k.a. <strong>amplicons</strong> stored in a digital format as a result of DNA sequencing method performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the Next Generation Sequencing (NGS) technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences simultaneously.</p>
+<p>You are free to use your own amplicons dataset while following the tutorial provided in this book. But please do notice that the data should met certain criteria as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Samples have been demultiplexed, i.e. each samples have their own DNA sequence (<code>.fastq</code> file).</li>
+<li>Non-biological sequences have been removed, i.e. the samples are free of primers and other artificial sequences from lab work processes.</li>
+<li>If paired-end sequencing data, the forward and reverse .fastq files contain reads in matched order.</li>
+</ol>
+<p>Meanwhile, if you don’t have one, you can use the <a href="http://www.mothur.org/wiki/MiSeq_SOP">mothur MiSeq SOP</a> data provided free in <a href="http://mothur.org/w/images/d/d6/MiSeqSOPData.zip/">here</a>. The data is also used on the original tutorial.</p>
+<p>The data consisted of amplicons from the V4 region of the 16S rRNA gene sequenced through <a href="https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/">Illumina Miseq NGS technology</a>. The <strong>V4 region</strong> stands for the more specific region of the <strong>16S rRNA gene</strong>. The data contains <strong>DNA from microbial communities</strong> collected from gut samples of a mouse during post weaning growth (after milk diet).</p>
+<p>The original experiment were done with the aim to understand the effect of normal gut microbiome to the mouse health. The full data is extremely large to process for this introductionary phase (3.9 GB) and therefore we will be using only parts of the data. With the available data we have, let’s try to understand the effect of the first 10 days of post weaning (eating) period to the stability of gut microbiome in the 140-150 day of post weaning period.</p>
+<p>These are the steps for reading the data:</p>
+<ol style="list-style-type: decimal">
+<li>The data can be downloaded in the link provided above. The data will be in <code>.zip</code> format.</li>
+<li>You will need to extract it to obtain the amplicons in <code>.fastq</code> format and some additional files.</li>
+</ol>
+<p>There will be <strong>45 files</strong> consisted of:</p>
+<ul>
+<li>19 forward reads of community DNA samples</li>
+<li>19 reverse reads of community DNA samples</li>
+<li>1 forward reads of control (mock) samples</li>
+<li>1 reverse reads of control (mock) samples</li>
+<li>1 HMP_mock.v35 fasta (annotated (named) DNA from mock samples)</li>
+<li>5 additional information files:
+<ul>
+<li>mouse.dwp.metadata</li>
+<li>mouse.time.design</li>
+<li>stability.batch</li>
+<li>stability files</li>
+</ul></li>
+</ul>
+<p>For those of you who are interested in understanding more about the sample it is a good idea to read the <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3463496/">original research publication</a> and perhaps also <a href="https://drive5.com/usearch/manual/otu_qc_controls.html">articles</a> about designing an experiment including its control.</p>
+<p>The DNA samples or amplicons are stored with a standard naming system:</p>
+<ul>
+<li><code>F3D0</code> stands for the mouse id <code>F3</code> and the day of sampling <code>D0</code></li>
+<li>the <code>R1</code> and <code>R2</code> stands for forward and reverse reads respectively.</li>
+</ul>
+<p>Forward and reverse reads came from the sequencing method which sequenced DNA in two direction just as illustrated in <strong>Fig 4.1</strong>. Here is a great <a href="https://www.youtube.com/watch?v=ONGdehkB8jU">video</a> about DNA sequencing for more detailed process.</p>
+<p>Before further analysis, forward and reverse reads of DNA need to be “cleaned” first for its low quality reads and then joined to obtain the full DNA. The data cleaning process is called <strong>Trimming and Filtering</strong> which we will discuss in the next section. Below, the amplicons will be tagged for data cleaning process.</p>
+<p>The amplicons may still be in its compressed format (<code>.fastq.gz</code>) but the one we have are not. For those of you who have the compressed format, luckily most bioinformatics tools have the ability to process even the compressed files. This is quite a convenience as most microbiome analysis deals with large-sized data and compressed files are, well, more “compressed”.</p>
+<p>The code below will try to list all the amplicons stored in our working directory and separate them between the reverse or forward reads for the data cleaning process.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="co"># list amplicons into forward/reverse reads</span></a>
+<a class="sourceLine" id="cb4-2" title="2">amplicons_F &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/MiSeq_SOP&quot;</span>, <span class="co"># location of your amplicons</span></a>
+<a class="sourceLine" id="cb4-3" title="3">                               <span class="dt">pattern =</span> <span class="st">&quot;R1&quot;</span>, <span class="co"># forward reads</span></a>
+<a class="sourceLine" id="cb4-4" title="4">                               <span class="dt">full.names =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6">amplicons_R &lt;-<span class="st"> </span><span class="kw">sort</span>(<span class="kw">list.files</span>(<span class="dt">path =</span> <span class="st">&quot;data/MiSeq_SOP&quot;</span>,</a>
+<a class="sourceLine" id="cb4-7" title="7">                               <span class="dt">pattern =</span> <span class="st">&quot;R2&quot;</span>, <span class="co"># reverse reads</span></a>
+<a class="sourceLine" id="cb4-8" title="8">                               <span class="dt">full.names =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="co"># check the first 6 data</span></a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">head</span>(amplicons_F) </a></code></pre></div>
+<pre><code>## [1] &quot;data/MiSeq_SOP/F3D0_S188_L001_R1_001.fastq&quot;  
+## [2] &quot;data/MiSeq_SOP/F3D1_S189_L001_R1_001.fastq&quot;  
+## [3] &quot;data/MiSeq_SOP/F3D141_S207_L001_R1_001.fastq&quot;
+## [4] &quot;data/MiSeq_SOP/F3D142_S208_L001_R1_001.fastq&quot;
+## [5] &quot;data/MiSeq_SOP/F3D143_S209_L001_R1_001.fastq&quot;
+## [6] &quot;data/MiSeq_SOP/F3D144_S210_L001_R1_001.fastq&quot;</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">head</span>(amplicons_R)</a></code></pre></div>
+<pre><code>## [1] &quot;data/MiSeq_SOP/F3D0_S188_L001_R2_001.fastq&quot;  
+## [2] &quot;data/MiSeq_SOP/F3D1_S189_L001_R2_001.fastq&quot;  
+## [3] &quot;data/MiSeq_SOP/F3D141_S207_L001_R2_001.fastq&quot;
+## [4] &quot;data/MiSeq_SOP/F3D142_S208_L001_R2_001.fastq&quot;
+## [5] &quot;data/MiSeq_SOP/F3D143_S209_L001_R2_001.fastq&quot;
+## [6] &quot;data/MiSeq_SOP/F3D144_S210_L001_R2_001.fastq&quot;</code></pre>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># extract sample names</span></a>
+<a class="sourceLine" id="cb9-2" title="2">sample_names &lt;-<span class="st"> </span><span class="kw">basename</span>(amplicons_F) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># get file names</span></a>
+<a class="sourceLine" id="cb9-3" title="3"><span class="st">  </span><span class="kw">word</span>(<span class="dt">start =</span> 1L, <span class="dt">sep =</span> <span class="st">&quot;_&quot;</span>) <span class="co"># get the first word as the sample names</span></a></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1"><span class="kw">head</span>(sample_names)</a></code></pre></div>
+<pre><code>## [1] &quot;F3D0&quot;   &quot;F3D1&quot;   &quot;F3D141&quot; &quot;F3D142&quot; &quot;F3D143&quot; &quot;F3D144&quot;</code></pre>
 </div>
 <div id="trimming-filtering" class="section level2">
 <h2><span class="header-section-number">4.3</span> Trimming &amp; Filtering</h2>
-<p>After we have separate the sequences into reverse/forward, we need to perform data cleaning by <strong>trimming &amp; filtering</strong>. Raw reads are often have regions with low-quality reads. These reads needs to be trimmed and filtered first for its low quality region before combining it (the reverse and forward sequences) into one DNA sequence. Most Illumina sequencing data shows a trend of decreasing average quality towards the end of sequencing reads (<span class="citation">@Callahan</span> et al. 2016).</p>
-<p>To know which regions have low quality reads, we can plot it using <code>plotQualityProfile()</code> from <strong>dada2</strong> package. dada2 offers various functions for accurate, high-resolution sample inference from amplicon sequencing data. Let’s take the first observation for a sample from each of reverse and forward reads and plot its quality profile.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="co"># plotting forward reads</span></a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw">plotQualityProfile</span>(fnFs[<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="04-amplicon_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># plotting reverse reads</span></a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw">plotQualityProfile</span>(fnRs[<span class="dv">1</span>])</a></code></pre></div>
-<p><img src="04-amplicon_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>The plot shows
-Interpret the graph: cycle, quality score, total reads, a single fastq.gz file for 1 community, count, teal-orange-dashed-black fill mean? also the 0-100 benchmark below?</p>
-<p>What is quality scores? how to calculate one?
-Is there any minimum number of samples to determine which region we should trim?
-is there any standard trimming procedure for illumina sequences? there should be because there is no way that we have to check each samples, but there should a justification for the number of samples.</p>
-<p>Here, the forward reads maintain high quality throughout, while the quality of the reverse reads drops significantly at about position 160. Therefore, we choose to truncate the forward reads at position 245, and the reverse reads at position 160. We also choose to trim the first 10 nucleotides of each read based on empirical observations across many Illumina
-datasets that these base positions are particularly likely to contain pathological errors.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># creating file path for filtered reads</span></a>
-<a class="sourceLine" id="cb13-2" title="2">filt_path &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;filtered&quot;</span>)</a>
-<a class="sourceLine" id="cb13-3" title="3"></a>
-<a class="sourceLine" id="cb13-4" title="4"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file_test</span>(<span class="st">&quot;-d&quot;</span>, filt_path)) <span class="kw">dir.create</span>(filt_path)</a>
-<a class="sourceLine" id="cb13-5" title="5">filtFs &lt;-<span class="st"> </span><span class="kw">file.path</span>(filt_path, <span class="kw">basename</span>(fnFs))</a>
-<a class="sourceLine" id="cb13-6" title="6">filtRs &lt;-<span class="st"> </span><span class="kw">file.path</span>(filt_path, <span class="kw">basename</span>(fnRs))</a>
-<a class="sourceLine" id="cb13-7" title="7"></a>
-<a class="sourceLine" id="cb13-8" title="8"><span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">seq_along</span>(fnFs)) {</a>
-<a class="sourceLine" id="cb13-9" title="9">  </a>
-<a class="sourceLine" id="cb13-10" title="10">  <span class="kw">fastqPairedFilter</span>(<span class="kw">c</span>(fnFs[[i]], fnRs[[i]]),</a>
-<a class="sourceLine" id="cb13-11" title="11">                    <span class="kw">c</span>(filtFs[[i]], filtRs[[i]]),</a>
-<a class="sourceLine" id="cb13-12" title="12">                    <span class="dt">trimLeft=</span><span class="dv">10</span>, <span class="dt">truncLen=</span><span class="kw">c</span>(<span class="dv">245</span>, </a>
-<a class="sourceLine" id="cb13-13" title="13">                                            <span class="dv">160</span>),</a>
-<a class="sourceLine" id="cb13-14" title="14">                    <span class="dt">maxN=</span><span class="dv">0</span>, <span class="dt">maxEE=</span><span class="dv">2</span>, <span class="dt">truncQ=</span><span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb13-15" title="15">                    <span class="dt">compress=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb13-16" title="16">}</a></code></pre></div>
+<p>After we have separate the sequences into reverse/forward, we need to perform data cleaning by <strong>trimming &amp; filtering</strong>. Raw reads are often have regions with low-quality reads. Most Illumina sequencing data shows a trend of decreasing average quality towards the end of sequencing reads <span class="citation">(Ben J. Callahan 2016)</span>.</p>
+<p>To know which regions have low quality reads, we can plot it using <code>plotQualityProfile()</code> from <strong>DADA2</strong> package. This function plots a visual summary of the distribution of <a href="https://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf"><strong>quality scores</strong></a> for each sequence position. For more clarity, one amplicon files consist of numerous DNA sequences from each microbial present in one community sample. Each sequences calculated for its quality score in each sequence position (first to last). The plot will generate the summary of quality score from all the DNA sequences in one sample.</p>
+<p>Let’s take the first 3 observation and plot its reverse and forward reads for its quality profile. From there we can determine which position with low quality reads and trim them later.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="co"># plotting 1st observation</span></a>
+<a class="sourceLine" id="cb12-2" title="2">f_plot &lt;-<span class="st"> </span><span class="kw">plotQualityProfile</span>(amplicons_F[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sequence Position&quot;</span>)</a>
+<a class="sourceLine" id="cb12-3" title="3">r_plot &lt;-<span class="st"> </span><span class="kw">plotQualityProfile</span>(amplicons_R[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]) <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Sequence Position&quot;</span>)</a>
+<a class="sourceLine" id="cb12-4" title="4"></a>
+<a class="sourceLine" id="cb12-5" title="5"><span class="kw">grid.arrange</span>(f_plot,r_plot,<span class="dt">ncol =</span> <span class="dv">1</span>)</a></code></pre></div>
+<p><img src="assets/04/ggarr.png" width="100%" style="display: block; margin: auto;" /></p>
+<p>The distribution of quality scores at each sequence position is shown as a grey-scale heatmap. The darker color represent higher frequency of each quality score at each sequence position. Notice that I’ve intentionally changed the x label for easier interpretation. It also shown the quality score summary:</p>
+<ul>
+<li><strong>green line</strong>: mean quality score</li>
+<li><strong>orange line-solid</strong>: median quality score</li>
+<li><strong>orange line-dashed</strong>: 25th and 75th quantiles</li>
+<li><strong>Reads</strong>: number of reads (DNA sequences present in a sample)</li>
+<li><strong>red line</strong>: scaled proportion of reads that extend to at least that position (this is more useful for other sequencing technologies, as Illumina reads are typically all the same length, hence resulting a flat red line).</li>
+</ul>
+<p>The forward reads are in good quality, but it is still better to trim a few of the first/last position of a sequence to avoid errors that can arise there. In this example, we will trim the first 10 positions because based on empirical observations across many Illumina datasets, the first or last 10 positions are particularly likely to contain pathological errors <span class="citation">(Ben J. Callahan 2016)</span>. Meanwhile, the reverse reads are more worse in quality, especially at the end. From the plot result, we will trim the last 160 positions from the reverse reads.</p>
+<p>After determining the trimming position for each forward &amp; reverse reads, we will combine it with the standard filtering parameters <code>maxEE = 2</code> (the maximum number of expected errors allowed in a read is 2)<span class="citation">(Ben J. Callahan 2016)</span>. Trimming and filtering is performed on paired reads jointly, i.e. both reads must pass the filter for the pair to pass.</p>
+<p>In the code below, we first create a file path for our filtered reads in the working directory and then perform the trimming and filtering.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="co"># creating directory for filtered reads</span></a>
+<a class="sourceLine" id="cb13-2" title="2"></a>
+<a class="sourceLine" id="cb13-3" title="3"><span class="cf">if</span>(<span class="op">!</span><span class="kw">file_test</span>(<span class="st">&quot;-d&quot;</span>, <span class="st">&quot;data/filtered&quot;</span>)) <span class="co">#&quot;if there is no directory `data/filtered`,</span></a>
+<a class="sourceLine" id="cb13-4" title="4">  <span class="kw">dir.create</span>(<span class="st">&quot;data/filtered&quot;</span>) <span class="co"># &quot;create one&quot;</span></a>
+<a class="sourceLine" id="cb13-5" title="5"></a>
+<a class="sourceLine" id="cb13-6" title="6"><span class="co"># creating file path</span></a>
+<a class="sourceLine" id="cb13-7" title="7"><span class="co"># &quot;data/filtered/sample_names_*_filtered.fastq.gz&quot;</span></a>
+<a class="sourceLine" id="cb13-8" title="8"></a>
+<a class="sourceLine" id="cb13-9" title="9">filtered_F &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;filtered&quot;</span>, <span class="kw">paste0</span>(sample_names,<span class="st">&quot;_F_filtered.fastq.gz&quot;</span>))</a>
+<a class="sourceLine" id="cb13-10" title="10">filtered_R &lt;-<span class="st"> </span><span class="kw">file.path</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;filtered&quot;</span>, <span class="kw">paste0</span>(sample_names,<span class="st">&quot;_R_filtered.fastq.gz&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="co"># check the file path</span></a>
+<a class="sourceLine" id="cb14-2" title="2"><span class="kw">head</span>(filtered_F, <span class="dv">3</span>)</a></code></pre></div>
+<pre><code>## [1] &quot;data/filtered/F3D0_F_filtered.fastq.gz&quot;  
+## [2] &quot;data/filtered/F3D1_F_filtered.fastq.gz&quot;  
+## [3] &quot;data/filtered/F3D141_F_filtered.fastq.gz&quot;</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1"><span class="co"># trimming &amp; filtering</span></a>
+<a class="sourceLine" id="cb16-2" title="2"></a>
+<a class="sourceLine" id="cb16-3" title="3">tnf_summary &lt;-<span class="st"> </span><span class="kw">filterAndTrim</span>(amplicons_F, filtered_F, <span class="co"># input and output</span></a>
+<a class="sourceLine" id="cb16-4" title="4">                             amplicons_R, filtered_R,</a>
+<a class="sourceLine" id="cb16-5" title="5">                     </a>
+<a class="sourceLine" id="cb16-6" title="6">                             <span class="co"># trimming</span></a>
+<a class="sourceLine" id="cb16-7" title="7">                             <span class="dt">trimLeft=</span><span class="dv">10</span>, <span class="co"># trim the first n observation from each reads</span></a>
+<a class="sourceLine" id="cb16-8" title="8">                             <span class="dt">truncLen=</span><span class="kw">c</span>(<span class="dv">240</span>,<span class="dv">160</span>), <span class="co"># truncate reads after this position; c(Forward/Reverse)</span></a>
+<a class="sourceLine" id="cb16-9" title="9">                             </a>
+<a class="sourceLine" id="cb16-10" title="10">                             <span class="co"># filtering standard</span></a>
+<a class="sourceLine" id="cb16-11" title="11">                             <span class="dt">maxN=</span><span class="dv">0</span>, <span class="dt">maxEE=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="co"># max expected error (maxEE) = 2</span></a>
+<a class="sourceLine" id="cb16-12" title="12">                             <span class="dt">truncQ=</span><span class="dv">2</span>, <span class="dt">rm.phix=</span><span class="ot">TRUE</span>,</a>
+<a class="sourceLine" id="cb16-13" title="13">                             </a>
+<a class="sourceLine" id="cb16-14" title="14">                             <span class="co"># additional setting</span></a>
+<a class="sourceLine" id="cb16-15" title="15">                             <span class="dt">compress=</span><span class="ot">TRUE</span>, <span class="co"># whether outputs should be compressed</span></a>
+<a class="sourceLine" id="cb16-16" title="16">                             <span class="dt">multithread=</span><span class="ot">FALSE</span>) <span class="co"># default for Windows, Mac can use `multithread=TRUE`</span></a></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">tnf_summary</a></code></pre></div>
+<pre><code>##                               reads.in reads.out
+## F3D0_S188_L001_R1_001.fastq       7793      7139
+## F3D1_S189_L001_R1_001.fastq       5869      5314
+## F3D141_S207_L001_R1_001.fastq     5958      5478
+## F3D142_S208_L001_R1_001.fastq     3183      2926
+## F3D143_S209_L001_R1_001.fastq     3178      2955
+## F3D144_S210_L001_R1_001.fastq     4827      4323
+## F3D145_S211_L001_R1_001.fastq     7377      6762
+## F3D146_S212_L001_R1_001.fastq     5021      4580
+## F3D147_S213_L001_R1_001.fastq    17070     15695
+## F3D148_S214_L001_R1_001.fastq    12405     11448
+## F3D149_S215_L001_R1_001.fastq    13083     12064
+## F3D150_S216_L001_R1_001.fastq     5509      5054
+## F3D2_S190_L001_R1_001.fastq      19620     18130
+## F3D3_S191_L001_R1_001.fastq       6758      6275
+## F3D5_S193_L001_R1_001.fastq       4448      4068
+## F3D6_S194_L001_R1_001.fastq       7989      7394
+## F3D7_S195_L001_R1_001.fastq       5129      4772
+## F3D8_S196_L001_R1_001.fastq       5294      4890
+## F3D9_S197_L001_R1_001.fastq       7070      6525
+## Mock_S280_L001_R1_001.fastq       4779      4333</code></pre>
+<p>Wait for a while as your machine processing your request to trim and filter the amplicons. When it is done, the resulting amplicons will be located in the <code>filtered_path</code> you have stated earlier. You can track the number of in-and-out filtered reads for each sample in <code>tnf_summary</code>.</p>
+</div>
+<div id="infer-sequence-variants" class="section level2">
+<h2><span class="header-section-number">4.4</span> Infer Sequence Variants</h2>
+<p>After filtering, typical workflow will continue to perform <strong>clustering</strong> of the DNA sequences into <strong>Operational Taxonomic Units (OTUs)</strong> or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput <strong>DADA2</strong> method was developed. This method can infer <strong>amplicon sequence variants (ASVs)</strong> from our amplicons data. ASVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. ASVs are considered as <strong>the true biological sequences</strong> and therefore will be used for further analysis.</p>
+<p>DADA2 works by making use of a <strong>parametric error model</strong> <code>err</code> to distinguish between true biological sequences (ASVs) and those generated by error <span class="citation">Ben J. Callahan (2016)</span>. This error model learns the maximum possible error rates of our amplicons data using the <code>learnErrors()</code> function <span class="citation">(Callahan, n.d.)</span>. The error model will later be used in the DADA2 algorithm using <code>dada()</code> function.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1"><span class="co"># error model for forward reads</span></a>
+<a class="sourceLine" id="cb19-2" title="2">error_F &lt;-<span class="st"> </span><span class="kw">learnErrors</span>(filtered_F) <span class="co">#input: file path for filtered reads</span></a></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="co"># error model for reverse reads</span></a>
+<a class="sourceLine" id="cb20-2" title="2">error_R &lt;-<span class="st"> </span><span class="kw">learnErrors</span>(filtered_R)</a></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="co"># infer sequence variants</span></a>
+<a class="sourceLine" id="cb21-2" title="2">dada_F &lt;-<span class="st"> </span><span class="kw">dada</span>(filtered_F, <span class="dt">err =</span> error_F, <span class="dt">verbose =</span> <span class="ot">FALSE</span>) </a>
+<a class="sourceLine" id="cb21-3" title="3">dada_R &lt;-<span class="st"> </span><span class="kw">dada</span>(filtered_R, <span class="dt">err =</span> error_R, <span class="dt">verbose =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Let’s check dada2 result from the first sample forward reads. Dada infer 130 true amplicon sequence variants from 1866 unique sequences.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">dada_F[<span class="dv">1</span>]</a></code></pre></div>
+<pre><code>## $F3D0_F_filtered.fastq.gz
+## dada-class: object describing DADA2 denoising results
+## 130 sequence variants were inferred from 1866 input unique sequences.
+## Key parameters: OMEGA_A = 1e-40, OMEGA_C = 1e-40, BAND_SIZE = 16</code></pre>
+</div>
+<div id="merging-forward-reverse-dna-sequences" class="section level2">
+<h2><span class="header-section-number">4.5</span> Merging Forward &amp; Reverse DNA Sequences</h2>
+<p>The DADA2 algorithm removed (nearly) all substitution errors from the data and the data are now ready to be merged.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">merged &lt;-<span class="st"> </span><span class="kw">mergePairs</span>(<span class="dt">dadaF =</span> dada_F, <span class="co"># dada result</span></a>
+<a class="sourceLine" id="cb24-2" title="2">                     <span class="dt">derepF =</span> filtered_F, <span class="co"># path of filtered reads</span></a>
+<a class="sourceLine" id="cb24-3" title="3">                     <span class="dt">dadaR =</span> dada_R,</a>
+<a class="sourceLine" id="cb24-4" title="4">                     <span class="dt">derepR =</span> filtered_R)</a></code></pre></div>
+</div>
+<div id="construct-sequence-table-remove-chimeras" class="section level2">
+<h2><span class="header-section-number">4.6</span> Construct Sequence Table &amp; Remove Chimeras</h2>
+<p>Using the merged pairs of the amplicon data, a sequence table or in this case an <strong>amplicon sequence variant (ASV) table</strong> can be generated. This table is in <code>matrix</code> format with rows stores the <strong>sample names</strong> and the columns stores the <strong>number of each ASVs</strong>. From this table we can inspect the number of ASVs (representing each microbial species) in each sample. ASV table is a higher-resolution version of the OTU table produced by tradisional method.</p>
+<p>We can construct a sequence table using <code>makeSequenceTable()</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">seqtab &lt;-<span class="st"> </span><span class="kw">makeSequenceTable</span>(merged)</a></code></pre></div>
+<p>Below is a glimpse of what our <code>seqtab</code> matrix looks like:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1"><span class="co"># first 3 observation; first 3 ASV (named by its DNA sequence)</span></a>
+<a class="sourceLine" id="cb26-2" title="2">seqtab[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>##        GCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGCAGGCGGAAGATCAAGTCAGCGGTAAAATTGAGAGGCTCAACCTCTTCGAGCCGTTGAAACTGGTTTTCTTGAGTGAGCGAGAAGTATGCGGAATGCGTGGTGTAGCGGTGAAATGCATAGATATCACGCAGAACTCCGATTGCGAAGGCAGCATACCGGCGCTCAACTGACGCTCATGCACGAAAGTGTGGGT
+## F3D0                                                                                                                                                                                                                                        582
+## F3D1                                                                                                                                                                                                                                        417
+## F3D141                                                                                                                                                                                                                                      442
+##        GCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGCAGGCGGACTCTCAAGTCAGCGGTCAAATCGCGGGGCTCAACCCCGTTCCGCCGTTGAAACTGGGAGCCTTGAGTGCGCGAGAAGTAGGCGGAATGCGTGGTGTAGCGGTGAAATGCATAGATATCACGCAGAACTCCGATTGCGAAGGCAGCCTACCGGCGCGCAACTGACGCTCATGCACGAAAGCGTGGGT
+## F3D0                                                                                                                                                                                                                                        345
+## F3D1                                                                                                                                                                                                                                        354
+## F3D141                                                                                                                                                                                                                                      363
+##        GCGAGCGTTATCCGGATTTATTGGGTTTAAAGGGTGCGTAGGCGGGCTGTTAAGTCAGCGGTCAAATGTCGGGGCTCAACCCCGGCCTGCCGTTGAAACTGGCGGCCTCGAGTGGGCGAGAAGTATGCGGAATGCGTGGTGTAGCGGTGAAATGCATAGATATCACGCAGAACTCCGATTGCGAAGGCAGCATACCGGCGCCCGACTGACGCTGAGGCACGAAAGCGTGGGT
+## F3D0                                                                                                                                                                                                                                        451
+## F3D1                                                                                                                                                                                                                                        232
+## F3D141                                                                                                                                                                                                                                      347</code></pre>
+<p>We have three ASVs (sequences) and its number on each of our first three samples. For more tidy visualization, we can change the simplify the sample names:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1"><span class="kw">rownames</span>(seqtab) &lt;-<span class="st"> </span>sample_names</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">dim</span>(seqtab)</a></code></pre></div>
+<pre><code>## [1]  20 286</code></pre>
+<p>We have a total of maximum 286 ASVs or expected microbial species that may present in a community sample.</p>
+<p>The last data cleaning step that we can do is to remove chimeras. <strong>Chimeras</strong> are DNA sequences which are formed from 2 or more biological sequences joined together (<strong>Fig 4.2</strong>). These chimeras can act as distinct microbial species alone when in fact it is not a true microbial sequences.</p>
+<p><img src="assets/04/chimera.PNG" width="70%" style="display: block; margin: auto;" /></p>
+<p>Chimeras can be identified if they can be exactly reconstructed by combining a left-segment and a right-segment from two more abundant “parent” or biological sequences. We can remove chimeras using function <code>removeBimeraDenovo()</code>.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">seqtab_nochim &lt;-<span class="st"> </span><span class="kw">removeBimeraDenovo</span>(seqtab,</a>
+<a class="sourceLine" id="cb31-2" title="2">                                    <span class="dt">method =</span> <span class="st">&quot;consensus&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="kw">dim</span>(seqtab_nochim)</a></code></pre></div>
+<pre><code>## [1]  20 234</code></pre>
+<p>Removing chimeras leave us with 234 ASVs from the original 286 ASVs we previously have. Even so, if you calculate the percentage of chimeric sequences from the total abundance of all sequences, it only accounts for 4% of the data. This amount is small and acceptable. On the other hand, if your analysis indicates a lot of chimeric sequences there might be some upstream processes that have gone wrong such as not removing the primer sequences from the fasta prior to reading the data <span class="citation">Callahan (n.d.)</span>.</p>
+<p>You can track the number of reads or sequences that made it through each step of the processes.</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="co"># create function to get the sum of unique DNA</span></a>
+<a class="sourceLine" id="cb34-2" title="2"></a>
+<a class="sourceLine" id="cb34-3" title="3">getN &lt;-<span class="st"> </span><span class="cf">function</span>(x) {</a>
+<a class="sourceLine" id="cb34-4" title="4">  <span class="kw">sum</span>(<span class="kw">getUniques</span>(x))</a>
+<a class="sourceLine" id="cb34-5" title="5">}</a>
+<a class="sourceLine" id="cb34-6" title="6"></a>
+<a class="sourceLine" id="cb34-7" title="7"><span class="co"># generate the summary</span></a>
+<a class="sourceLine" id="cb34-8" title="8">track_reads &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">row.names =</span> sample_names,</a>
+<a class="sourceLine" id="cb34-9" title="9">           <span class="dt">raw_reads =</span> tnf_summary[,<span class="dv">1</span>],</a>
+<a class="sourceLine" id="cb34-10" title="10">           <span class="dt">filtered =</span> tnf_summary[,<span class="dv">2</span>],</a>
+<a class="sourceLine" id="cb34-11" title="11">           <span class="dt">ASVs_F =</span> <span class="kw">sapply</span>(dada_F, getN), <span class="co"># sapply to apply the function to all rows (sample)</span></a>
+<a class="sourceLine" id="cb34-12" title="12">           <span class="dt">ASVs_R =</span> <span class="kw">sapply</span>(dada_F, getN),</a>
+<a class="sourceLine" id="cb34-13" title="13">           <span class="dt">joined =</span> <span class="kw">sapply</span>(merged, getN),</a>
+<a class="sourceLine" id="cb34-14" title="14">           <span class="dt">no_chimera =</span> <span class="kw">rowSums</span>(seqtab_nochim)) <span class="co"># form row-column sums</span></a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">track_reads</a></code></pre></div>
+<pre><code>##        raw_reads filtered ASVs_F ASVs_R joined no_chimera
+## F3D0        7793     7139   7021   7021   6667       6655
+## F3D1        5869     5314   5252   5252   5028       5028
+## F3D141      5958     5478   5369   5369   4995       4867
+## F3D142      3183     2926   2822   2822   2611       2546
+## F3D143      3178     2955   2837   2837   2598       2564
+## F3D144      4827     4323   4175   4175   3690       3540
+## F3D145      7377     6762   6622   6622   6150       5873
+## F3D146      5021     4580   4456   4456   4003       3901
+## F3D147     17070    15695  15505  15505  14080      12980
+## F3D148     12405    11448  11283  11283  10567      10027
+## F3D149     13083    12064  11917  11917  11166      10705
+## F3D150      5509     5054   4897   4897   4392       4306
+## F3D2       19620    18130  17977  17977  17520      16952
+## F3D3        6758     6275   6179   6179   5911       5611
+## F3D5        4448     4068   3932   3932   3723       3723
+## F3D6        7989     7394   7268   7268   6904       6716
+## F3D7        5129     4772   4657   4657   4435       4222
+## F3D8        5294     4890   4806   4806   4583       4553
+## F3D9        7070     6525   6397   6397   6154       6075
+## Mock        4779     4333   4309   4309   4292       4292</code></pre>
+<p>From the summary, we know that there is no over-large drop associated with any single step and we manage to keep majority of our data. Now we can move to the next step.</p>
+</div>
+<div id="assign-taxonomy" class="section level2">
+<h2><span class="header-section-number">4.7</span> Assign Taxonomy</h2>
+<p>Previous amplicon bioinformatics processes provide us with a sequence table containing the number of distinct amplicons (ASVs) which resembles a microbial species in each of our sample. This table will be more informative and easier to analyze when we have <strong>assign the taxonomy or identity for each ASVs</strong> in the table. That is like giving an identity to the considerably long ACGT-code in the into something more “readable” for the column names.</p>
+<p>Assigning taxonomy is a process of classifiying an unknown ASVs into a known microbial species. Using DADA2 package, it involves a native implementation of the <em>naive Bayesian classifier method</em>. The function <code>assignTaxonomy()</code> will take an input of a set of sequences to be classified (<strong>ASVs</strong>) a nd a <strong>training set of reference sequences</strong> with known taxonomy. The function will output taxonomic assinments for all ASVs with at least <code>minBoot</code> bootstrap confidence (parameter for the algorithm). Do it looks like a <strong>machine learning classification case</strong>? Yes, it is.</p>
+<p>There are <a href="https://benjjneb.github.io/dada2/training.html">various resources</a> for training set fastas, but I will use <strong>the Silva reference database</strong> <span class="citation">(McLaren 2020)</span> for this example. To use it, go to <a href="(https://zenodo.org/record/3731176#.Xp68_8gzbIU)">this link</a> and download these files:</p>
+<ul>
+<li>silva_nr_v138_train_set.fa.gz</li>
+<li>silva_species_assignment_v138.fa.gz</li>
+</ul>
+<p>and then place the files inside the same directory with our filtered sequences <code>.fastq.gz</code> files. We can then perform taxonomy assignment:</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># assign taxa until genus level</span></a>
+<a class="sourceLine" id="cb37-2" title="2">  taxa &lt;-<span class="st"> </span><span class="kw">assignTaxonomy</span>(seqtab_nochim, <span class="co"># sequence table</span></a>
+<a class="sourceLine" id="cb37-3" title="3">                       <span class="dt">refFasta =</span> <span class="st">&quot;data/filtered/silva_nr_v138_train_set.fa.gz&quot;</span>, <span class="co"># reference sequence</span></a>
+<a class="sourceLine" id="cb37-4" title="4">                       <span class="dt">minBoot =</span> <span class="dv">50</span>) <span class="co"># minimal bootstrap confidence; default to 50</span></a>
+<a class="sourceLine" id="cb37-5" title="5"></a>
+<a class="sourceLine" id="cb37-6" title="6"><span class="co"># add taxa until species level</span></a>
+<a class="sourceLine" id="cb37-7" title="7"><span class="co"># note that it may result NA if there is no exact match in the reference</span></a>
+<a class="sourceLine" id="cb37-8" title="8">taxa &lt;-<span class="st"> </span><span class="kw">addSpecies</span>(taxa, <span class="co"># result from assignTaxonomy</span></a>
+<a class="sourceLine" id="cb37-9" title="9">                   <span class="dt">refFasta =</span> <span class="st">&quot;data/filtered/silva_species_assignment_v138.fa.gz&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="co"># check taxonomic assignment</span></a>
+<a class="sourceLine" id="cb38-2" title="2">taxa_print &lt;-<span class="st"> </span>taxa</a>
+<a class="sourceLine" id="cb38-3" title="3"><span class="kw">rownames</span>(taxa_print) &lt;-<span class="st"> </span><span class="ot">NULL</span> <span class="co"># for visualization purpose</span></a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1"><span class="kw">head</span>(taxa_print)  </a></code></pre></div>
+<pre><code>##      Kingdom    Phylum         Class         Order           Family          
+## [1,] &quot;Bacteria&quot; &quot;Bacteroidota&quot; &quot;Bacteroidia&quot; &quot;Bacteroidales&quot; &quot;Muribaculaceae&quot;
+## [2,] &quot;Bacteria&quot; &quot;Bacteroidota&quot; &quot;Bacteroidia&quot; &quot;Bacteroidales&quot; &quot;Muribaculaceae&quot;
+## [3,] &quot;Bacteria&quot; &quot;Bacteroidota&quot; &quot;Bacteroidia&quot; &quot;Bacteroidales&quot; &quot;Muribaculaceae&quot;
+## [4,] &quot;Bacteria&quot; &quot;Bacteroidota&quot; &quot;Bacteroidia&quot; &quot;Bacteroidales&quot; &quot;Muribaculaceae&quot;
+## [5,] &quot;Bacteria&quot; &quot;Bacteroidota&quot; &quot;Bacteroidia&quot; &quot;Bacteroidales&quot; &quot;Bacteroidaceae&quot;
+## [6,] &quot;Bacteria&quot; &quot;Bacteroidota&quot; &quot;Bacteroidia&quot; &quot;Bacteroidales&quot; &quot;Muribaculaceae&quot;
+##      Genus         Species
+## [1,] NA            NA     
+## [2,] NA            NA     
+## [3,] NA            NA     
+## [4,] NA            NA     
+## [5,] &quot;Bacteroides&quot; NA     
+## [6,] NA            NA</code></pre>
+<p>For those of you who were more exposed to the manual approach of assigning taxonomy (using <em>clustering</em>)–like me in my university years, you must be quite confused with this new classification approach. In the manual approach, for each unknown species, we perform <strong>clustering</strong> of unknown DNA with the reference database and perform taxonomy assignment based on the highest DNA sequence similarity. DADA2 approach is rather different. But using this new algorithm to perform massive taxonomy assignments on numerous unknown species simultaneously is considered a common approach now. Personally, I captured this as a solid movement towards the rising of <strong>Big Data</strong> era in Biology, just like the data we use in this book.</p>
+<p>In this point, youu can additionally check the accuracy of DADA2 algorithm in inferring sequence variants by comparing the result of mock samples to the annotated sequence of mock samples <code>HMP_mock.v35 fasta</code>. I’ll leave it for you to explore the original documentation <a href="https://benjjneb.github.io/dada2/tutorial.html">here</a>.</p>
+</div>
+<div id="combine-data-into-phyloseq-object" class="section level2">
+<h2><span class="header-section-number">4.8</span> Combine Data into Phyloseq Object</h2>
+<p>After many process of amplicon bioinformatics, the last thing we can do is to combine all the processed data into a <strong>phyloseq object</strong>. A phyloseq object will be in a <code>.csv</code> format which will be easier for us to manipulate for microbiome analysis. We can create a phylosec object by combining several metadata and the result of our DADA2 process.</p>
+<p>We will use the sample names which stores the information. Keep in mind that we have to pay attention to where is the mock sample is located for it has different naming system and therefore needs special treatments.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">sample_names</a></code></pre></div>
+<pre><code>##  [1] &quot;F3D0&quot;   &quot;F3D1&quot;   &quot;F3D141&quot; &quot;F3D142&quot; &quot;F3D143&quot; &quot;F3D144&quot; &quot;F3D145&quot; &quot;F3D146&quot;
+##  [9] &quot;F3D147&quot; &quot;F3D148&quot; &quot;F3D149&quot; &quot;F3D150&quot; &quot;F3D2&quot;   &quot;F3D3&quot;   &quot;F3D5&quot;   &quot;F3D6&quot;  
+## [17] &quot;F3D7&quot;   &quot;F3D8&quot;   &quot;F3D9&quot;   &quot;Mock&quot;</code></pre>
+<p>Below we will extract the information one by one:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">gender &lt;-<span class="st"> </span><span class="kw">substr</span>(sample_names, <span class="dt">start =</span> <span class="dv">1</span>, <span class="dt">stop =</span> <span class="dv">1</span>) <span class="co"># get the first character</span></a>
+<a class="sourceLine" id="cb43-2" title="2">gender</a></code></pre></div>
+<pre><code>##  [1] &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot;
+## [20] &quot;M&quot;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">subject &lt;-<span class="st"> </span><span class="kw">substr</span>(sample_names, <span class="dv">2</span>, <span class="dv">2</span>) <span class="co"># get the second character</span></a>
+<a class="sourceLine" id="cb45-2" title="2">subject</a></code></pre></div>
+<pre><code>##  [1] &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot; &quot;3&quot;
+## [20] &quot;o&quot;</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">day &lt;-<span class="st"> </span><span class="kw">sapply</span>(<span class="kw">strsplit</span>(sample_names, <span class="st">&quot;D&quot;</span>), <span class="st">`</span><span class="dt">[</span><span class="st">`</span>, <span class="dv">2</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># separate by &#39;D&#39;; get the 2nd value [2]</span></a>
+<a class="sourceLine" id="cb47-2" title="2"><span class="st">       </span><span class="kw">as.integer</span>() <span class="co"># convert to integer</span></a>
+<a class="sourceLine" id="cb47-3" title="3">day</a></code></pre></div>
+<pre><code>##  [1]   0   1 141 142 143 144 145 146 147 148 149 150   2   3   5   6   7   8   9
+## [20]  NA</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1"><span class="co"># combine metadata</span></a>
+<a class="sourceLine" id="cb49-2" title="2">seq_data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">Subject =</span> subject, </a>
+<a class="sourceLine" id="cb49-3" title="3">                    <span class="dt">Gender =</span> gender, </a>
+<a class="sourceLine" id="cb49-4" title="4">                    <span class="dt">Day =</span> day,</a>
+<a class="sourceLine" id="cb49-5" title="5">                    <span class="dt">When =</span> <span class="kw">ifelse</span>(day <span class="op">&lt;</span><span class="st"> </span><span class="dv">100</span>, <span class="st">&quot;Early&quot;</span>, <span class="st">&quot;Late&quot;</span>), <span class="co"># add early/late sampling period</span></a>
+<a class="sourceLine" id="cb49-6" title="6">                    <span class="dt">row.names =</span> sample_names)</a>
+<a class="sourceLine" id="cb49-7" title="7"><span class="kw">head</span>(seq_data)</a></code></pre></div>
+<pre><code>##        Subject Gender Day  When
+## F3D0         3      F   0 Early
+## F3D1         3      F   1 Early
+## F3D141       3      F 141  Late
+## F3D142       3      F 142  Late
+## F3D143       3      F 143  Late
+## F3D144       3      F 144  Late</code></pre>
+<p>Now let’s create a phylosec object:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="co"># create phylosec object</span></a>
+<a class="sourceLine" id="cb51-2" title="2">ps &lt;-<span class="st"> </span><span class="kw">phyloseq</span>(<span class="kw">otu_table</span>(seqtab_nochim, <span class="dt">taxa_are_rows=</span><span class="ot">FALSE</span>),</a>
+<a class="sourceLine" id="cb51-3" title="3">               <span class="kw">sample_data</span>(seq_data),</a>
+<a class="sourceLine" id="cb51-4" title="4">               <span class="kw">tax_table</span>(taxa))</a>
+<a class="sourceLine" id="cb51-5" title="5"></a>
+<a class="sourceLine" id="cb51-6" title="6"><span class="co"># remove mock sample</span></a>
+<a class="sourceLine" id="cb51-7" title="7">ps &lt;-<span class="st"> </span><span class="kw">prune_samples</span>(<span class="kw">sample_names</span>(ps) <span class="op">!=</span><span class="st"> &quot;Mock&quot;</span>, ps)</a></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">ps</a></code></pre></div>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 234 taxa and 19 samples ]
+## sample_data() Sample Data:       [ 19 samples by 4 sample variables ]
+## tax_table()   Taxonomy Table:    [ 234 taxa by 7 taxonomic ranks ]
+## refseq()      DNAStringSet:      [ 234 reference sequences ]</code></pre>
+<p>It is also better to merge the sequences of our ASVs in the phyloseq object. We will use function from <strong>Biostrings</strong> package to extract sequences from ASV table. The sequences are stored as taxa names in ASVs table (labelled as OTU table).</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1"><span class="co"># get sequences</span></a>
+<a class="sourceLine" id="cb54-2" title="2">dna &lt;-<span class="st"> </span>Biostrings<span class="op">::</span><span class="kw">DNAStringSet</span>(<span class="kw">taxa_names</span>(ps))</a>
+<a class="sourceLine" id="cb54-3" title="3"><span class="kw">names</span>(dna) &lt;-<span class="st"> </span><span class="kw">taxa_names</span>(ps) <span class="co"># connect dna data to taxa names</span></a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">dna</a></code></pre></div>
+<pre><code>##   A DNAStringSet instance of length 234
+##       width seq                                             names               
+##   [1]   232 GCGAGCGTTATCCGGATTTATT...GCTCATGCACGAAAGTGTGGGT GCGAGCGTTATCCGGAT...
+##   [2]   232 GCGAGCGTTATCCGGATTTATT...GCTCATGCACGAAAGCGTGGGT GCGAGCGTTATCCGGAT...
+##   [3]   232 GCGAGCGTTATCCGGATTTATT...GCTGAGGCACGAAAGCGTGGGT GCGAGCGTTATCCGGAT...
+##   [4]   232 GCGAGCGTTATCCGGATTTATT...GCTGAGGCACGAAAGTGCGGGG GCGAGCGTTATCCGGAT...
+##   [5]   233 CCGAGCGTTATCCGGATTTATT...ACTGATGCTCGAAAGTGTGGGT CCGAGCGTTATCCGGAT...
+##   ...   ... ...
+## [230]   233 GCAAGCGTTATCCGGAATGACT...ACTGAGGCACGAAAGCGTGGGG GCAAGCGTTATCCGGAA...
+## [231]   233 GCGAGCGTTATCCGGATTTATT...GTTGAGGCACGAAAGTGTGGGG GCGAGCGTTATCCGGAT...
+## [232]   232 GCGAGCGTTATCCGGATTCATT...GCTGAGGCGCGAAAGCTGGGGG GCGAGCGTTATCCGGAT...
+## [233]   232 GCGAGCGTTATCCGGATTCATT...GCTGAGGCGCGAAAGCTAGGGG GCGAGCGTTATCCGGAT...
+## [234]   232 GCGAGCGTTATCCGGATTTATT...GCTGAGGCACGAAAGCGTGGGG GCGAGCGTTATCCGGAT...</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="co"># merge data</span></a>
+<a class="sourceLine" id="cb57-2" title="2">ps &lt;-<span class="st"> </span><span class="kw">merge_phyloseq</span>(ps, dna)</a>
+<a class="sourceLine" id="cb57-3" title="3"></a>
+<a class="sourceLine" id="cb57-4" title="4"><span class="co"># change taxa names into shorter id (ASVn)</span></a>
+<a class="sourceLine" id="cb57-5" title="5"><span class="kw">taxa_names</span>(ps) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">&quot;ASV&quot;</span>, <span class="kw">seq</span>(<span class="kw">ntaxa</span>(ps)))</a></code></pre></div>
+<p>Now, we can easily retrieve DNA sequences for each ASVs using taxa names as key id.</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1"><span class="co"># first three ASVs in our samples</span></a>
+<a class="sourceLine" id="cb58-2" title="2"><span class="kw">otu_table</span>(ps)[,<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>## OTU Table:          [3 taxa and 19 samples]
+##                      taxa are columns
+##        ASV1 ASV2 ASV3
+## F3D0    582  345  451
+## F3D1    417  354  232
+## F3D141  442  363  347
+## F3D142  290  305  159
+## F3D143  231  176  204
+## F3D144  424  277  304
+## F3D145  647  494  523
+## F3D146  326  231  254
+## F3D147 1499 1220  913
+## F3D148  870  732  580
+## F3D149  887  781  725
+## F3D150  318  232  402
+## F3D2   3509 1594 1179
+## F3D3    998  606  469
+## F3D5    322  265  284
+## F3D6   1017  675  590
+## F3D7    649  504  439
+## F3D8    277  356  352
+## F3D9    512  426  485</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="co"># first 3 ASVs sequences</span></a>
+<a class="sourceLine" id="cb60-2" title="2"><span class="kw">refseq</span>(ps)[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</a></code></pre></div>
+<pre><code>##   A DNAStringSet instance of length 3
+##     width seq                                               names               
+## [1]   232 GCGAGCGTTATCCGGATTTATTG...CGCTCATGCACGAAAGTGTGGGT ASV1
+## [2]   232 GCGAGCGTTATCCGGATTTATTG...CGCTCATGCACGAAAGCGTGGGT ASV2
+## [3]   232 GCGAGCGTTATCCGGATTTATTG...CGCTGAGGCACGAAAGCGTGGGT ASV3</code></pre>
+<p>We finally have our final phyloseq object containing <strong>ASVs table</strong>, our sample metadata, taxonomy table for our ASVs, and its DNA sequences.</p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">ps</a></code></pre></div>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 234 taxa and 19 samples ]
+## sample_data() Sample Data:       [ 19 samples by 4 sample variables ]
+## tax_table()   Taxonomy Table:    [ 234 taxa by 7 taxonomic ranks ]
+## refseq()      DNAStringSet:      [ 234 reference sequences ]</code></pre>
+<p>After creating the phylosec object, we are ready to dive deeper into microbiome analysis in the next chapter!</p>
 
+<div id="refs" class="references">
+<div>
+<p>Ben J. Callahan, Julia A. Fukuyama, Kris Sankaran. 2016. “Bioconductor Workflow for Microbiome Data Analysis: From Raw Reads to Community Analyses [Version 2; Referees: 3 Approved].” <em>F1000Research</em> 5 (1492). <a href="https://doi.org/10.12688/f1000research.8986.2">https://doi.org/10.12688/f1000research.8986.2</a>.</p>
+</div>
+<div>
+<p>Bioconductor. 2020. “Bioconductor: Using Bioconductor.” Online.</p>
+</div>
+<div>
+<p>Callahan, Benjamin. n.d. <em>DADA2 Pipeline Tutorial (1.12)</em>.</p>
+</div>
+<div>
+<p>McLaren, Michael R. 2020. “Silva SSU taxonomic training data formatted for DADA2 (Silva version 138).” Zenodo. <a href="https://doi.org/10.5281/zenodo.3731176">https://doi.org/10.5281/zenodo.3731176</a>.</p>
+</div>
+<div>
+<p>Sally Temraz, Rihab Nasr, Farah Nassar. 2019. “Gut Microbiome: A Promising Biomarker for Immunotherapy in Colorectal Cancer.” <em>International Journal of Molecular Sciences</em> 20 (17). <a href="https://doi.org/10.3390/ijms20174155">https://doi.org/10.3390/ijms20174155</a>.</p>
+</div>
+</div>
 </div>
 </div>
             </section>
