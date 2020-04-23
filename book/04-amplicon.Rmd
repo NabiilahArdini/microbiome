@@ -218,7 +218,7 @@ Let's check dada2 result from the first sample forward reads. Dada infer 130 tru
 dada_F[1]
 ```
 
-## Merging Forward & Reverse DNA Sequences
+## Merge Forward & Reverse Reads
 
 The DADA2 algorithm removed (nearly) all substitution errors from the data and the data are now ready to be merged. 
  
@@ -340,7 +340,7 @@ For those of you who were more exposed to the manual approach of assigning taxon
 
 In this point, youu can additionally check the accuracy of DADA2 algorithm in inferring sequence variants by comparing the result of mock samples to the annotated sequence of mock samples `HMP_mock.v35 fasta`. I'll leave it for you to explore the original documentation [here](https://benjjneb.github.io/dada2/tutorial.html).
 
-## Combine Data into Phyloseq Object
+## Create Phyloseq Object
 
 After many process of amplicon bioinformatics, the last thing we can do is to combine all the processed data into a **phyloseq object**. A phyloseq object will be in a `.csv` format which will be easier for us to manipulate for microbiome analysis. We can create a phylosec object by combining several metadata and the result of our DADA2 process.
 
