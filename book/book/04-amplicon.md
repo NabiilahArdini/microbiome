@@ -661,7 +661,7 @@ refseq(ps)[1:3]
 ## [3]   232 GCGAGCGTTATCCGGATTTATTG...CGCTGAGGCACGAAAGCGTGGGT ASV3
 ```
 
-We finally have our final phyloseq object containing **ASVs table**, our sample metadata, taxonomy table for our ASVs, and its DNA sequences.
+We finally have our final phyloseq object containing ASVs table, our sample metadata, taxonomy table for our ASVs, and its DNA sequences.
 
 
 ```r
