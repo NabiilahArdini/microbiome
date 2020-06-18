@@ -26,7 +26,9 @@ To install specific packages from Bioconductor, use the following commands:
 # packages for microbiome analysis
 BiocManager::install(c("BiocStyle",
                        "dada2", 
-                       "phyloseq"))
+                       "phyloseq",
+                       "DECIPHER",
+                       "phangorn"))
 ```
 
 Now, many have questioned why there is a need to use `BiocManager::install()` to install packages from Bioconductor. This is because Bioconductor has a repository and release schedule that differs from R. A consequence of the mismatch between R and Bioconductor release schedules is that the Bioconductor version identified by `install.packages()` is sometimes not the most recent ‘release’ available. The BiocManager package serves as the primary way to ensure that the appropriate Bioconductor installation is used with respect to the version of R in use regardless of the R and Bioconductor release cycles [@bioconductor].

@@ -1,0 +1,87 @@
+
+```{r include=FALSE}
+# clear-up the environment
+rm(list = ls())
+
+# libraries
+library(phyloseq)
+
+# data
+load("assets/05/phyloseq.RData")
+```
+
+# Phyloseq
+
+Microbiome analysis comes with many challenging tasks. It involves the integration of various types of data with methods from ecology, genetics, network analysis and visualization. The data itself may originate from widely different sources such as humans, animals, samples from environment including industrial and public facilities. This variety result in data with various forms and scales, making the data processing steps extremely dependent upon the experiment and its question(s).
+
+The phyloseq package offers tools to import, store, analyze and graphically display complex phylogenetic sequencing data. It leverages many packages available in R for ecology and phylogenetic analysis (vegan, ade4, ape, picante) while also using flexible graphic system for visualization using ggplot2 package  @joey711. 
+
+Phyloseq accepts many forms of microbiome data, including QIIME format. But in this tutorial, following the previous step, we will use **the phyloseq object** `ps` we have made earlier. It already contains our sequence table and its supplementary data. 
+
+We are going to perform several data pre-processing:
+
+* Filtering
+  + Taxonomic Filtering
+  + Prevalence Filtering
+* Agglomerate Taxa
+* Abundance Value Transformation
+
+```{r}
+# load phyloseq object `ps` if you haven't
+# ps <- readRDS("assets/05/ps.rds")
+```
+
+## Filtering
+
+One of the reasons to filter microbiome data is to avoid spending much time analyzing taxa that were seen only rarely among samples. There are two kinds of filtering, taxonomic and prevalence filtering.
+
+In this example, we will use the *taxonomic filtering* that is quite supervised and relies on taxonomic assignment (it is supervised because it relies on taxonomic reference database). Even so, if you are quite curious about the later one, you can read the more detailed tutorial in [here](https://f1000research.com/articles/5-1492/v2). 
+
+In brief, *prevalence filtering* is the type of filtering that is more unsupervised. It relies on the relationship between prevalence of taxa and total abundance of each samples, hoping that the pattern reveals outliers that should probably be removed. This filtering is most applicable when taxonomic annotation is unavailable or unreliable.
+
+In most biological settings, the organisms present in all samples are well-represented in the available taxonomic reference database. With this assumption, it is advisable to filter organisms which its high-rank taxonomy could not be assigned. Thise organism (sequence) are almost always **sequence artifacts** that don’t exist in nature. For this, *Phylum* is a useful taxonomic for filtering, although other options are possible for your own research.
+
+```{r}
+# possible taxonomic rank
+rank_names(ps)
+```
+
+In our `ps` data, we have a `tax_table` which stores taxonomic assignment for each of our 234 ASVs (organisms), stored in matrix format. We can access that through `tax_table()` and ensure its dimension.
+
+```{r}
+# rows - column: 234 ASVs - 7 Taxonomic Rank 
+dim(tax_table(ps))
+```
+
+Now, let's calculate the number of organisms present for each Phylum.
+
+```{r}
+table(tax_table(ps)[,"Phylum"])
+```
+
+Based on the table above there is no <NA> that indicates a sequece artifacts. We can go on to the next step.
+
+## Agglomerate Taxa
+
+When there is known to be a lot of species or sub-species redundancy in a microbial community, it might be useful to agglomerate or if I say "bundle" the data (taxonomy) into the closely related taxa. 
+
+While not necessarily the most useful or functionally-accurate criteria for grouping microbial features (sometimes far from accurate), taxonomic agglomeration has the advantage of being much easier to define ahead of time @callahan16. 
+
+The following code shows how we would "bundle" all organisms descend from the same genus.
+
+```{r}
+# available genus: 49 (not including NA) 
+get_taxa_unique(ps, taxonomic.rank = "Genus")
+```
+```{r eval=FALSE}
+# agglomerate taxa
+ps_agg <- tax_glom(ps, "Genus", NArm = TRUE) 
+```
+
+Note that the parameter `NArm = TRUE` removes unassigned sequence on Genus. But be caution of this! This choice is very dependent on your research case and can really affect the downstream or following analysis. Meanwhile, Below is our agglomerated data.
+
+```{r}
+ps_agg
+```
+
+We have completely perform data pre-processing. Let's use this pre-processed data into further exploratory data analysis using plots and multivariate projections method such as PCoA.

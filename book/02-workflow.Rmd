@@ -23,14 +23,12 @@ After we have the sequencing result, the bioinformatic analysis can be performed
 
 We can analyze the community structure and dynamics by calculating the diversity and abundance of each microbes present in the samples. We will able to know which microbes dominates over the other, what microbial activities it can do that may affect the environment being studied, etc. This microbial community profile will help us understand the phenomenon happen in a specific environment. We may even discover potential biomarker for industrial application.
 
-From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the summary of Bioconductor Workflow for Microbiome Data Analysis adapted from @callahan16 and several documentation from updated packages commonly used for microbiome analysis. [Bioconductor](https://www.bioconductor.org/) itself is a repositories of
-open source software for Bioinformatics, based on packages written primarily in the R programming language. 
+From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the summary of Bioconductor Workflow for Microbiome Data Analysis adapted from @callahan16 and several documentation from updated packages commonly used for microbiome analysis. [Bioconductor](https://www.bioconductor.org/) itself is a repositories of open source software for Bioinformatics, based on packages written primarily in the R programming language. 
 
-1. Amplicon Bioinformatics: from raw reads to tables
-2. Microbiome analysis: community structure, abundance, and diversity
-3. Microbiome analysis: community profile visualization using PCA
-4. Microbiome analysis: supervised learning
-5. Microbiome analysis: graph analysis using network visualization
+1. Amplicon Bioinformatics: from raw reads to table.
+2. Phyloseq Object Analysis: pre-processing of sequence data in phyloseq format.
+3. Microbiome Data Analysis: data exploration using common plots and PCoA.
+4. Classification Problem & Graph-based Analysis on Microbiome Data [Additional]
 
-We will discuss deeper for each steps of microbiome analysis and the packages related to it in the following section. A tutorial installing Bioconductor packages also provided in the next section, for it is slightly different than what we usually do when installing packages from [CRAN](https://cran.r-project.org).
+We will discuss deeper for each steps of microbiome analysis and the packages related to it in the following chapter. A tutorial installing Bioconductor packages also provided in the next chapter, for it is slightly different than what we usually do when installing packages from [CRAN](https://cran.r-project.org).
 

@@ -1,0 +1,25 @@
+# Phyloseq Shiny
+
+## Libraries
+
+## Dataset
+
+## Taxonomic Filtering
+
+## Prevalence Filtering
+
+## Standardization
+
+### Agglomerate Taxa
+
+### Abundance Value Transformation
+
+# Exploratory Data Analysis
+
+## Outlier Detection using PCA.
+
+## Data Distribution and Scale-Variable Binning
+
+# Microbiome Analysis
+
+# Classification & Network Analysis
