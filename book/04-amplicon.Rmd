@@ -342,7 +342,7 @@ In this point, you can additionally check the accuracy of DADA2 algorithm in inf
 
 ## Construct Phylogenetic Tree
 
-Phylogenetic relatedness is commonly used to inform downstream analyses, especially the calculation of phylogenyaware distances between microbial communities, such as when plotting multivariate projection among samples. We begin constructing phylogenetic tree by performing a **multiple-alignment** using the `DECIPHER` package [@callahan]. 
+Phylogenetic relatedness is commonly used to inform downstream analyses, especially the calculation of phylogenyaware distances between microbial communities, such as when plotting multivariate projection among samples. We begin constructing phylogenetic tree by performing a **multiple-alignment** using the `DECIPHER` package [@callahan16]. 
 
 ```{r eval=FALSE}
 # obtain sequence

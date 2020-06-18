@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Microbiome and Beyond | Microbiome in R</title>
   <meta name="description" content="Chapter 1 Microbiome and Beyond | Microbiome in R" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Microbiome and Beyond | Microbiome in R" />
   <meta property="og:type" content="book" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -142,8 +144,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
 <li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
 <li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
-<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.8</b> Create Phyloseq Object</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="phyloseq.html"><a href="phyloseq.html"><i class="fa fa-check"></i><b>5</b> Phyloseq</a><ul>
+<li class="chapter" data-level="5.1" data-path="phyloseq.html"><a href="phyloseq.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
+<li class="chapter" data-level="5.2" data-path="phyloseq.html"><a href="phyloseq.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="classification-network-analysis.html"><a href="classification-network-analysis.html"><i class="fa fa-check"></i><b>7</b> Classification &amp; Network Analysis</a></li>
 </ul>
 
       </nav>
@@ -164,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="microbiome-and-beyond" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Microbiome and Beyond</h1>
 <p>Our earth has always been a home for billions of magnificent species that captivated the eye, including us. Every living thing occupies their respective habitat and evolves with it. But there are more than what is seen with the eyes! An abundant number of tiny organisms–even unseen to the naked eyes–has also been living with us all along. These tiny organisms are called microbes.</p>
-<p>Microbes are single-cell organisms that are approximately 1-5 micrometer in size, consisting of various species of bacteria and fungi (some said that viruses are also included). Although microbes are the smallest forms of life, they live in almost every place on earth, even inside our bodies. They have adapted to thrive in the normal and the most extreme condition on earth.</p>
+<p><strong>Microbes</strong> are single-cell organisms that are approximately 1-5 micrometer in size, consisting of various species of bacteria and fungi (some said that viruses are also included). Although microbes are the smallest forms of life, they live in almost every place on earth, even inside our bodies. They have adapted to thrive in the normal and the most extreme condition on earth.</p>
 <br>
 <center>
 <img src="assets/01/ocean.jpg" />
@@ -175,21 +187,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <img src="assets/01/msize.jpg" />
 </center>
 <p><br></p>
-<p>Microbes live as a community and exchange various chemicals and nutrients that support their own growth and affect the ecosystem around them. For example, the oxygen we breathe in is the result of the past microbial activity of cyanobacteria from around 2.4 billion years ago, which risen the earth’s oxygen level and introduced what called as <em><a href="http://www.bbc.com/earth/story/20150701-the-origin-of-the-air-we-breathe">the great oxygenation event</a></em>. Recent research also showed that a particular community of microbes lives inside our gut and can perform symbiotic relationships with us. It can secrete chemicals that boost our digestive system, prevent attack by harmful bacteria or viruses, program our immune system, and even direct our appetite, in exchange for a living space. In contrast, a particularly bad community of microbes can also live inside our gut and linked with a higher risk of several disorders including allergies, obesity, diabetes and many types of cancer <span class="citation">(Sally Temraz 2019)</span>. This specific microbial community that lives in a particular environment is what we called as <em>microbiome</em>. The microbiome evolves as the environment evolves. This is why the microbiome has been linked with the ‘unseen’ force that supports and maintains the earth as well as the biological profile that describes that specific environment.</p>
-<p>Microbiome is often used to describe a specific condition of an environment. From our previous example, the gut microbiome profile can act as a biomarker for a healthy gut or a specific type of disease. The understanding of microbiome is also very powerful for environmental study. This study answers questions such as,</p>
+<p>Microbes live as a community and exchange various chemicals and nutrients that support their own growth and affect the ecosystem around them. For example, the oxygen we breathe in is the result of the past microbial activity of cyanobacteria from around 2.4 billion years ago, which risen the earth’s oxygen level and introduced what called as <em><a href="http://www.bbc.com/earth/story/20150701-the-origin-of-the-air-we-breathe">the great oxygenation event</a></em>. Recent research also showed that a particular community of microbes lives inside our gut and can perform symbiotic relationships with us. It can secrete chemicals that boost our digestive system, prevent attack by harmful bacteria or viruses, program our immune system, and even direct our appetite, in exchange for a living space. In contrast, a particularly bad community of microbes can also live inside our gut and linked with a higher risk of several disorders including allergies, obesity, diabetes and many types of cancer <span class="citation">(Sally Temraz 2019)</span>. This specific microbial community that lives in a particular environment is what we called as <strong>microbiome</strong>. The microbiome evolves as the environment evolves. This is why the microbiome has been linked with the ‘unseen’ force that supports and maintains the earth as well as the <strong>biological profile</strong> that describes that specific environment.</p>
+<p>The study that focuses on the discovery and the understanding of the microbiome is called Microbiome Analysis. It aims to discover microbial community profiles from a specific environment, understand the community dynamics in various conditions, and provide a clearer understanding of their role in the environment. The understanding of microbiome is very powerful for health/environmental study. It answers questions such as,</p>
 <ul>
-<li>What kind of community of microbes lives in a polluted river? What it consist of?</li>
-<li>In what way does each microbes from that community affect the environment they live in?</li>
-<li>Which microbes can act as a biomarker for polluted or unpolluted river?</li>
-<li>What actions that may recover or worsen the state of polluted river based on its microbial community (by utilizing the knowledge on microbial activity that may affect the environment), and so much more.</li>
+<li>Which community of microbes lives in the gut of a healthy person?</li>
+<li>Are there any microbes that can act as a biomarker for healthy/ill person?</li>
 </ul>
-<p>The study that focuses on the discovery and the understanding of the microbiome is called Microbiome Analysis. It aims to discover microbial community profiles from a specific environment, understand the community dynamics in various conditions, and provide a clearer understanding of their role in the environment. In practice, this study often results in new findings for biomarkers that can be used to detect specific diseases or conditions in health and environmental studies. Further research may also open the door for the development of personalized diet or treatments!</p>
+<p>Expanding the knowledge obtained from the study, scientist can create new questions for further study such as,</p>
+<ul>
+<li>In what way does each microbe affect the environment they live in?</li>
+<li>What actions that may recover or worsen the state of an environment, based on its microbiome? (supported with the knowledge on chemical process that it performs)</li>
+</ul>
+<p>In practice, the understanding of microbiome can leads to the discovery of biomarkers, a certain species that can be used to detect specific diseases or conditions in health and environmental studies. There is always a possibility to utilize microbiome data for classification case in machine learning and AI. Further research may also open the door for the development of personalized treatments based on microbiome profile!</p>
 <br>
 <center>
 <img src="assets/01/lean.png" />
 </center>
 <p><br></p>
-<p>Microbiome analysis is one of the many topic that fall under the collaboration between <a href="https://github.com/NabiilahArdini/BioxMap">Data Science and Biology</a>. It envolves the processing of genetic data into pattern and visualization that we can gain insight from it. Although microbiome analysis is mainly focused on discovering patterns, it acts as a solid example of how explanatory data analysis can play a huge role in scientific discoveries and initiate further research for the improvement of human lives. In the next section, we will uncover what are the steps that build up a microbiome analysis and what is the idea behind them.</p>
+<p>Microbiome analysis is one of the many topic that fall under the collaboration between <a href="https://github.com/NabiilahArdini/BioxMap">Data Science and Biology</a>. It envolves the processing of genetic data into pattern and visualization that we can gain insight from it. Although microbiome analysis is mainly focused on <strong>explanatory data analysis (EDA)</strong>, it acts as a solid example of how EDA can play a huge role in scientific discoveries and initiate further research for the improvement of human lives. In the next chapter, we will uncover what are the steps that build up a microbiome analysis and what is the idea behind them.</p>
 
 </div>
             </section>

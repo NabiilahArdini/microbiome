@@ -9,6 +9,12 @@ biblio-style: "apalike"
 link-citation: true
 ---
 
+
+```r
+options(knitr.duplicate.label = "allow")
+```
+
+
 # Forewords {-}
 
 All praises be to Allah, The Beneficent and The Ever-Providing, who have given me the time, well-being, and intention to develop a companion book on Microbiome Study in R. 

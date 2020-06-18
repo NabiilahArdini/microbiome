@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Phyloseq | Microbiome in R</title>
+  <meta name="description" content="Chapter 5 Phyloseq | Microbiome in R" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Phyloseq | Microbiome in R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Phyloseq | Microbiome in R" />
+  
+  
+  
+
+<meta name="author" content="Nabiilah Ardini Fauziyyah" />
+
+
+<meta name="date" content="2020-03-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="amplicon-bioinformatics.html"/>
+<link rel="next" href="exploratory-data-analysis.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Forewords</a></li>
+<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="phyloseq.html"><a href="phyloseq.html"><i class="fa fa-check"></i><b>5</b> Phyloseq</a><ul>
+<li class="chapter" data-level="5.1" data-path="phyloseq.html"><a href="phyloseq.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
+<li class="chapter" data-level="5.2" data-path="phyloseq.html"><a href="phyloseq.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="classification-network-analysis.html"><a href="classification-network-analysis.html"><i class="fa fa-check"></i><b>7</b> Classification &amp; Network Analysis</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Microbiome in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="phyloseq" class="section level1">
+<h1><span class="header-section-number">Chapter 5</span> Phyloseq</h1>
+<p>Microbiome analysis comes with many challenging tasks. It involves the integration of various types of data with methods from ecology, genetics, network analysis and visualization. The data itself may originate from widely different sources such as humans, animals, samples from environment including industrial and public facilities. This variety result in data with various forms and scales, making the data processing steps extremely dependent upon the experiment and its question(s).</p>
+<p>The phyloseq package offers tools to import, store, analyze and graphically display complex phylogenetic sequencing data. It leverages many packages available in R for ecology and phylogenetic analysis (vegan, ade4, ape, picante) while also using flexible graphic system for visualization using ggplot2 package <span class="citation">McMurdie (n.d.)</span>.</p>
+<p>Phyloseq accepts many forms of microbiome data, including QIIME format. But in this tutorial, following the previous step, we will use <strong>the phyloseq object</strong> <code>ps</code> we have made earlier. It already contains our sequence table and its supplementary data.</p>
+<p>We are going to perform several data pre-processing:</p>
+<ul>
+<li>Filtering
+<ul>
+<li>Taxonomic Filtering</li>
+<li>Prevalence Filtering</li>
+</ul></li>
+<li>Agglomerate Taxa</li>
+<li>Abundance Value Transformation</li>
+</ul>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="phyloseq.html#cb69-1"></a><span class="co"># load phyloseq object `ps` if you haven&#39;t</span></span>
+<span id="cb69-2"><a href="phyloseq.html#cb69-2"></a><span class="co"># ps &lt;- readRDS(&quot;assets/05/ps.rds&quot;)</span></span></code></pre></div>
+<div id="filtering" class="section level2">
+<h2><span class="header-section-number">5.1</span> Filtering</h2>
+<p>One of the reasons to filter microbiome data is to avoid spending much time analyzing taxa that were seen only rarely among samples. There are two kinds of filtering, taxonomic and prevalence filtering.</p>
+<p>In this example, we will use the <em>taxonomic filtering</em> that is quite supervised and relies on taxonomic assignment (it is supervised because it relies on taxonomic reference database). Even so, if you are quite curious about the later one, you can read the more detailed tutorial in <a href="https://f1000research.com/articles/5-1492/v2">here</a>.</p>
+<p>In brief, <em>prevalence filtering</em> is the type of filtering that is more unsupervised. It relies on the relationship between prevalence of taxa and total abundance of each samples, hoping that the pattern reveals outliers that should probably be removed. This filtering is most applicable when taxonomic annotation is unavailable or unreliable.</p>
+<p>In most biological settings, the organisms present in all samples are well-represented in the available taxonomic reference database. With this assumption, it is advisable to filter organisms which its high-rank taxonomy could not be assigned. Thise organism (sequence) are almost always <strong>sequence artifacts</strong> that don’t exist in nature. For this, <em>Phylum</em> is a useful taxonomic for filtering, although other options are possible for your own research.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="phyloseq.html#cb70-1"></a><span class="co"># possible taxonomic rank</span></span>
+<span id="cb70-2"><a href="phyloseq.html#cb70-2"></a><span class="kw">rank_names</span>(ps)</span></code></pre></div>
+<pre><code>## [1] &quot;Kingdom&quot; &quot;Phylum&quot;  &quot;Class&quot;   &quot;Order&quot;   &quot;Family&quot;  &quot;Genus&quot;   &quot;Species&quot;</code></pre>
+<p>In our <code>ps</code> data, we have a <code>tax_table</code> which stores taxonomic assignment for each of our 234 ASVs (organisms), stored in matrix format. We can access that through <code>tax_table()</code> and ensure its dimension.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="phyloseq.html#cb72-1"></a><span class="co"># rows - column: 234 ASVs - 7 Taxonomic Rank </span></span>
+<span id="cb72-2"><a href="phyloseq.html#cb72-2"></a><span class="kw">dim</span>(<span class="kw">tax_table</span>(ps))</span></code></pre></div>
+<pre><code>## [1] 234   7</code></pre>
+<p>Now, let’s calculate the number of organisms present for each Phylum.</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="phyloseq.html#cb74-1"></a><span class="kw">table</span>(<span class="kw">tax_table</span>(ps)[,<span class="st">&quot;Phylum&quot;</span>])</span></code></pre></div>
+<pre><code>## 
+##  Actinobacteriota      Bacteroidota  Campilobacterota     Cyanobacteria 
+##                 7                20                 1                 3 
+##      Deinococcota        Firmicutes   Patescibacteria    Proteobacteria 
+##                 1               193                 1                 7 
+## Verrucomicrobiota 
+##                 1</code></pre>
+<p>Based on the table above there is no <NA> that indicates a sequece artifacts. We can go on to the next step.</p>
+</div>
+<div id="agglomerate-taxa" class="section level2">
+<h2><span class="header-section-number">5.2</span> Agglomerate Taxa</h2>
+<p>When there is known to be a lot of species or sub-species redundancy in a microbial community, it might be useful to agglomerate or if I say “bundle” the data (taxonomy) into the closely related taxa.</p>
+<p>While not necessarily the most useful or functionally-accurate criteria for grouping microbial features (sometimes far from accurate), taxonomic agglomeration has the advantage of being much easier to define ahead of time <span class="citation">Ben J. Callahan (2016)</span>.</p>
+<p>The following code shows how we would “bundle” all organisms descend from the same genus.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="phyloseq.html#cb76-1"></a><span class="co"># available genus: 49 (not including NA) </span></span>
+<span id="cb76-2"><a href="phyloseq.html#cb76-2"></a><span class="kw">get_taxa_unique</span>(ps, <span class="dt">taxonomic.rank =</span> <span class="st">&quot;Genus&quot;</span>)</span></code></pre></div>
+<pre><code>##  [1] NA                              &quot;Bacteroides&quot;                  
+##  [3] &quot;Alistipes&quot;                     &quot;Lactobacillus&quot;                
+##  [5] &quot;Turicibacter&quot;                  &quot;Lachnospiraceae_NK4A136_group&quot;
+##  [7] &quot;Oscillibacter&quot;                 &quot;Eisenbergiella&quot;               
+##  [9] &quot;Staphylococcus&quot;                &quot;A2&quot;                           
+## [11] &quot;Acinetobacter&quot;                 &quot;Roseburia&quot;                    
+## [13] &quot;Lachnoclostridium&quot;             &quot;Bacillus&quot;                     
+## [15] &quot;Incertae_Sedis&quot;                &quot;Lachnospiraceae_UCG-001&quot;      
+## [17] &quot;Helicobacter&quot;                  &quot;Anaeroplasma&quot;                 
+## [19] &quot;Actinomyces&quot;                   &quot;Clostridium_sensu_stricto_1&quot;  
+## [21] &quot;Neisseria&quot;                     &quot;Bifidobacterium&quot;              
+## [23] &quot;Acetatifactor&quot;                 &quot;Lachnospiraceae_UCG-004&quot;      
+## [25] &quot;Streptococcus&quot;                 &quot;Lachnospiraceae_FCS020_group&quot; 
+## [27] &quot;Escherichia/Shigella&quot;          &quot;Candidatus_Saccharimonas&quot;     
+## [29] &quot;Enterococcus&quot;                  &quot;Colidextribacter&quot;             
+## [31] &quot;Anaerotruncus&quot;                 &quot;Listeria&quot;                     
+## [33] &quot;Lachnospiraceae_UCG-006&quot;       &quot;Pseudomonas&quot;                  
+## [35] &quot;Deinococcus&quot;                   &quot;Porphyromonas&quot;                
+## [37] &quot;Herbinix&quot;                      &quot;ASF356&quot;                       
+## [39] &quot;GCA-900066575&quot;                 &quot;Rhodobacter&quot;                  
+## [41] &quot;Family_XIII_UCG-001&quot;           &quot;Enterorhabdus&quot;                
+## [43] &quot;Tyzzerella&quot;                    &quot;Intestinimonas&quot;               
+## [45] &quot;Butyricicoccus&quot;                &quot;Akkermansia&quot;                  
+## [47] &quot;Candidatus_Arthromitus&quot;        &quot;UCG-005&quot;                      
+## [49] &quot;Lachnospiraceae_NK4B4_group&quot;   &quot;Olsenella&quot;</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="phyloseq.html#cb78-1"></a><span class="co"># agglomerate taxa</span></span>
+<span id="cb78-2"><a href="phyloseq.html#cb78-2"></a>ps_agg &lt;-<span class="st"> </span><span class="kw">tax_glom</span>(ps, <span class="st">&quot;Genus&quot;</span>, <span class="dt">NArm =</span> <span class="ot">TRUE</span>) </span></code></pre></div>
+<p>Note that the parameter <code>NArm = TRUE</code> removes unassigned sequence on Genus. But be caution of this! This choice is very dependent on your research case and can really affect the downstream or following analysis. Meanwhile, Below is our agglomerated data.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="phyloseq.html#cb79-1"></a>ps_agg</span></code></pre></div>
+<pre><code>## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 49 taxa and 19 samples ]
+## sample_data() Sample Data:       [ 19 samples by 4 sample variables ]
+## tax_table()   Taxonomy Table:    [ 49 taxa by 7 taxonomic ranks ]
+## phy_tree()    Phylogenetic Tree: [ 49 tips and 48 internal nodes ]
+## refseq()      DNAStringSet:      [ 49 reference sequences ]</code></pre>
+<p>We have completely perform data pre-processing. Let’s use this pre-processed data into further exploratory data analysis using plots and multivariate projections method such as PCoA.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="amplicon-bioinformatics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exploratory-data-analysis.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

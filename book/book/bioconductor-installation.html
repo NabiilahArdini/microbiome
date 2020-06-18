@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 3 Bioconductor Installation | Microbiome in R</title>
   <meta name="description" content="Chapter 3 Bioconductor Installation | Microbiome in R" />
-  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 3 Bioconductor Installation | Microbiome in R" />
   <meta property="og:type" content="book" />
@@ -53,9 +53,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -64,14 +64,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -80,9 +82,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -142,8 +144,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
 <li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
 <li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
-<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.8</b> Create Phyloseq Object</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="phyloseq.html"><a href="phyloseq.html"><i class="fa fa-check"></i><b>5</b> Phyloseq</a><ul>
+<li class="chapter" data-level="5.1" data-path="phyloseq.html"><a href="phyloseq.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
+<li class="chapter" data-level="5.2" data-path="phyloseq.html"><a href="phyloseq.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="classification-network-analysis.html"><a href="classification-network-analysis.html"><i class="fa fa-check"></i><b>7</b> Classification &amp; Network Analysis</a></li>
 </ul>
 
       </nav>
@@ -164,10 +176,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="bioconductor-installation" class="section level1">
 <h1><span class="header-section-number">Chapter 3</span> Bioconductor Installation</h1>
 <p>Numerous packages for bioinformatics analysis stored in Bioconductor repository. The current release of Bioconductor is version 3.10 and works with R version 3.6.0. Users of older R and Bioconductor must update their installation to take advantage of new features and to access packages that have been added to Bioconductor since the last release <span class="citation">(Bioconductor 2020)</span>. Install the latest version of Bioconductor by entering the commands below:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, </a>
-<a class="sourceLine" id="cb1-2" title="2">                      <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) <span class="co"># progress &amp; error suppressed</span></a>
-<a class="sourceLine" id="cb1-3" title="3"><span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</a>
-<a class="sourceLine" id="cb1-4" title="4">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="dt">version =</span> <span class="st">&quot;3.10&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="bioconductor-installation.html#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, </span>
+<span id="cb2-2"><a href="bioconductor-installation.html#cb2-2"></a>                      <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) <span class="co"># progress &amp; error suppressed</span></span>
+<span id="cb2-3"><a href="bioconductor-installation.html#cb2-3"></a><span class="kw">install.packages</span>(<span class="st">&quot;BiocManager&quot;</span>)</span>
+<span id="cb2-4"><a href="bioconductor-installation.html#cb2-4"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="dt">version =</span> <span class="st">&quot;3.10&quot;</span>)</span></code></pre></div>
 <p>In additition, if you see the following messege during installation:</p>
 <br>
 <center>
@@ -176,10 +188,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><br></p>
 <p>That’s its way to notice you that there are some packages (usually from CRAN repository) that is out-of-date. You can type <code>a</code> in the console to install the latest updates or any other option available (some or none). You may also install the latest updates manually from the ‘Packages’ panel.</p>
 <p>To install specific packages from Bioconductor, use the following commands:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" title="1"><span class="co"># packages for microbiome analysis</span></a>
-<a class="sourceLine" id="cb2-2" title="2">BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;BiocStyle&quot;</span>,</a>
-<a class="sourceLine" id="cb2-3" title="3">                       <span class="st">&quot;dada2&quot;</span>, </a>
-<a class="sourceLine" id="cb2-4" title="4">                       <span class="st">&quot;phyloseq&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="bioconductor-installation.html#cb3-1"></a><span class="co"># packages for microbiome analysis</span></span>
+<span id="cb3-2"><a href="bioconductor-installation.html#cb3-2"></a>BiocManager<span class="op">::</span><span class="kw">install</span>(<span class="kw">c</span>(<span class="st">&quot;BiocStyle&quot;</span>,</span>
+<span id="cb3-3"><a href="bioconductor-installation.html#cb3-3"></a>                       <span class="st">&quot;dada2&quot;</span>, </span>
+<span id="cb3-4"><a href="bioconductor-installation.html#cb3-4"></a>                       <span class="st">&quot;phyloseq&quot;</span>,</span>
+<span id="cb3-5"><a href="bioconductor-installation.html#cb3-5"></a>                       <span class="st">&quot;DECIPHER&quot;</span>,</span>
+<span id="cb3-6"><a href="bioconductor-installation.html#cb3-6"></a>                       <span class="st">&quot;phangorn&quot;</span>))</span></code></pre></div>
 <p>Now, many have questioned why there is a need to use <code>BiocManager::install()</code> to install packages from Bioconductor. This is because Bioconductor has a repository and release schedule that differs from R. A consequence of the mismatch between R and Bioconductor release schedules is that the Bioconductor version identified by <code>install.packages()</code> is sometimes not the most recent ‘release’ available. The BiocManager package serves as the primary way to ensure that the appropriate Bioconductor installation is used with respect to the version of R in use regardless of the R and Bioconductor release cycles <span class="citation">(Bioconductor 2020)</span>.</p>
 <p>For further documentation of the installation of Bioconductor, click <a href="https://www.bioconductor.org/install/">here</a>.</p>
 
