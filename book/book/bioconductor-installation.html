@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 3 Bioconductor Installation | Microbiome in R</title>
-  <meta name="description" content="Chapter 3 Bioconductor Installation | Microbiome in R" />
+  <title>Chapter 4 Bioconductor Installation | Microbiome in R</title>
+  <meta name="description" content="Chapter 4 Bioconductor Installation | Microbiome in R" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 3 Bioconductor Installation | Microbiome in R" />
+  <meta property="og:title" content="Chapter 4 Bioconductor Installation | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 3 Bioconductor Installation | Microbiome in R" />
+  <meta name="twitter:title" content="Chapter 4 Bioconductor Installation | Microbiome in R" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Nabiilah Ardini Fauziyyah" />
 
 
-<meta name="date" content="2020-03-19" />
+<meta name="date" content="2020-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,33 +129,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Forewords</a></li>
-<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
-<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
-<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
-<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Forewords</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>2</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="3" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>3</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="3.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>3.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="3.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>3.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
-<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
-<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
-<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
-<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
-<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
-<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
-<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
-<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
-<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
-<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
+<li class="chapter" data-level="4" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>4</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>5</b> Amplicon Bioinformatics</a><ul>
+<li class="chapter" data-level="5.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>5.2</b> Dataset</a></li>
+<li class="chapter" data-level="5.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>5.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="5.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>5.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="5.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>5.5</b> Merge Forward &amp; Reverse Reads</a></li>
+<li class="chapter" data-level="5.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>5.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="5.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>5.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="5.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>5.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="5.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>5.9</b> Create Phyloseq Object</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="phyloseq.html"><a href="phyloseq.html"><i class="fa fa-check"></i><b>5</b> Phyloseq</a><ul>
-<li class="chapter" data-level="5.1" data-path="phyloseq.html"><a href="phyloseq.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
-<li class="chapter" data-level="5.2" data-path="phyloseq.html"><a href="phyloseq.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
+<li class="chapter" data-level="6" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html"><i class="fa fa-check"></i><b>6</b> Phyloseq Object Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>6.1</b> Filtering</a></li>
+<li class="chapter" data-level="6.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>6.2</b> Agglomerate Taxa</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
-<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
+<li class="chapter" data-level="7" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>7</b> Microbiome Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>7.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="7.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>7.2</b> Microbial Abundandce</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="classification-network-analysis.html"><a href="classification-network-analysis.html"><i class="fa fa-check"></i><b>7</b> Classification &amp; Network Analysis</a></li>
+<li class="chapter" data-level="8" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>8</b> Classification using Microbiome</a></li>
+<li class="chapter" data-level="9" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>9</b> Closure</a></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
 </ul>
 
       </nav>
@@ -174,7 +176,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="bioconductor-installation" class="section level1">
-<h1><span class="header-section-number">Chapter 3</span> Bioconductor Installation</h1>
+<h1><span class="header-section-number">Chapter 4</span> Bioconductor Installation</h1>
 <p>Numerous packages for bioinformatics analysis stored in Bioconductor repository. The current release of Bioconductor is version 3.10 and works with R version 3.6.0. Users of older R and Bioconductor must update their installation to take advantage of new features and to access packages that have been added to Bioconductor since the last release <span class="citation">(Bioconductor 2020)</span>. Install the latest version of Bioconductor by entering the commands below:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="bioconductor-installation.html#cb2-1"></a><span class="cf">if</span> (<span class="op">!</span><span class="kw">requireNamespace</span>(<span class="st">&quot;BiocManager&quot;</span>, </span>
 <span id="cb2-2"><a href="bioconductor-installation.html#cb2-2"></a>                      <span class="dt">quietly =</span> <span class="ot">TRUE</span>)) <span class="co"># progress &amp; error suppressed</span></span>

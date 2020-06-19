@@ -1,0 +1,131 @@
+
+# Classification using Microbiome
+
+```{r include=FALSE}
+# clear-up the environment
+rm(list = ls())
+
+# libraries
+library(dplyr)
+
+# data
+load("assets/07/class.RData")
+```
+
+The main microbiome analysis was already done in the previous chapter. But the result of previous chapter can be used further for additional analysis. In this capter we will demonstrate examples for doing supervised learning (a classification task) using microbiome data. 
+
+The classification task enhanced by microbiome data relies on the sample we have, which was obtained based on a research question. Our research question provide a design where we can obtain sample from early or old aged mouse. After microbiome analysis, we knew that microbiome composition change with age. Therefore, we can try **classify whether a mouse is early or old aged based on the its gut microbioal composition**.
+
+The package `caret` provides various functions for machine learning algorithm. We’ll try using the robust **Random Forest** algorithm on this one. For that we also need a `randomForest` package. Make sure that you have each of them installed and loaded into your session.
+
+```{r message=FALSE, warning=FALSE}
+# load library
+library(caret)
+library(randomForest)
+```
+
+We'll be using microbial count or `otu_table` from `ps_cut` data which represent the microbial composition of our sample. This data is also already removed for its outlier. We'll also log-transform our data before analysis.
+
+```{r}
+ps_cut@otu_table[1:3,1:3]
+```
+
+```{r eval=FALSE}
+ps_cut_log <- transform_sample_counts(ps_cut, function(x) log(1 + x))
+```
+
+```{r}
+ps_cut_log@otu_table[1:3,1:3]
+```
+
+The first step of classification (or any machine learning task) is to divide our data into **train** and **test** set. to ensure that the test set realistically simulates the collection of new data, we will be using random sampling to split the data.
+
+```{r eval=FALSE}
+# get age label & microbiome data
+data_ml <- data.frame(age = sample_data(ps_cut_log)$When, otu_table(ps_cut_log))
+
+# get index for sampling
+idx_train <- sample(nrow(sample_data(ps_cut_log)), size = nrow(sample_data(ps_cut_log))*0.8)
+
+# splitting train-test
+training <- data_ml[idx_train,]
+testing <- data_ml[-idx_train,]
+```
+
+Once we split the data, we can use the train function to fit the **Random Forest** model.
+
+```{r eval=FALSE}
+rfFit <- train(age ~ ., 
+               data = training,
+               method = "rf")
+
+rfFit
+```
+
+```{r}
+table(rfClasses, testing$age)
+```
+
+Next we can predict mouse age labels on the test set using `predict()` function.
+
+```{r eval=FALSE}
+rfClasses <- predict(rfFit, 
+                     newdata = testing)
+```
+
+Then we can do a quick model evaluation by using simple confusion matrix.
+
+```{r}
+# other options use: `confusionMatrix()`
+table(pred = rfClasses, 
+      actual = testing$age)
+```
+
+We'll there is accuracy 100%, but please note that the number of data we have for this demonstration is still very low. It might be better to train and test the model with a larger sample size, for example 30-300 sample or more. 
+
+To better understand the fitted random forest model, we can identify which microbe have the highest influence in the random forest prediction. We can use the function `importance()` from `randomForest` package and to find out each variable or in our case microbial species importance:
+
+```{r}
+importance(rfFit$finalModel)
+```
+
+The function above shown all the variable importance, but we only need one microbe with the highest importance. In this case "ASV27". Let's use some function to simply take out that microbe and find out its taxonomy so we can analyze it further.
+
+```{r eval=FALSE}
+# obtain taxonomy of all microbial sample
+tax_rf <- tax_table(ps_cut_log)
+```
+
+```{r}
+# filter microbes with the highest importance
+tax_rf[which.max(importance(rfFit$finalModel)),]
+```
+
+This turns out to be a microbe from Orer *Oscillospirales*, Family *Oscillospiraceae*, and genus *Oscillibacter*. Let's try plots its abundance across samples.
+
+```{r eval=FALSE}
+# get microbial abundance
+imp_abd <- as.vector(otu_table(ps_cut_log)[,"ASV27"])
+
+# combine with sample data
+imp_df <- data.frame(sample_data(ps_cut_log),
+                     abund = imp_abd)
+
+# plotting
+imp_plot<- ggplot(imp_df, aes(x = abund)) + 
+  geom_density(aes(fill = When),
+              alpha = 0.5) +
+  labs(title = "Abundance of Discriminative Species",
+     subtitle = "Oscillibacter sp.",
+     x = "Abundance",
+     y = "Density of samples",
+     fill = "Age") +
+  # below is for aesthetics
+  theme_minimal()
+```
+
+```{r}
+imp_plot
+```
+
+We can see that *Oscillibacter sp.* has lower abundance in the mouse early age (0-9 days) and much higher in its late age (141-150). Based on this research, *Oscillibacter sp.* may become a biomarker for mouse age for classification task.

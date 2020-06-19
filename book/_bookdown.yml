@@ -7,7 +7,8 @@ rmd_files:
   - "04-amplicon.Rmd"
   - "05-phyloseq.Rmd"
   - "06-EDA.Rmd"
-  - "07-classnet.Rmd"
+  - "07-class.Rmd"
+  - "08-closure.Rmd"
 output_dir: "book"
 new_session: true
 language:

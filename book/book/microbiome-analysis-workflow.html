@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Microbiome Analysis Workflow | Microbiome in R</title>
-  <meta name="description" content="Chapter 2 Microbiome Analysis Workflow | Microbiome in R" />
+  <title>Chapter 3 Microbiome Analysis Workflow | Microbiome in R</title>
+  <meta name="description" content="Chapter 3 Microbiome Analysis Workflow | Microbiome in R" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Microbiome Analysis Workflow | Microbiome in R" />
+  <meta property="og:title" content="Chapter 3 Microbiome Analysis Workflow | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Microbiome Analysis Workflow | Microbiome in R" />
+  <meta name="twitter:title" content="Chapter 3 Microbiome Analysis Workflow | Microbiome in R" />
   
   
   
@@ -24,7 +24,7 @@
 <meta name="author" content="Nabiilah Ardini Fauziyyah" />
 
 
-<meta name="date" content="2020-03-19" />
+<meta name="date" content="2020-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,33 +129,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Forewords</a></li>
-<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
-<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
-<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
-<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Forewords</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>2</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="3" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>3</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="3.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>3.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="3.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>3.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
-<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
-<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
-<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
-<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
-<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
-<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
-<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
-<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
-<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
-<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
+<li class="chapter" data-level="4" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>4</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>5</b> Amplicon Bioinformatics</a><ul>
+<li class="chapter" data-level="5.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>5.1</b> Libraries</a></li>
+<li class="chapter" data-level="5.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>5.2</b> Dataset</a></li>
+<li class="chapter" data-level="5.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>5.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="5.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>5.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="5.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>5.5</b> Merge Forward &amp; Reverse Reads</a></li>
+<li class="chapter" data-level="5.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>5.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="5.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>5.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="5.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>5.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="5.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>5.9</b> Create Phyloseq Object</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="phyloseq.html"><a href="phyloseq.html"><i class="fa fa-check"></i><b>5</b> Phyloseq</a><ul>
-<li class="chapter" data-level="5.1" data-path="phyloseq.html"><a href="phyloseq.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
-<li class="chapter" data-level="5.2" data-path="phyloseq.html"><a href="phyloseq.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
+<li class="chapter" data-level="6" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html"><i class="fa fa-check"></i><b>6</b> Phyloseq Object Processing</a><ul>
+<li class="chapter" data-level="6.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>6.1</b> Filtering</a></li>
+<li class="chapter" data-level="6.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>6.2</b> Agglomerate Taxa</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>6</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="6.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
-<li class="chapter" data-level="6.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
+<li class="chapter" data-level="7" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>7</b> Microbiome Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>7.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="7.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>7.2</b> Microbial Abundandce</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="classification-network-analysis.html"><a href="classification-network-analysis.html"><i class="fa fa-check"></i><b>7</b> Classification &amp; Network Analysis</a></li>
+<li class="chapter" data-level="8" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>8</b> Classification using Microbiome</a></li>
+<li class="chapter" data-level="9" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>9</b> Closure</a></li>
+<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
 </ul>
 
       </nav>
@@ -174,11 +176,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="microbiome-analysis-workflow" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Microbiome Analysis Workflow</h1>
+<h1><span class="header-section-number">Chapter 3</span> Microbiome Analysis Workflow</h1>
 <p>The workflow of microbiome analysis has evolved through out the years. The development of technology and Bioinformatics has made a massive increment on the generation of genomic data that is used for microbiome analysis. Therefore, the use of programming tools such as R and its packages is becoming more widely used.</p>
 <p>If I may put it into 2 major steps, microbiome analysis consist of “Lab Work” and “Bioinformatic Analysis”. The lab work of a microbiome analysis is quite plenty and mostly technical, which I will not explain it detail in here. Meanwhile, the bioinformatic analysis will be explained in this book with some tutorial. We will be using R languages and its packages as bioinformatics tools.</p>
 <div id="the-lab-work" class="section level2">
-<h2><span class="header-section-number">2.1</span> The Lab Work</h2>
+<h2><span class="header-section-number">3.1</span> The Lab Work</h2>
 <p>Every lab work of a microbiome analysis begins by taking a sample of microbial community from either soil, water, swab of a surface, saliva, or any other habitat. The microbes present in that sample will then be filtered and extracted for their DNA. Each microbial DNA will be sequenced to retrieve its genetic code, specifically in the region of a “fingerprint gene” called the <em>16S ribosomal RNA (16S rRNA)</em>. The process briefly explained in the illustration below (<strong>Fig 2.1</strong>).</p>
 <br>
 <center>
@@ -188,17 +190,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>For those of you who are not familiar with cell and molecular biology, these are a brief explanation. DNA is a molecule that harbors genes or sequences of genetic code of a living things. This DNA can be used as a taxonomic marker that differentiate each microbial species from one another. A specific region of DNA called the 16S rRNA gene is usually used for comparation, for this gene exist in all of microbes but has slightly different sequence for each microbes. The difference between each sequence will be calculated to determine how distant or related a microbial species with one another.</p>
 </div>
 <div id="bioinformatic-analysis" class="section level2">
-<h2><span class="header-section-number">2.2</span> Bioinformatic Analysis</h2>
+<h2><span class="header-section-number">3.2</span> Bioinformatic Analysis</h2>
 <p>After we have the sequencing result, the bioinformatic analysis can be performed. The steps consist of assigning taxonomy or giving identity to the unknown DNA samples and analysis of the their community structure and dynamics.</p>
 <p>We can analyze the community structure and dynamics by calculating the diversity and abundance of each microbes present in the samples. We will able to know which microbes dominates over the other, what microbial activities it can do that may affect the environment being studied, etc. This microbial community profile will help us understand the phenomenon happen in a specific environment. We may even discover potential biomarker for industrial application.</p>
 <p>From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the summary of Bioconductor Workflow for Microbiome Data Analysis adapted from <span class="citation">Ben J. Callahan (2016)</span> and several documentation from updated packages commonly used for microbiome analysis. <a href="https://www.bioconductor.org/">Bioconductor</a> itself is a repositories of open source software for Bioinformatics, based on packages written primarily in the R programming language.</p>
 <ol style="list-style-type: decimal">
 <li>Amplicon Bioinformatics: from raw reads to table.</li>
-<li>Phyloseq Object Analysis: pre-processing of sequence data in phyloseq format.</li>
+<li>Phyloseq Object Processing: pre-processing of sequence data in phyloseq format.</li>
 <li>Microbiome Data Analysis: data exploration using common plots and PCoA.</li>
-<li>Classification Problem &amp; Graph-based Analysis on Microbiome Data [Additional]</li>
+<li>Classification Problem on Microbiome Data [Additional]</li>
 </ol>
 <p>We will discuss deeper for each steps of microbiome analysis and the packages related to it in the following chapter. A tutorial installing Bioconductor packages also provided in the next chapter, for it is slightly different than what we usually do when installing packages from <a href="https://cran.r-project.org">CRAN</a>.</p>
+<p><img src="assets/02/microbiome_mind.png" width="100%" style="display: block; margin: auto;" /></p>
 
 </div>
 </div>

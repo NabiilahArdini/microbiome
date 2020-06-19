@@ -16,7 +16,7 @@ options(knitr.duplicate.label = "allow")
 
 # Forewords
 
-All praises be to Allah, The Beneficent and The Ever-Providing, who have given me the time, well-being, and intention to develop a companion book on Microbiome Study in R. 
+ All praises be to Allah, The Beneficent and The Ever-Providing, who have given me the time, well-being, and intention to develop a companion book on Microbiome Study in R. 
 
 This work is far from completed and will not be possible without the help many many friends and parties. With the hope of helping many people who ought to learn Microbiome Analysis as soon as possible, this work was published and will be continually updated.
 

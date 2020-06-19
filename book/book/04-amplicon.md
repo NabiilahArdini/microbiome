@@ -39,9 +39,9 @@ You are free to use your own amplicons dataset while following the tutorial prov
 
 Meanwhile, if you don't have one, you can use the [mothur MiSeq SOP](http://www.mothur.org/wiki/MiSeq_SOP) data provided free in [here](http://mothur.org/w/images/d/d6/MiSeqSOPData.zip/). The data is also used on the original tutorial. 
 
-The data consisted of amplicons from the V4 region of the 16S rRNA gene sequenced through [Illumina Miseq NGS technology](https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/). The **V4 region** stands for the more specific region of the **16S rRNA gene**. The data contains **DNA from  microbial communities** collected from gut samples of a mouse during post weaning growth (after milk diet). 
+The data consisted of amplicons from the V4 region of the 16S rRNA gene sequenced through [Illumina Miseq NGS technology](https://sapac.illumina.com/systems/sequencing-platforms/miseq.html?langsel=/id/). The **V4 region** stands for the more specific region of the **16S rRNA gene**. The data contains **DNA from  microbial communities** collected from gut samples of a mice during post weaning growth (after milk diet). 
 
-The original experiment were done with the aim to understand the effect of normal gut microbiome to the mouse health. The full data is extremely large to process for this introductionary phase (3.9 GB) and therefore we will be using only parts of the data.  With the available data we have, let's try to understand the effect of the first 10 days of post weaning (eating) period to the stability of gut microbiome in the 140-150 day of post weaning period.
+The original experiment were done with the aim to understand the effect of normal gut microbiome to the mice health. The full data is extremely large to process for this introductionary phase (3.9 GB) and therefore we will be using only parts of the data.  With the available data we have, let's try to understand the effect of the first 10 days of post weaning (eating) period to the stability of gut microbiome in the 140-150 day of post weaning period.
 
 These are the steps for reading the data:
 
@@ -65,7 +65,7 @@ For those of you who are interested in understanding more about the sample it is
 
 The DNA samples or amplicons are stored with a standard naming system:
 
-* `F3D0` stands for the mouse id `F3` and the day of sampling `D0`
+* `F3D0` stands for the mice id `F3` and the day of sampling `D0`
 * the `R1` and `R2` stands for forward and reverse reads respectively. 
 
 Forward and reverse reads came from the sequencing method which sequenced DNA in two direction just as illustrated in **Fig 4.1**. Here is a great [video](https://www.youtube.com/watch?v=ONGdehkB8jU) about DNA sequencing for more detailed process.

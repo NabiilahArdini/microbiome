@@ -26,9 +26,12 @@ We can analyze the community structure and dynamics by calculating the diversity
 From the technical side, the steps of bioinformatic analysis starts from the dirty data cleaning, performing some data pre-processing, followed by applying some algorithms, and finalized by some data visualization and extracting valuable insight. Below is the summary of Bioconductor Workflow for Microbiome Data Analysis adapted from @callahan16 and several documentation from updated packages commonly used for microbiome analysis. [Bioconductor](https://www.bioconductor.org/) itself is a repositories of open source software for Bioinformatics, based on packages written primarily in the R programming language. 
 
 1. Amplicon Bioinformatics: from raw reads to table.
-2. Phyloseq Object Analysis: pre-processing of sequence data in phyloseq format.
+2. Phyloseq Object Processing: pre-processing of sequence data in phyloseq format.
 3. Microbiome Data Analysis: data exploration using common plots and PCoA.
-4. Classification Problem & Graph-based Analysis on Microbiome Data [Additional]
+4. Classification Problem on Microbiome Data [Additional]
 
 We will discuss deeper for each steps of microbiome analysis and the packages related to it in the following chapter. A tutorial installing Bioconductor packages also provided in the next chapter, for it is slightly different than what we usually do when installing packages from [CRAN](https://cran.r-project.org).
 
+```{r, echo = FALSE, fig.align = "center", out.width = "100%"}
+knitr::include_graphics("assets/02/microbiome_mind.png")
+```

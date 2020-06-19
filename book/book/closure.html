@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Microbiome and Beyond | Microbiome in R</title>
-  <meta name="description" content="Chapter 2 Microbiome and Beyond | Microbiome in R" />
+  <title>Chapter 9 Closure | Microbiome in R</title>
+  <meta name="description" content="Chapter 9 Closure | Microbiome in R" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Microbiome and Beyond | Microbiome in R" />
+  <meta property="og:title" content="Chapter 9 Closure | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Microbiome and Beyond | Microbiome in R" />
+  <meta name="twitter:title" content="Chapter 9 Closure | Microbiome in R" />
   
   
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
-<link rel="next" href="microbiome-analysis-workflow.html"/>
+<link rel="prev" href="classification-using-microbiome.html"/>
+<link rel="next" href="references.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -175,47 +175,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="microbiome-and-beyond" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Microbiome and Beyond</h1>
-<p>Our earth has always been a home for billions of magnificent species that captivated the eye, including us. Every living thing occupies their respective habitat and evolves with it. But there are more than what is seen with the eyes! An abundant number of tiny organisms–even unseen to the naked eyes–has also been living with us all along. These tiny organisms are called microbes.</p>
-<p><strong>Microbes</strong> are single-cell organisms that are approximately 1-5 micrometer in size, consisting of various species of bacteria and fungi (some said that viruses are also included). Although microbes are the smallest forms of life, they live in almost every place on earth, even inside our bodies. They have adapted to thrive in the normal and the most extreme condition on earth.</p>
-<br>
-<center>
-<img src="assets/01/ocean.jpg" />
-</center>
-<p><br></p>
-<br>
-<center>
-<img src="assets/01/msize.jpg" />
-</center>
-<p><br></p>
-<p>Microbes live as a community and exchange various chemicals and nutrients that support their own growth and affect the ecosystem around them. For example, the oxygen we breathe in is the result of the past microbial activity of cyanobacteria from around 2.4 billion years ago, which risen the earth’s oxygen level and introduced what called as <em><a href="http://www.bbc.com/earth/story/20150701-the-origin-of-the-air-we-breathe">the great oxygenation event</a></em>. Recent research also showed that a particular community of microbes lives inside our gut and can perform symbiotic relationships with us. It can secrete chemicals that boost our digestive system, prevent attack by harmful bacteria or viruses, program our immune system, and even direct our appetite, in exchange for a living space. In contrast, a particularly bad community of microbes can also live inside our gut and linked with a higher risk of several disorders including allergies, obesity, diabetes and many types of cancer <span class="citation">(Sally Temraz 2019)</span>. This specific microbial community that lives in a particular environment is what we called as <strong>microbiome</strong>. The microbiome evolves as the environment evolves. This is why the microbiome has been linked with the ‘unseen’ force that supports and maintains the earth as well as the <strong>biological profile</strong> that describes that specific environment.</p>
-<p>The study that focuses on the discovery and the understanding of the microbiome is called Microbiome Analysis. It aims to discover microbial community profiles from a specific environment, understand the community dynamics in various conditions, and provide a clearer understanding of their role in the environment. The understanding of microbiome is very powerful for health/environmental study. It answers questions such as,</p>
-<ul>
-<li>Which community of microbes lives in the gut of a healthy person?</li>
-<li>Are there any microbes that can act as a biomarker for healthy/ill person?</li>
-</ul>
-<p>Expanding the knowledge obtained from the study, scientist can create new questions for further study such as,</p>
-<ul>
-<li>In what way does each microbe affect the environment they live in?</li>
-<li>What actions that may recover or worsen the state of an environment, based on its microbiome? (supported with the knowledge on chemical process that it performs)</li>
-</ul>
-<p>In practice, the understanding of microbiome can leads to the discovery of biomarkers, a certain species that can be used to detect specific diseases or conditions in health and environmental studies. There is always a possibility to utilize microbiome data for classification case in machine learning and AI. Further research may also open the door for the development of personalized treatments based on microbiome profile!</p>
-<br>
-<center>
-<img src="assets/01/lean.png" />
-</center>
-<p><br></p>
-<p>Microbiome analysis is one of the many topic that fall under the collaboration between <a href="https://github.com/NabiilahArdini/BioxMap">Data Science and Biology</a>. It envolves the processing of genetic data into pattern and visualization that we can gain insight from it. Although microbiome analysis is mainly focused on <strong>explanatory data analysis (EDA)</strong>, it acts as a solid example of how EDA can play a huge role in scientific discoveries and initiate further research for the improvement of human lives. In the next chapter, we will uncover what are the steps that build up a microbiome analysis and what is the idea behind them.</p>
-
+<div id="closure" class="section level1">
+<h1><span class="header-section-number">Chapter 9</span> Closure</h1>
+<p>We finally finished our brief journey on the exploration of microbiome analysis in R. Although our data is only a few, the tutorial hopefully have demonstrated many of the steps and main options of microbial analysis you can do in R.</p>
+<p>We have started with the aim to analyze whether the gut microbiome changes or differ between the early and late days of post weaning (eating) period of a mice, using the data <strong>mothur MiSeq SOP</strong>. The analysis showed that there is a difference between in the gut microbiome composition between the early and late samples. We also knew that the gut microbiome was dominated by microbes from the phylum <strong>Firmicutes</strong>, and among them the microbe <em>Oscillibacter sp.</em> became the most important microbes in differentiating between the early and late aged mice using Random Forest algorithm.</p>
+<p>There is much more you can explore about microbiome analysis in R. There is even a new package on development also for microbiome analysis, called <a href="https://bioconductor.org/packages/devel/bioc/vignettes/microbiome/inst/doc/vignette.html"><code>microbiome</code></a>. I have made a mini article about it also in <a href="https://rpubs.com/nabiilahardini/microbiome">here</a>, but hopefully I am able to update it to give it a more detailed touch. Even so, this book hopefully compromise a decent overview, step-by-step, from raw reads to insight, overall aspect of microbiome analysis in R.</p>
+<p>Thank you for reading and I hope this book has been useful to you!</p>
+<p>Keep learning and exploring!</p>
+<hr />
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="microbiome-analysis-workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="classification-using-microbiome.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

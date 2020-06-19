@@ -1,5 +1,5 @@
 
-# Exploratory Data Analysis
+# Microbiome Analysis
 
 ```{r include=FALSE}
 # clear-up the environment
@@ -47,7 +47,7 @@ plot_pcoa<- plot_ordination(ps_log, out_wuf_log, color = "When") +
 plot_pcoa
 ```
 
-Based on the plot above, it is becoming more clear that there is a difference between microbial community came from the early and late sampling period. Refering back to our research question, *"the mouse gut microbiome on the 10 days of post weaning (eating) period did encounter a shift/changes when we compared it to its late period"*. But what are the changes? This can be explored more by plotting microbial abundance of our samples.
+Based on the plot above, it is becoming more clear that there is a difference between microbial community came from the early and late sampling period. Refering back to our research question, *"the mice gut microbiome on the 10 days of post weaning (eating) period did encounter a shift/changes when we compared it to its late period"*. But what are the changes? This can be explored more by plotting microbial abundance of our samples.
 
 Besides discovering patterns, PCoA plot also useful for telling us whether there are **outliers** in our data. From the plot above, the sample *F3D142* seems to be an outlier. We can remove the data before further analysis. 
 
@@ -138,15 +138,16 @@ plot <- plot_abundance(ps_relav,
 ```{r warning=F, message=F}
 plot
 ```
-The combined jitter and density plot above shown how each microbes (point) present in our samples based on its relative abundance for both early and late sampling period. 
 
-Based on the visualization, we know that the Phylum *Firmicutes* dominates the mouse gut microbiome compared to other taxa. That means the microbes present in the mouse gut mostly comes from the Phylum *Firmicutes*, and then accompanied by some other microbes from the Phylum *Actinobacteria*, *Bacteroidota*, *Patescibacteria*, and *Proteobacteria*.
+The combined jitter and density plot above shown how each microbes (point) present in our samples based on its relative abundance for both early and late sampling period. The wider the size of a violin plot, the higher frequencies or possibility of our sample having that score of abundance.
 
-Although the *Firmicutes* dominates the diversity of the mouse gut microbiome, its abundance is varied highly from low to high abundance. Compared to *Bacteroidota* which, although only having some microbial species present in our sample, most of the species have a high abundance in our sample. Meanwhile, *Actinobacteria*, *Patescibacteria* and *Proteobacteria* present in a more lower abundance.
+Based on the jitter visualization, we know that the Phylum *Firmicutes* dominates the mice gut microbiome compared to other taxa. That means the microbes present in the mice gut mostly comes from the Phylum *Firmicutes*, and then accompanied by some other microbes from the Phylum *Bacteroidota*, *Actinobacteria*, *Patescibacteria*, and *Proteobacteria*.
 
-Another thing we can take from the plot is that the microbial community is slightly changing from the early to the late period of mouse age. You can see that *Firmicutes* and *Bacteriodota* sligtly having lower abundance in its late period than its early one, and *Actinobacteria* which has slightly higher abundance in its late period.
+Although *Firmicutes* dominates the diversity of the mice gut microbiome, the violin plots also revealed that its abundance is highly varied from low to high abundance. Compared to *Bacteroidota* which, although only having some microbial species present in our sample, most of the species have a high abundance in our sample. Meanwhile, *Actinobacteria*, *Patescibacteria* and *Proteobacteria* present in a more lower abundance.
 
-By combining this microbial abundance and diversity data with the metabolic activities the microbiome can do (what kind of chemicals it can produce or consume in the gut) we may actually derive some insight on how the gut microbiome can affect the mouse metabolic activity or even health.
+Another thing we can take from the plot is that the microbial community is slightly changing from the early to the late period of mice age. You can see that *Firmicutes* and *Bacteriodota* sligtly having lower abundance in its late period than its early one, and *Actinobacteria* which has slightly higher abundance in its late period.
+
+By combining this microbial abundance and diversity data with the metabolic activities the microbiome can do (what kind of chemicals it can produce or consume in the gut) we may actually derive some insight on how the gut microbiome can affect the mice metabolic activity or even health.
 
 You can try to detail the diversity even more. Below is the code to plot a more detailed plot, for only the Phylum *Firmicutes*.
 
@@ -160,7 +161,7 @@ plot_ordo <- plot_abundance(ps_relav,
 plot_ordo
 ```
 
-From the plot above we know that among Firmicutes, the Order *Acholeplasmatales*, *Clostridiales*, *Enterobacterales*, *Erysipelotrichales*, and *Lactobacillales* are some microbes that differentiate between early and late samples. Perhaps it can be used to distinguish between mouse in its early age or in its late age.
+From the plot above we know that among Firmicutes, the Order *Acholeplasmatales*, *Clostridiales*, *Enterobacterales*, *Erysipelotrichales*,, *Lactobacillales*, and *Oscillospirales* are some microbes that the abundace are different between early and late samples. Perhaps it can be used to distinguish between mice in its early age or in its late age.
 
 Additionally, phyloseq also provides other plot types commonly used to plot microbial abundance data. Such as this abundance bar plot below:
 

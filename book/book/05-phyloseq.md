@@ -1,5 +1,5 @@
 
-# Phyloseq
+# Phyloseq Object Processing
 
 
 
@@ -11,11 +11,8 @@ Phyloseq accepts many forms of microbiome data, including QIIME format. But in t
 
 We are going to perform several data pre-processing:
 
-* Filtering
-  + Taxonomic Filtering
-  + Prevalence Filtering
+* Filtering: Taxonomic Filtering
 * Agglomerate Taxa
-* Abundance Value Transformation
 
 
 ```r
@@ -121,10 +118,28 @@ get_taxa_unique(ps, taxonomic.rank = "Genus")
 ps_agg <- tax_glom(ps, "Genus", NArm = TRUE) 
 ```
 
-Note that the parameter `NArm = TRUE` removes unassigned sequence on Genus. But be caution of this! This choice is very dependent on your research case and can really affect the downstream or following analysis. Meanwhile, Below is our agglomerated data.
+Note that the parameter `NArm = TRUE` removes unassigned sequence on Genus. But be caution of this! This choice is very dependent on your research case and can really affect the downstream or following analysis. 
+
+Below is our original and agglomerated data and their phylogenetic tree. Note that the tree from the agglomerated data is more simpler and will be much more easier to interpret later (if we need one for phylogenetic analysis, although we will not discuss much in this tutorial). I personally think that the taxonomy rank "Genus" is decent enough to identify an originally unknown microbial species. 
 
 
 ```r
+# original data
+ps
+```
+
+```
+## phyloseq-class experiment-level object
+## otu_table()   OTU Table:         [ 234 taxa and 19 samples ]
+## sample_data() Sample Data:       [ 19 samples by 4 sample variables ]
+## tax_table()   Taxonomy Table:    [ 234 taxa by 7 taxonomic ranks ]
+## phy_tree()    Phylogenetic Tree: [ 234 tips and 232 internal nodes ]
+## refseq()      DNAStringSet:      [ 234 reference sequences ]
+```
+
+
+```r
+# agglomerated data
 ps_agg
 ```
 
@@ -136,5 +151,29 @@ ps_agg
 ## phy_tree()    Phylogenetic Tree: [ 49 tips and 48 internal nodes ]
 ## refseq()      DNAStringSet:      [ 49 reference sequences ]
 ```
+
+
+```r
+ps_tree <-  plot_tree(ps, method = "treeonly",
+                   ladderize = "left",
+                   title = "Before Agglomeration")
+
+ps_agg_tree <-  plot_tree(ps_agg, method = "treeonly",
+                   ladderize = "left",
+                   title = "After Agglomeration")
+```
+
+
+```r
+ps_tree
+```
+
+<img src="05-phyloseq_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+```r
+ps_agg_tree
+```
+
+<img src="05-phyloseq_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 We have completely perform data pre-processing. Let's use this pre-processed data into further exploratory data analysis using plots and multivariate projections method such as PCoA.

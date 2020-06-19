@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 7 Exploratory Data Analysis | Microbiome in R</title>
-  <meta name="description" content="Chapter 7 Exploratory Data Analysis | Microbiome in R" />
+  <title>Chapter 7 Microbiome Analysis | Microbiome in R</title>
+  <meta name="description" content="Chapter 7 Microbiome Analysis | Microbiome in R" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 7 Exploratory Data Analysis | Microbiome in R" />
+  <meta property="og:title" content="Chapter 7 Microbiome Analysis | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 7 Exploratory Data Analysis | Microbiome in R" />
+  <meta name="twitter:title" content="Chapter 7 Microbiome Analysis | Microbiome in R" />
   
   
   
@@ -151,9 +151,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>6.1</b> Filtering</a></li>
 <li class="chapter" data-level="6.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>6.2</b> Agglomerate Taxa</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html"><i class="fa fa-check"></i><b>7</b> Exploratory Data Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>7.1</b> Multivariate Projection</a></li>
-<li class="chapter" data-level="7.2" data-path="exploratory-data-analysis.html"><a href="exploratory-data-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>7.2</b> Microbial Abundandce</a></li>
+<li class="chapter" data-level="7" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>7</b> Microbiome Analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>7.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="7.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>7.2</b> Microbial Abundandce</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>8</b> Classification using Microbiome</a></li>
 <li class="chapter" data-level="9" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>9</b> Closure</a></li>
@@ -175,40 +175,40 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exploratory-data-analysis" class="section level1">
-<h1><span class="header-section-number">Chapter 7</span> Exploratory Data Analysis</h1>
+<div id="microbiome-analysis" class="section level1">
+<h1><span class="header-section-number">Chapter 7</span> Microbiome Analysis</h1>
 <p>Exploratory Data Analysis is perhaps the most insightful step we can do during microbiome analysis. It usually aims to discover patterns that may best distinguish and explain the data. Exploratory Data Analysis utilize visualization of the data by using common plots and multivariate projections such as PCoA.</p>
 <div id="multivariate-projection" class="section level2">
 <h2><span class="header-section-number">7.1</span> Multivariate Projection</h2>
 <p>The first explanatory data analysis we will do is to perform multivariate projection of our sample data. This is to <strong>discover pattern that might best distinguish our data</strong> and use it for further analysis.</p>
 <p>Before visualization, it is common to normalize our data. We can use <code>transform_sample_counts()</code> to define our specific function. In this example, we will log-transform our original abundance data as an approximate variance stabilizing transformation <span class="citation">Ben J. Callahan (2016)</span>. We will use column <code>When</code> from sample data to annotate plots.</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="exploratory-data-analysis.html#cb86-1"></a><span class="co"># log-transform data</span></span>
-<span id="cb86-2"><a href="exploratory-data-analysis.html#cb86-2"></a>ps_log &lt;-<span class="st"> </span><span class="kw">transform_sample_counts</span>(ps_agg, <span class="cf">function</span>(x) <span class="kw">log</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x))</span></code></pre></div>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="exploratory-data-analysis.html#cb87-1"></a><span class="co"># making ordinate</span></span>
-<span id="cb87-2"><a href="exploratory-data-analysis.html#cb87-2"></a>out_wuf_log &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_log, </span>
-<span id="cb87-3"><a href="exploratory-data-analysis.html#cb87-3"></a>                        <span class="dt">method =</span> <span class="st">&quot;MDS&quot;</span>, <span class="co"># for PCoA </span></span>
-<span id="cb87-4"><a href="exploratory-data-analysis.html#cb87-4"></a>                        <span class="dt">distance =</span> <span class="st">&quot;wunifrac&quot;</span>) <span class="co"># weighted Unifrac distance</span></span>
-<span id="cb87-5"><a href="exploratory-data-analysis.html#cb87-5"></a><span class="co"># prepare eigen values to adjust axis</span></span>
-<span id="cb87-6"><a href="exploratory-data-analysis.html#cb87-6"></a>evals &lt;-<span class="st"> </span>out_wuf_log<span class="op">$</span>values<span class="op">$</span>Eigenvalues</span></code></pre></div>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="exploratory-data-analysis.html#cb88-1"></a>plot_pcoa&lt;-<span class="st"> </span><span class="kw">plot_ordination</span>(ps_log, out_wuf_log, <span class="dt">color =</span> <span class="st">&quot;When&quot;</span>) <span class="op">+</span></span>
-<span id="cb88-2"><a href="exploratory-data-analysis.html#cb88-2"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">sample_names</span>(ps_log)), <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">nudge_y =</span> <span class="fl">0.02</span>) <span class="op">+</span></span>
-<span id="cb88-3"><a href="exploratory-data-analysis.html#cb88-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">col =</span> <span class="st">&quot;Sampling Period&quot;</span>) <span class="op">+</span></span>
-<span id="cb88-4"><a href="exploratory-data-analysis.html#cb88-4"></a><span class="st">  </span><span class="co"># to adjust axis length based on eigen values (variance it contains)</span></span>
-<span id="cb88-5"><a href="exploratory-data-analysis.html#cb88-5"></a><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="kw">sqrt</span>(evals[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span>evals[<span class="dv">1</span>])) </span></code></pre></div>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="exploratory-data-analysis.html#cb89-1"></a>plot_pcoa</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="microbiome-analysis.html#cb86-1"></a><span class="co"># log-transform data</span></span>
+<span id="cb86-2"><a href="microbiome-analysis.html#cb86-2"></a>ps_log &lt;-<span class="st"> </span><span class="kw">transform_sample_counts</span>(ps_agg, <span class="cf">function</span>(x) <span class="kw">log</span>(<span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x))</span></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="microbiome-analysis.html#cb87-1"></a><span class="co"># making ordinate</span></span>
+<span id="cb87-2"><a href="microbiome-analysis.html#cb87-2"></a>out_wuf_log &lt;-<span class="st"> </span><span class="kw">ordinate</span>(ps_log, </span>
+<span id="cb87-3"><a href="microbiome-analysis.html#cb87-3"></a>                        <span class="dt">method =</span> <span class="st">&quot;MDS&quot;</span>, <span class="co"># for PCoA </span></span>
+<span id="cb87-4"><a href="microbiome-analysis.html#cb87-4"></a>                        <span class="dt">distance =</span> <span class="st">&quot;wunifrac&quot;</span>) <span class="co"># weighted Unifrac distance</span></span>
+<span id="cb87-5"><a href="microbiome-analysis.html#cb87-5"></a><span class="co"># prepare eigen values to adjust axis</span></span>
+<span id="cb87-6"><a href="microbiome-analysis.html#cb87-6"></a>evals &lt;-<span class="st"> </span>out_wuf_log<span class="op">$</span>values<span class="op">$</span>Eigenvalues</span></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="microbiome-analysis.html#cb88-1"></a>plot_pcoa&lt;-<span class="st"> </span><span class="kw">plot_ordination</span>(ps_log, out_wuf_log, <span class="dt">color =</span> <span class="st">&quot;When&quot;</span>) <span class="op">+</span></span>
+<span id="cb88-2"><a href="microbiome-analysis.html#cb88-2"></a><span class="st">  </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">label =</span> <span class="kw">sample_names</span>(ps_log)), <span class="dt">size =</span> <span class="dv">3</span>, <span class="dt">nudge_y =</span> <span class="fl">0.02</span>) <span class="op">+</span></span>
+<span id="cb88-3"><a href="microbiome-analysis.html#cb88-3"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">col =</span> <span class="st">&quot;Sampling Period&quot;</span>) <span class="op">+</span></span>
+<span id="cb88-4"><a href="microbiome-analysis.html#cb88-4"></a><span class="st">  </span><span class="co"># to adjust axis length based on eigen values (variance it contains)</span></span>
+<span id="cb88-5"><a href="microbiome-analysis.html#cb88-5"></a><span class="st">  </span><span class="kw">coord_fixed</span>(<span class="kw">sqrt</span>(evals[<span class="dv">2</span>] <span class="op">/</span><span class="st"> </span>evals[<span class="dv">1</span>])) </span></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="microbiome-analysis.html#cb89-1"></a>plot_pcoa</span></code></pre></div>
 <p><img src="06-EDA_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>Based on the plot above, it is becoming more clear that there is a difference between microbial community came from the early and late sampling period. Refering back to our research question, <em>“the mice gut microbiome on the 10 days of post weaning (eating) period did encounter a shift/changes when we compared it to its late period”</em>. But what are the changes? This can be explored more by plotting microbial abundance of our samples.</p>
 <p>Besides discovering patterns, PCoA plot also useful for telling us whether there are <strong>outliers</strong> in our data. From the plot above, the sample <em>F3D142</em> seems to be an outlier. We can remove the data before further analysis.</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="exploratory-data-analysis.html#cb90-1"></a>ps_cut &lt;-<span class="st"> </span><span class="kw">prune_samples</span>(<span class="kw">sample_names</span>(ps_agg) <span class="op">!=</span><span class="st"> &quot;F3D142&quot;</span>, ps_agg)</span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="microbiome-analysis.html#cb90-1"></a>ps_cut &lt;-<span class="st"> </span><span class="kw">prune_samples</span>(<span class="kw">sample_names</span>(ps_agg) <span class="op">!=</span><span class="st"> &quot;F3D142&quot;</span>, ps_agg)</span></code></pre></div>
 </div>
 <div id="microbial-abundandce" class="section level2">
 <h2><span class="header-section-number">7.2</span> Microbial Abundandce</h2>
 <p>The next explanatory data analysis we will do is to check the microbial abundance within each sample (microbial sequence count per sample). Before visualization, it is common to normalize our abundance data. Same as before, we can use <code>transform_sample_counts()</code> to define our specific function. In this example, we will converts the microbial count stored in the <code>ps_cut</code> into frequencies per total count for each sample a.k.a <em>proportions</em> or <em>relative abundance</em>.</p>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="exploratory-data-analysis.html#cb91-1"></a>ps_relav &lt;-<span class="st"> </span><span class="kw">transform_sample_counts</span>(ps_cut, </span>
-<span id="cb91-2"><a href="exploratory-data-analysis.html#cb91-2"></a>                                    <span class="cf">function</span>(x){x <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)})</span></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="microbiome-analysis.html#cb91-1"></a>ps_relav &lt;-<span class="st"> </span><span class="kw">transform_sample_counts</span>(ps_cut, </span>
+<span id="cb91-2"><a href="microbiome-analysis.html#cb91-2"></a>                                    <span class="cf">function</span>(x){x <span class="op">/</span><span class="st"> </span><span class="kw">sum</span>(x)})</span></code></pre></div>
 <p>Here’s our abundance data before and after transformation:</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="exploratory-data-analysis.html#cb92-1"></a><span class="co"># before transformation</span></span>
-<span id="cb92-2"><a href="exploratory-data-analysis.html#cb92-2"></a>ps_cut<span class="op">@</span>otu_table[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="microbiome-analysis.html#cb92-1"></a><span class="co"># before transformation</span></span>
+<span id="cb92-2"><a href="microbiome-analysis.html#cb92-2"></a>ps_cut<span class="op">@</span>otu_table[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## OTU Table:          [3 taxa and 6 samples]
 ##                      taxa are columns
 ##        ASV5 ASV8 ASV11
@@ -218,8 +218,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F3D143  130   84   134
 ## F3D144  105   41   332
 ## F3D145  308  126   388</code></pre>
-<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="exploratory-data-analysis.html#cb94-1"></a><span class="co"># inspect data after</span></span>
-<span id="cb94-2"><a href="exploratory-data-analysis.html#cb94-2"></a>ps_relav<span class="op">@</span>otu_table[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="microbiome-analysis.html#cb94-1"></a><span class="co"># inspect data after</span></span>
+<span id="cb94-2"><a href="microbiome-analysis.html#cb94-2"></a>ps_relav<span class="op">@</span>otu_table[<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]</span></code></pre></div>
 <pre><code>## OTU Table:          [3 taxa and 6 samples]
 ##                      taxa are columns
 ##              ASV5       ASV8      ASV11
@@ -235,15 +235,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>Now let’s plot our microbial abundace data using a DIY function. The function will result in <strong>microbial abundance</strong> per <strong>taxonomical rank</strong> we provided for each <strong>categorical features</strong> we ought to analyze.</p>
 <p>Here are a list of Phylum taxonomical rank that we can analyze from the sample:</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="exploratory-data-analysis.html#cb96-1"></a><span class="co"># convert to data frame for easier access</span></span>
-<span id="cb96-2"><a href="exploratory-data-analysis.html#cb96-2"></a>tax_table &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(ps_relav<span class="op">@</span>tax_table<span class="op">@</span>.Data)</span></code></pre></div>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="exploratory-data-analysis.html#cb97-1"></a><span class="co"># phylum</span></span>
-<span id="cb97-2"><a href="exploratory-data-analysis.html#cb97-2"></a><span class="kw">unique</span>(tax_table<span class="op">$</span>Phylum)</span></code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="microbiome-analysis.html#cb96-1"></a><span class="co"># convert to data frame for easier access</span></span>
+<span id="cb96-2"><a href="microbiome-analysis.html#cb96-2"></a>tax_table &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(ps_relav<span class="op">@</span>tax_table<span class="op">@</span>.Data)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="microbiome-analysis.html#cb97-1"></a><span class="co"># phylum</span></span>
+<span id="cb97-2"><a href="microbiome-analysis.html#cb97-2"></a><span class="kw">unique</span>(tax_table<span class="op">$</span>Phylum)</span></code></pre></div>
 <pre><code>## [1] &quot;Bacteroidota&quot;      &quot;Firmicutes&quot;        &quot;Proteobacteria&quot;   
 ## [4] &quot;Campilobacterota&quot;  &quot;Actinobacteriota&quot;  &quot;Patescibacteria&quot;  
 ## [7] &quot;Deinococcota&quot;      &quot;Verrucomicrobiota&quot;</code></pre>
 <p>Note that in this tutorial, we only have the categorical features <code>Day</code> or <code>When</code> which stands for the day of sampling period.</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="exploratory-data-analysis.html#cb99-1"></a>ps_relav<span class="op">@</span>sam_data</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="microbiome-analysis.html#cb99-1"></a>ps_relav<span class="op">@</span>sam_data</span></code></pre></div>
 <pre><code>##        Subject Gender Day  When
 ## F3D0         3      F   0 Early
 ## F3D1         3      F   1 Early
@@ -264,35 +264,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## F3D8         3      F   8 Early
 ## F3D9         3      F   9 Early</code></pre>
 <p>It is sufficient enough for our research question, therefore we’ll use that for analysis. But if your sample has more features to explore, you can explore it as much as you want with the DIY function below! Note that the DIY function will use functions from <code>ggplot2</code> package so make sure you have loaded it into your session.</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="exploratory-data-analysis.html#cb101-1"></a><span class="co"># DIY function</span></span>
-<span id="cb101-2"><a href="exploratory-data-analysis.html#cb101-2"></a>plot_abundance &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x =</span> physeq, <span class="co"># phyloseq data</span></span>
-<span id="cb101-3"><a href="exploratory-data-analysis.html#cb101-3"></a>                           <span class="dt">title =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb101-4"><a href="exploratory-data-analysis.html#cb101-4"></a>                           <span class="dt">Facet =</span> <span class="st">&quot;Phylum&quot;</span>, <span class="co"># taxa rank for facets</span></span>
-<span id="cb101-5"><a href="exploratory-data-analysis.html#cb101-5"></a>                           <span class="dt">Category =</span> <span class="st">&quot;When&quot;</span>, <span class="co"># categorical features for x axis</span></span>
-<span id="cb101-6"><a href="exploratory-data-analysis.html#cb101-6"></a>                           <span class="dt">Color =</span> <span class="st">&quot;Phylum&quot;</span>,</span>
-<span id="cb101-7"><a href="exploratory-data-analysis.html#cb101-7"></a>                           <span class="dt">legend =</span> <span class="st">&quot;none&quot;</span></span>
-<span id="cb101-8"><a href="exploratory-data-analysis.html#cb101-8"></a>                           ) {</span>
-<span id="cb101-9"><a href="exploratory-data-analysis.html#cb101-9"></a>  </span>
-<span id="cb101-10"><a href="exploratory-data-analysis.html#cb101-10"></a>  mphyseq &lt;-<span class="st"> </span><span class="kw">psmelt</span>(x)</span>
-<span id="cb101-11"><a href="exploratory-data-analysis.html#cb101-11"></a>  mphyseq &lt;-<span class="st"> </span><span class="kw">subset</span>(mphyseq, Abundance <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
-<span id="cb101-12"><a href="exploratory-data-analysis.html#cb101-12"></a>  </span>
-<span id="cb101-13"><a href="exploratory-data-analysis.html#cb101-13"></a>  <span class="kw">ggplot</span>(<span class="dt">data =</span> mphyseq, </span>
-<span id="cb101-14"><a href="exploratory-data-analysis.html#cb101-14"></a>         <span class="dt">mapping =</span> <span class="kw">aes_string</span>(<span class="dt">x =</span> Category,</span>
-<span id="cb101-15"><a href="exploratory-data-analysis.html#cb101-15"></a>                              <span class="dt">y =</span> <span class="st">&quot;Abundance&quot;</span>,</span>
-<span id="cb101-16"><a href="exploratory-data-analysis.html#cb101-16"></a>                              <span class="dt">color =</span> Color, <span class="dt">fill =</span> Color)</span>
-<span id="cb101-17"><a href="exploratory-data-analysis.html#cb101-17"></a>        ) <span class="op">+</span></span>
-<span id="cb101-18"><a href="exploratory-data-analysis.html#cb101-18"></a><span class="st">    </span><span class="kw">geom_violin</span>(<span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
-<span id="cb101-19"><a href="exploratory-data-analysis.html#cb101-19"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>, </span>
-<span id="cb101-20"><a href="exploratory-data-analysis.html#cb101-20"></a>               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.3</span>)) <span class="op">+</span></span>
-<span id="cb101-21"><a href="exploratory-data-analysis.html#cb101-21"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> Facet, <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb101-22"><a href="exploratory-data-analysis.html#cb101-22"></a><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></span>
-<span id="cb101-23"><a href="exploratory-data-analysis.html#cb101-23"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> title) <span class="op">+</span></span>
-<span id="cb101-24"><a href="exploratory-data-analysis.html#cb101-24"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> legend)</span>
-<span id="cb101-25"><a href="exploratory-data-analysis.html#cb101-25"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="exploratory-data-analysis.html#cb102-1"></a><span class="co"># plotting abundance</span></span>
-<span id="cb102-2"><a href="exploratory-data-analysis.html#cb102-2"></a>plot &lt;-<span class="st"> </span><span class="kw">plot_abundance</span>(ps_relav, </span>
-<span id="cb102-3"><a href="exploratory-data-analysis.html#cb102-3"></a>                       <span class="st">&quot;Microbial Abundance on All Phylum&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="exploratory-data-analysis.html#cb103-1"></a>plot</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="microbiome-analysis.html#cb101-1"></a><span class="co"># DIY function</span></span>
+<span id="cb101-2"><a href="microbiome-analysis.html#cb101-2"></a>plot_abundance &lt;-<span class="st"> </span><span class="cf">function</span>(<span class="dt">x =</span> physeq, <span class="co"># phyloseq data</span></span>
+<span id="cb101-3"><a href="microbiome-analysis.html#cb101-3"></a>                           <span class="dt">title =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb101-4"><a href="microbiome-analysis.html#cb101-4"></a>                           <span class="dt">Facet =</span> <span class="st">&quot;Phylum&quot;</span>, <span class="co"># taxa rank for facets</span></span>
+<span id="cb101-5"><a href="microbiome-analysis.html#cb101-5"></a>                           <span class="dt">Category =</span> <span class="st">&quot;When&quot;</span>, <span class="co"># categorical features for x axis</span></span>
+<span id="cb101-6"><a href="microbiome-analysis.html#cb101-6"></a>                           <span class="dt">Color =</span> <span class="st">&quot;Phylum&quot;</span>,</span>
+<span id="cb101-7"><a href="microbiome-analysis.html#cb101-7"></a>                           <span class="dt">legend =</span> <span class="st">&quot;none&quot;</span></span>
+<span id="cb101-8"><a href="microbiome-analysis.html#cb101-8"></a>                           ) {</span>
+<span id="cb101-9"><a href="microbiome-analysis.html#cb101-9"></a>  </span>
+<span id="cb101-10"><a href="microbiome-analysis.html#cb101-10"></a>  mphyseq &lt;-<span class="st"> </span><span class="kw">psmelt</span>(x)</span>
+<span id="cb101-11"><a href="microbiome-analysis.html#cb101-11"></a>  mphyseq &lt;-<span class="st"> </span><span class="kw">subset</span>(mphyseq, Abundance <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)</span>
+<span id="cb101-12"><a href="microbiome-analysis.html#cb101-12"></a>  </span>
+<span id="cb101-13"><a href="microbiome-analysis.html#cb101-13"></a>  <span class="kw">ggplot</span>(<span class="dt">data =</span> mphyseq, </span>
+<span id="cb101-14"><a href="microbiome-analysis.html#cb101-14"></a>         <span class="dt">mapping =</span> <span class="kw">aes_string</span>(<span class="dt">x =</span> Category,</span>
+<span id="cb101-15"><a href="microbiome-analysis.html#cb101-15"></a>                              <span class="dt">y =</span> <span class="st">&quot;Abundance&quot;</span>,</span>
+<span id="cb101-16"><a href="microbiome-analysis.html#cb101-16"></a>                              <span class="dt">color =</span> Color, <span class="dt">fill =</span> Color)</span>
+<span id="cb101-17"><a href="microbiome-analysis.html#cb101-17"></a>        ) <span class="op">+</span></span>
+<span id="cb101-18"><a href="microbiome-analysis.html#cb101-18"></a><span class="st">    </span><span class="kw">geom_violin</span>(<span class="dt">fill =</span> <span class="ot">NA</span>) <span class="op">+</span></span>
+<span id="cb101-19"><a href="microbiome-analysis.html#cb101-19"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>, <span class="dt">alpha =</span> <span class="fl">0.3</span>, </span>
+<span id="cb101-20"><a href="microbiome-analysis.html#cb101-20"></a>               <span class="dt">position =</span> <span class="kw">position_jitter</span>(<span class="dt">width =</span> <span class="fl">0.3</span>)) <span class="op">+</span></span>
+<span id="cb101-21"><a href="microbiome-analysis.html#cb101-21"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="dt">facets =</span> Facet, <span class="dt">ncol =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb101-22"><a href="microbiome-analysis.html#cb101-22"></a><span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span></span>
+<span id="cb101-23"><a href="microbiome-analysis.html#cb101-23"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> title) <span class="op">+</span></span>
+<span id="cb101-24"><a href="microbiome-analysis.html#cb101-24"></a><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> legend)</span>
+<span id="cb101-25"><a href="microbiome-analysis.html#cb101-25"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="microbiome-analysis.html#cb102-1"></a><span class="co"># plotting abundance</span></span>
+<span id="cb102-2"><a href="microbiome-analysis.html#cb102-2"></a>plot &lt;-<span class="st"> </span><span class="kw">plot_abundance</span>(ps_relav, </span>
+<span id="cb102-3"><a href="microbiome-analysis.html#cb102-3"></a>                       <span class="st">&quot;Microbial Abundance on All Phylum&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="microbiome-analysis.html#cb103-1"></a>plot</span></code></pre></div>
 <p><img src="06-EDA_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p>The combined jitter and density plot above shown how each microbes (point) present in our samples based on its relative abundance for both early and late sampling period. The wider the size of a violin plot, the higher frequencies or possibility of our sample having that score of abundance.</p>
 <p>Based on the jitter visualization, we know that the Phylum <em>Firmicutes</em> dominates the mice gut microbiome compared to other taxa. That means the microbes present in the mice gut mostly comes from the Phylum <em>Firmicutes</em>, and then accompanied by some other microbes from the Phylum <em>Bacteroidota</em>, <em>Actinobacteria</em>, <em>Patescibacteria</em>, and <em>Proteobacteria</em>.</p>
@@ -300,17 +300,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Another thing we can take from the plot is that the microbial community is slightly changing from the early to the late period of mice age. You can see that <em>Firmicutes</em> and <em>Bacteriodota</em> sligtly having lower abundance in its late period than its early one, and <em>Actinobacteria</em> which has slightly higher abundance in its late period.</p>
 <p>By combining this microbial abundance and diversity data with the metabolic activities the microbiome can do (what kind of chemicals it can produce or consume in the gut) we may actually derive some insight on how the gut microbiome can affect the mice metabolic activity or even health.</p>
 <p>You can try to detail the diversity even more. Below is the code to plot a more detailed plot, for only the Phylum <em>Firmicutes</em>.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="exploratory-data-analysis.html#cb104-1"></a>plot_ordo &lt;-<span class="st"> </span><span class="kw">plot_abundance</span>(ps_relav,</span>
-<span id="cb104-2"><a href="exploratory-data-analysis.html#cb104-2"></a>               <span class="dt">title =</span> <span class="st">&quot;Microbial Abundance on Firmicutes&quot;</span>,</span>
-<span id="cb104-3"><a href="exploratory-data-analysis.html#cb104-3"></a>               <span class="dt">Facet =</span> <span class="st">&quot;Order&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="exploratory-data-analysis.html#cb105-1"></a>plot_ordo</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="microbiome-analysis.html#cb104-1"></a>plot_ordo &lt;-<span class="st"> </span><span class="kw">plot_abundance</span>(ps_relav,</span>
+<span id="cb104-2"><a href="microbiome-analysis.html#cb104-2"></a>               <span class="dt">title =</span> <span class="st">&quot;Microbial Abundance on Firmicutes&quot;</span>,</span>
+<span id="cb104-3"><a href="microbiome-analysis.html#cb104-3"></a>               <span class="dt">Facet =</span> <span class="st">&quot;Order&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="microbiome-analysis.html#cb105-1"></a>plot_ordo</span></code></pre></div>
 <p><img src="06-EDA_files/figure-html/unnamed-chunk-17-1.png" width="768" /></p>
 <p>From the plot above we know that among Firmicutes, the Order <em>Acholeplasmatales</em>, <em>Clostridiales</em>, <em>Enterobacterales</em>, <em>Erysipelotrichales</em>,, <em>Lactobacillales</em>, and <em>Oscillospirales</em> are some microbes that the abundace are different between early and late samples. Perhaps it can be used to distinguish between mice in its early age or in its late age.</p>
 <p>Additionally, phyloseq also provides other plot types commonly used to plot microbial abundance data. Such as this abundance bar plot below:</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="exploratory-data-analysis.html#cb106-1"></a>plot2 &lt;-<span class="st"> </span><span class="kw">plot_bar</span>(ps_relav, </span>
-<span id="cb106-2"><a href="exploratory-data-analysis.html#cb106-2"></a>                  <span class="dt">fill =</span> <span class="st">&quot;Phylum&quot;</span>, </span>
-<span id="cb106-3"><a href="exploratory-data-analysis.html#cb106-3"></a>                  <span class="dt">x =</span> <span class="st">&quot;reorder(Sample, Day)&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="exploratory-data-analysis.html#cb107-1"></a>plot2</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="microbiome-analysis.html#cb106-1"></a>plot2 &lt;-<span class="st"> </span><span class="kw">plot_bar</span>(ps_relav, </span>
+<span id="cb106-2"><a href="microbiome-analysis.html#cb106-2"></a>                  <span class="dt">fill =</span> <span class="st">&quot;Phylum&quot;</span>, </span>
+<span id="cb106-3"><a href="microbiome-analysis.html#cb106-3"></a>                  <span class="dt">x =</span> <span class="st">&quot;reorder(Sample, Day)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="microbiome-analysis.html#cb107-1"></a>plot2</span></code></pre></div>
 <p><img src="06-EDA_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p>For more functions and visualization, you can go directly to the official demo page <a href="http://joey711.github.io/phyloseq-demo/phyloseq-demo.html">here</a>.</p>
 
