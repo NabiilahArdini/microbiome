@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Microbiome and Beyond | Microbiome in R</title>
-  <meta name="description" content="Chapter 2 Microbiome and Beyond | Microbiome in R" />
+  <title>Microbiome in R</title>
+  <meta name="description" content="Microbiome in R" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 2 Microbiome and Beyond | Microbiome in R" />
+  <meta property="og:title" content="Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Microbiome and Beyond | Microbiome in R" />
+  <meta name="twitter:title" content="Microbiome in R" />
   
   
   
@@ -24,14 +24,13 @@
 <meta name="author" content="Nabiilah Ardini Fauziyyah" />
 
 
-<meta name="date" content="2020-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="index.html"/>
+
 <link rel="next" href="microbiome-analysis-workflow.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -129,35 +128,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Forewords</a></li>
-<li class="chapter" data-level="2" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>2</b> Microbiome and Beyond</a></li>
-<li class="chapter" data-level="3" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>3</b> Microbiome Analysis Workflow</a><ul>
-<li class="chapter" data-level="3.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>3.1</b> The Lab Work</a></li>
-<li class="chapter" data-level="3.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>3.2</b> Bioinformatic Analysis</a></li>
+<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>4</b> Bioconductor Installation</a></li>
-<li class="chapter" data-level="5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>5</b> Amplicon Bioinformatics</a><ul>
-<li class="chapter" data-level="5.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>5.1</b> Libraries</a></li>
-<li class="chapter" data-level="5.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>5.2</b> Dataset</a></li>
-<li class="chapter" data-level="5.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>5.3</b> Trimming &amp; Filtering</a></li>
-<li class="chapter" data-level="5.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>5.4</b> Infer Sequence Variants</a></li>
-<li class="chapter" data-level="5.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>5.5</b> Merge Forward &amp; Reverse Reads</a></li>
-<li class="chapter" data-level="5.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>5.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
-<li class="chapter" data-level="5.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>5.7</b> Assign Taxonomy</a></li>
-<li class="chapter" data-level="5.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>5.8</b> Construct Phylogenetic Tree</a></li>
-<li class="chapter" data-level="5.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>5.9</b> Create Phyloseq Object</a></li>
+<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html"><i class="fa fa-check"></i><b>6</b> Phyloseq Object Processing</a><ul>
-<li class="chapter" data-level="6.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>6.1</b> Filtering</a></li>
-<li class="chapter" data-level="6.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>6.2</b> Agglomerate Taxa</a></li>
+<li class="chapter" data-level="5" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html"><i class="fa fa-check"></i><b>5</b> Phyloseq Object Processing</a><ul>
+<li class="chapter" data-level="5.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
+<li class="chapter" data-level="5.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>7</b> Microbiome Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>7.1</b> Multivariate Projection</a></li>
-<li class="chapter" data-level="7.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>7.2</b> Microbial Abundandce</a></li>
+<li class="chapter" data-level="6" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>6</b> Microbiome Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="6.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>8</b> Classification using Microbiome</a></li>
-<li class="chapter" data-level="9" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>9</b> Closure</a></li>
-<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+<li class="chapter" data-level="7" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>7</b> Classification using Microbiome</a></li>
+<li class="chapter" data-level="8" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>8</b> Closure</a></li>
+<li class="chapter" data-level="9" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>9</b> References</a></li>
 </ul>
 
       </nav>
@@ -175,8 +173,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Microbiome in R</h1>
+<h2 class="subtitle"><em>Exploring microbiome analysis using R</em></h2>
+<p class="author"><em>Nabiilah Ardini Fauziyyah</em></p>
+<p class="date"><em>Updated July 24, 2020</em></p>
+</div>
 <div id="microbiome-and-beyond" class="section level1">
-<h1><span class="header-section-number">Chapter 2</span> Microbiome and Beyond</h1>
+<h1><span class="header-section-number">Chapter 1</span> Microbiome and Beyond</h1>
 <p>Our earth has always been a home for billions of magnificent species that captivated the eye, including us. Every living thing occupies their respective habitat and evolves with it. But there are more than what is seen with the eyes! An abundant number of tiny organisms–even unseen to the naked eyes–has also been living with us all along. These tiny organisms are called microbes.</p>
 <p><strong>Microbes</strong> are single-cell organisms that are approximately 1-5 micrometer in size, consisting of various species of bacteria and fungi (some said that viruses are also included). Although microbes are the smallest forms of life, they live in almost every place on earth, even inside our bodies. They have adapted to thrive in the normal and the most extreme condition on earth.</p>
 <br>
@@ -214,8 +218,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="microbiome-analysis-workflow.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+
+<a href="microbiome-analysis-workflow.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

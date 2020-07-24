@@ -2,7 +2,7 @@
 title: "Microbiome in R"
 subtitle: "Exploring microbiome analysis using R"
 author: "Nabiilah Ardini Fauziyyah"
-date: "June 19, 2020"
+date: "Updated July 24, 2020"
 documentclass: book
 bibliography: "citation.bib" 
 biblio-style: "apalike"
@@ -13,8 +13,6 @@ link-citation: true
 ```r
 options(knitr.duplicate.label = "allow")
 ```
-
-# Forewords
 
 All praises be to Allah, The Beneficent and The Ever-Providing, who have given me the time, well-being, and intention to develop a companion book on Microbiome Study in R. 
 

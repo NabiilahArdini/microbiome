@@ -22,6 +22,9 @@ The package `caret` provides various functions for machine learning algorithm. W
 # load library
 library(caret)
 library(randomForest)
+
+# additional library for data tidying later
+library(tidyr)
 ```
 
 We'll be using microbial count or `otu_table` from `ps_cut` data which represent the microbial composition of our sample. This data is also already removed for its outlier. We'll also log-transform our data before analysis.
@@ -43,8 +46,15 @@ The first step of classification (or any machine learning task) is to divide our
 ```{r eval=FALSE}
 # get age label & microbiome data
 data_ml <- data.frame(age = sample_data(ps_cut_log)$When, otu_table(ps_cut_log))
+```
 
+```{r}
+head(data_ml)
+```
+
+```{r eval=FALSE}
 # get index for sampling
+set.seed(100)
 idx_train <- sample(nrow(sample_data(ps_cut_log)), size = nrow(sample_data(ps_cut_log))*0.8)
 
 # splitting train-test
@@ -60,10 +70,6 @@ rfFit <- train(age ~ .,
                method = "rf")
 
 rfFit
-```
-
-```{r}
-table(rfClasses, testing$age)
 ```
 
 Next we can predict mouse age labels on the test set using `predict()` function.
@@ -101,7 +107,7 @@ tax_rf <- tax_table(ps_cut_log)
 tax_rf[which.max(importance(rfFit$finalModel)),]
 ```
 
-This turns out to be a microbe from Orer *Oscillospirales*, Family *Oscillospiraceae*, and genus *Oscillibacter*. Let's try plots its abundance across samples.
+This turns out to be a microbe from order *Oscillospirales*, family *Oscillospiraceae*, and genus *Oscillibacter*. Let's try plots its abundance across samples.
 
 ```{r eval=FALSE}
 # get microbial abundance
@@ -128,4 +134,71 @@ imp_plot<- ggplot(imp_df, aes(x = abund)) +
 imp_plot
 ```
 
-We can see that *Oscillibacter sp.* has lower abundance in the mouse early age (0-9 days) and much higher in its late age (141-150). Based on this research, *Oscillibacter sp.* may become a biomarker for mouse age for classification task.
+We can see that *Oscillibacter sp.* has lower abundance in the mouse early age (0-9 days) and much higher in its late age (141-150). This is an interesting fact to point out, that although from the previous chapter (Microbiome Analysis), the order *Oscillospirales* was not the most dominant order present in the community, it may harbours spesific microbes that greatly distinguish between different treatments of our sample (in this case early and late mice age). We may have failed in detecting this microbe because of a poorly visualized microbial abundance where we colored them using only Phylum/Order (not detailed enough to genus for ASV27). That is why a further data analysis is highly recommended after analyzing microbial abundance using plot or visual.
+
+We can also track down several microbes that have high influence on the model decision:
+
+```{r eval=FALSE}
+# obtain the importance of microbes on rf model
+rf_imp <- data.frame(importance(rfFit$finalModel))
+```
+
+```{r}
+# obtain 5 microbes with highest importance
+rf_imp %>% 
+  mutate(ASV = rownames(.)) %>% 
+  arrange(desc(MeanDecreaseGini)) %>% 
+  head(5)
+```
+
+```{r eval=FALSE}
+# saving ASV to object
+asv_imp <- rf_imp %>% 
+  mutate(ASV = rownames(.)) %>% 
+  arrange(desc(MeanDecreaseGini)) %>% 
+  head(5) %>% 
+  pull(ASV)
+```
+
+```{r}
+# obtain taxonomy for those ASVs
+data.frame(tax_rf) %>% 
+  filter(rownames(.) %in% asv_imp)
+```
+
+The above microbes may distinguish greatly between mice with early and late age. Below are the visualization of the abundance for those microbes:
+
+```{r eval=FALSE}
+# get microbial abundance
+imp_abd_asv <- data.frame(otu_table(ps_cut_log)[,asv_imp])
+
+# combine with sample data
+imp_df_asv <- data.frame(sample_data(ps_cut_log)) %>% 
+  cbind(imp_abd_asv) %>% 
+  pivot_longer(cols = asv_imp,
+               names_to = "ASV", values_to = "Abundance")
+```
+
+```{r}
+head(imp_df_asv, 10)
+```
+```{r eval=FALSE}
+# plotting
+imp_plot_asv <- ggplot(imp_df_asv, aes(x = Abundance)) + 
+  geom_density(aes(fill = When),
+              alpha = 0.5) +
+  facet_wrap(~ASV) +
+  labs(title = "Abundance of Discriminative Species",
+     # subtitle = "Oscillibacter sp.",
+     x = "Abundance",
+     y = "Density of samples",
+     fill = "Age") +
+  # below is for aesthetics
+  theme_minimal()
+```
+
+```{r}
+imp_plot_asv
+```
+
+In the practice, It is even better to analyze the coherence of this microbiome analysis with other information regarding metabolic activities (perhaps transcriptomic and metabolomic study) happened during the mice growth. Therefore we can analyze how the microbiome affect the mice metabolic activities.

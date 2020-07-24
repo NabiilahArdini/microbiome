@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 5 Amplicon Bioinformatics | Microbiome in R</title>
-  <meta name="description" content="Chapter 5 Amplicon Bioinformatics | Microbiome in R" />
+  <title>Chapter 4 Amplicon Bioinformatics | Microbiome in R</title>
+  <meta name="description" content="Chapter 4 Amplicon Bioinformatics | Microbiome in R" />
   <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Chapter 5 Amplicon Bioinformatics | Microbiome in R" />
+  <meta property="og:title" content="Chapter 4 Amplicon Bioinformatics | Microbiome in R" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 5 Amplicon Bioinformatics | Microbiome in R" />
+  <meta name="twitter:title" content="Chapter 4 Amplicon Bioinformatics | Microbiome in R" />
   
   
   
@@ -24,7 +24,6 @@
 <meta name="author" content="Nabiilah Ardini Fauziyyah" />
 
 
-<meta name="date" content="2020-06-19" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -129,35 +128,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Forewords</a></li>
-<li class="chapter" data-level="2" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>2</b> Microbiome and Beyond</a></li>
-<li class="chapter" data-level="3" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>3</b> Microbiome Analysis Workflow</a><ul>
-<li class="chapter" data-level="3.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>3.1</b> The Lab Work</a></li>
-<li class="chapter" data-level="3.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>3.2</b> Bioinformatic Analysis</a></li>
+<li class="chapter" data-level="1" data-path="microbiome-and-beyond.html"><a href="microbiome-and-beyond.html"><i class="fa fa-check"></i><b>1</b> Microbiome and Beyond</a></li>
+<li class="chapter" data-level="2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html"><i class="fa fa-check"></i><b>2</b> Microbiome Analysis Workflow</a><ul>
+<li class="chapter" data-level="2.1" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#the-lab-work"><i class="fa fa-check"></i><b>2.1</b> The Lab Work</a></li>
+<li class="chapter" data-level="2.2" data-path="microbiome-analysis-workflow.html"><a href="microbiome-analysis-workflow.html#bioinformatic-analysis"><i class="fa fa-check"></i><b>2.2</b> Bioinformatic Analysis</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>4</b> Bioconductor Installation</a></li>
-<li class="chapter" data-level="5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>5</b> Amplicon Bioinformatics</a><ul>
-<li class="chapter" data-level="5.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>5.1</b> Libraries</a></li>
-<li class="chapter" data-level="5.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>5.2</b> Dataset</a></li>
-<li class="chapter" data-level="5.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>5.3</b> Trimming &amp; Filtering</a></li>
-<li class="chapter" data-level="5.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>5.4</b> Infer Sequence Variants</a></li>
-<li class="chapter" data-level="5.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>5.5</b> Merge Forward &amp; Reverse Reads</a></li>
-<li class="chapter" data-level="5.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>5.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
-<li class="chapter" data-level="5.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>5.7</b> Assign Taxonomy</a></li>
-<li class="chapter" data-level="5.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>5.8</b> Construct Phylogenetic Tree</a></li>
-<li class="chapter" data-level="5.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>5.9</b> Create Phyloseq Object</a></li>
+<li class="chapter" data-level="3" data-path="bioconductor-installation.html"><a href="bioconductor-installation.html"><i class="fa fa-check"></i><b>3</b> Bioconductor Installation</a></li>
+<li class="chapter" data-level="4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html"><i class="fa fa-check"></i><b>4</b> Amplicon Bioinformatics</a><ul>
+<li class="chapter" data-level="4.1" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#libraries"><i class="fa fa-check"></i><b>4.1</b> Libraries</a></li>
+<li class="chapter" data-level="4.2" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#dataset"><i class="fa fa-check"></i><b>4.2</b> Dataset</a></li>
+<li class="chapter" data-level="4.3" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#trimming-filtering"><i class="fa fa-check"></i><b>4.3</b> Trimming &amp; Filtering</a></li>
+<li class="chapter" data-level="4.4" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#infer-sequence-variants"><i class="fa fa-check"></i><b>4.4</b> Infer Sequence Variants</a></li>
+<li class="chapter" data-level="4.5" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#merge-forward-reverse-reads"><i class="fa fa-check"></i><b>4.5</b> Merge Forward &amp; Reverse Reads</a></li>
+<li class="chapter" data-level="4.6" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-sequence-table-remove-chimeras"><i class="fa fa-check"></i><b>4.6</b> Construct Sequence Table &amp; Remove Chimeras</a></li>
+<li class="chapter" data-level="4.7" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#assign-taxonomy"><i class="fa fa-check"></i><b>4.7</b> Assign Taxonomy</a></li>
+<li class="chapter" data-level="4.8" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#construct-phylogenetic-tree"><i class="fa fa-check"></i><b>4.8</b> Construct Phylogenetic Tree</a></li>
+<li class="chapter" data-level="4.9" data-path="amplicon-bioinformatics.html"><a href="amplicon-bioinformatics.html#create-phyloseq-object"><i class="fa fa-check"></i><b>4.9</b> Create Phyloseq Object</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html"><i class="fa fa-check"></i><b>6</b> Phyloseq Object Processing</a><ul>
-<li class="chapter" data-level="6.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>6.1</b> Filtering</a></li>
-<li class="chapter" data-level="6.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>6.2</b> Agglomerate Taxa</a></li>
+<li class="chapter" data-level="5" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html"><i class="fa fa-check"></i><b>5</b> Phyloseq Object Processing</a><ul>
+<li class="chapter" data-level="5.1" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#filtering"><i class="fa fa-check"></i><b>5.1</b> Filtering</a></li>
+<li class="chapter" data-level="5.2" data-path="phyloseq-object-processing.html"><a href="phyloseq-object-processing.html#agglomerate-taxa"><i class="fa fa-check"></i><b>5.2</b> Agglomerate Taxa</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>7</b> Microbiome Analysis</a><ul>
-<li class="chapter" data-level="7.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>7.1</b> Multivariate Projection</a></li>
-<li class="chapter" data-level="7.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>7.2</b> Microbial Abundandce</a></li>
+<li class="chapter" data-level="6" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html"><i class="fa fa-check"></i><b>6</b> Microbiome Analysis</a><ul>
+<li class="chapter" data-level="6.1" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#multivariate-projection"><i class="fa fa-check"></i><b>6.1</b> Multivariate Projection</a></li>
+<li class="chapter" data-level="6.2" data-path="microbiome-analysis.html"><a href="microbiome-analysis.html#microbial-abundandce"><i class="fa fa-check"></i><b>6.2</b> Microbial Abundandce</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>8</b> Classification using Microbiome</a></li>
-<li class="chapter" data-level="9" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>9</b> Closure</a></li>
-<li class="chapter" data-level="10" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>10</b> References</a></li>
+<li class="chapter" data-level="7" data-path="classification-using-microbiome.html"><a href="classification-using-microbiome.html"><i class="fa fa-check"></i><b>7</b> Classification using Microbiome</a></li>
+<li class="chapter" data-level="8" data-path="closure.html"><a href="closure.html"><i class="fa fa-check"></i><b>8</b> Closure</a></li>
+<li class="chapter" data-level="9" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>9</b> References</a></li>
 </ul>
 
       </nav>
@@ -176,11 +174,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
             <section class="normal" id="section-">
 <div id="amplicon-bioinformatics" class="section level1">
-<h1><span class="header-section-number">Chapter 5</span> Amplicon Bioinformatics</h1>
+<h1><span class="header-section-number">Chapter 4</span> Amplicon Bioinformatics</h1>
 <p>This chapter demonstrates the first step of performing microbiome analysis in R. Amplicon bioinformatics include <strong>construction of the raw reads from sequencing result into the table we ought to analyze</strong>. Below is an illustration of what we are going to do in amplicon bioinformatics (<strong>Fig 4.1</strong>).</p>
 <p><img src="assets/04/ampliconb.PNG" width="100%" style="display: block; margin: auto;" /></p>
 <div id="libraries" class="section level2">
-<h2><span class="header-section-number">5.1</span> Libraries</h2>
+<h2><span class="header-section-number">4.1</span> Libraries</h2>
 <p>First, we should load the necessary packages. You might also want to install some packages if you haven’t installed them to your machine.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="amplicon-bioinformatics.html#cb4-1"></a><span class="co"># CRAN libraries</span></span>
 <span id="cb4-2"><a href="amplicon-bioinformatics.html#cb4-2"></a><span class="kw">library</span>(tidyverse) <span class="co"># for data cleaning/wrangling</span></span>
@@ -195,7 +193,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>We will be using a lot of functions from <strong>DADA2 package</strong> for amplicon analysis and therefore I will be following <a href="https://benjjneb.github.io/dada2/tutorial.html">DADA2 Pipeline Tutorial (1.12)</a> <span class="citation">(Callahan, n.d.)</span>. Through out the tutorial, I will try to explain each step in hopefully a more friendly manner for people who are new to this analysis.</p>
 </div>
 <div id="dataset" class="section level2">
-<h2><span class="header-section-number">5.2</span> Dataset</h2>
+<h2><span class="header-section-number">4.2</span> Dataset</h2>
 <p>The dataset for microbiome analysis is usually a set of <strong>raw reads of DNA sequences</strong> a.k.a. <strong>amplicons</strong> stored in a digital format as a result of DNA sequencing method performed in labs. The DNA of a microbial species needs to be sequenced first to retrieve its information and store it in a digitalized form. There are various tools for DNA sequencing with the Next Generation Sequencing (NGS) technology being commonly used today. It allows rapid sequencing for a massive load of DNA sequences simultaneously.</p>
 <p>You are free to use your own amplicons dataset while following the tutorial provided in this book. But please do notice that the data should met certain criteria as follows:</p>
 <ol style="list-style-type: decimal">
@@ -266,7 +264,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## [1] &quot;F3D0&quot;   &quot;F3D1&quot;   &quot;F3D141&quot; &quot;F3D142&quot; &quot;F3D143&quot; &quot;F3D144&quot;</code></pre>
 </div>
 <div id="trimming-filtering" class="section level2">
-<h2><span class="header-section-number">5.3</span> Trimming &amp; Filtering</h2>
+<h2><span class="header-section-number">4.3</span> Trimming &amp; Filtering</h2>
 <p>After we have separate the sequences into reverse/forward, we need to perform data cleaning by <strong>trimming &amp; filtering</strong>. Raw reads are often have regions with low-quality reads. Most Illumina sequencing data shows a trend of decreasing average quality towards the end of sequencing reads <span class="citation">(Ben J. Callahan 2016)</span>.</p>
 <p>To know which regions have low quality reads, we can plot it using <code>plotQualityProfile()</code> from <strong>DADA2</strong> package. This function plots a visual summary of the distribution of <a href="https://www.illumina.com/documents/products/technotes/technote_Q-Scores.pdf"><strong>quality scores</strong></a> for each sequence position. For more clarity, one amplicon files consist of numerous DNA sequences from each microbial present in one community sample. Each sequences calculated for its quality score in each sequence position (first to last). The plot will generate the summary of quality score from all the DNA sequences in one sample.</p>
 <p>Let’s take the first 3 observation and plot its reverse and forward reads for its quality profile. From there we can determine which position with low quality reads and trim them later.</p>
@@ -343,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Wait for a while as your machine processing your request to trim and filter the amplicons. When it is done, the resulting amplicons will be located in the <code>filtered_path</code> you have stated earlier. You can track the number of in-and-out filtered reads for each sample in <code>tnf_summary</code>.</p>
 </div>
 <div id="infer-sequence-variants" class="section level2">
-<h2><span class="header-section-number">5.4</span> Infer Sequence Variants</h2>
+<h2><span class="header-section-number">4.4</span> Infer Sequence Variants</h2>
 <p>After filtering, typical workflow will continue to perform <strong>clustering</strong> of the DNA sequences into <strong>Operational Taxonomic Units (OTUs)</strong> or the estimated distinct species present in the community. This is performed by creating groups of sequencing reads that differ by less than a fixed dissimilarity threshhold. Even so, there is still a possibility of sequencing errors generating artificial sequences. To tackle this problem, a high-throughput <strong>DADA2</strong> method was developed. This method can infer <strong>amplicon sequence variants (ASVs)</strong> from our amplicons data. ASVs are individual DNA sequences recovered after the removal of false sequences generated from error during PCR amplification and sequencing. ASVs are considered as <strong>the true biological sequences</strong> and therefore will be used for further analysis.</p>
 <p>DADA2 works by making use of a <strong>parametric error model</strong> <code>err</code> to distinguish between true biological sequences (ASVs) and those generated by error <span class="citation">(Ben J. Callahan 2016)</span>. This error model learns the maximum possible error rates of our amplicons data using the <code>learnErrors()</code> function <span class="citation">(Callahan, n.d.)</span>. The error model will later be used in the DADA2 algorithm using <code>dada()</code> function.</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="amplicon-bioinformatics.html#cb20-1"></a><span class="co"># error model for forward reads</span></span>
@@ -361,7 +359,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## Key parameters: OMEGA_A = 1e-40, OMEGA_C = 1e-40, BAND_SIZE = 16</code></pre>
 </div>
 <div id="merge-forward-reverse-reads" class="section level2">
-<h2><span class="header-section-number">5.5</span> Merge Forward &amp; Reverse Reads</h2>
+<h2><span class="header-section-number">4.5</span> Merge Forward &amp; Reverse Reads</h2>
 <p>The DADA2 algorithm removed (nearly) all substitution errors from the data and the data are now ready to be merged.</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="amplicon-bioinformatics.html#cb25-1"></a>merged &lt;-<span class="st"> </span><span class="kw">mergePairs</span>(<span class="dt">dadaF =</span> dada_F, <span class="co"># dada result</span></span>
 <span id="cb25-2"><a href="amplicon-bioinformatics.html#cb25-2"></a>                     <span class="dt">derepF =</span> filtered_F, <span class="co"># path of filtered reads</span></span>
@@ -369,7 +367,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb25-4"><a href="amplicon-bioinformatics.html#cb25-4"></a>                     <span class="dt">derepR =</span> filtered_R)</span></code></pre></div>
 </div>
 <div id="construct-sequence-table-remove-chimeras" class="section level2">
-<h2><span class="header-section-number">5.6</span> Construct Sequence Table &amp; Remove Chimeras</h2>
+<h2><span class="header-section-number">4.6</span> Construct Sequence Table &amp; Remove Chimeras</h2>
 <p>Using the merged pairs of the amplicon data, a sequence table or in this case an <strong>amplicon sequence variant (ASV) table</strong> can be generated. This table is in <code>matrix</code> format with rows stores the <strong>sample names</strong> and the columns stores the <strong>number of each ASVs</strong>. From this table we can inspect the number of ASVs (representing each microbial species) in each sample. ASV table is a higher-resolution version of the OTU table produced by tradisional method.</p>
 <p>We can construct a sequence table using <code>makeSequenceTable()</code>.</p>
 <div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="amplicon-bioinformatics.html#cb26-1"></a>seqtab &lt;-<span class="st"> </span><span class="kw">makeSequenceTable</span>(merged)</span></code></pre></div>
@@ -441,7 +439,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>From the summary, we know that there is no over-large drop associated with any single step and we manage to keep majority of our data. Now we can move to the next step.</p>
 </div>
 <div id="assign-taxonomy" class="section level2">
-<h2><span class="header-section-number">5.7</span> Assign Taxonomy</h2>
+<h2><span class="header-section-number">4.7</span> Assign Taxonomy</h2>
 <p>Previous amplicon bioinformatics processes provide us with a sequence table containing the number of distinct amplicons (ASVs) which resembles a microbial species in each of our sample. This table will be more informative and easier to analyze when we have <strong>assign the taxonomy or identity for each ASVs</strong> in the table. That is like giving an identity to the considerably long ACGT-code in the into something more “readable” for the column names.</p>
 <p>Assigning taxonomy is a process of classifiying an unknown ASVs into a known microbial species. Using DADA2 package, it involves a native implementation of the <em>naive Bayesian classifier method</em>. The function <code>assignTaxonomy()</code> will take an input of a set of sequences to be classified (<strong>ASVs</strong>) and a <strong>training set of reference sequences</strong> with known taxonomy. The function will output taxonomic assinments for all ASVs with at least <code>minBoot</code> bootstrap confidence (parameter for the algorithm). Do it looks like a <strong>machine learning classification case</strong>? Yes, it is.</p>
 <p>There are <a href="https://benjjneb.github.io/dada2/training.html">various resources</a> for training set fastas, but I will use <strong>the Silva reference database</strong> <span class="citation">(McLaren 2020)</span> for this example. To use it, go to <a href="(https://zenodo.org/record/3731176#.Xp68_8gzbIU)">this link</a> and download these files:</p>
@@ -451,7 +449,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>and then place the files inside the same directory with our filtered sequences <code>.fastq.gz</code> files. We can then perform taxonomy assignment:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="amplicon-bioinformatics.html#cb38-1"></a><span class="co"># assign taxa until genus level</span></span>
-<span id="cb38-2"><a href="amplicon-bioinformatics.html#cb38-2"></a>  taxa &lt;-<span class="st"> </span><span class="kw">assignTaxonomy</span>(seqtab_nochim, <span class="co"># sequence table</span></span>
+<span id="cb38-2"><a href="amplicon-bioinformatics.html#cb38-2"></a>taxa &lt;-<span class="st"> </span><span class="kw">assignTaxonomy</span>(seqtab_nochim, <span class="co"># sequence table</span></span>
 <span id="cb38-3"><a href="amplicon-bioinformatics.html#cb38-3"></a>                       <span class="dt">refFasta =</span> <span class="st">&quot;data/filtered/silva_nr_v138_train_set.fa.gz&quot;</span>, <span class="co"># reference sequence</span></span>
 <span id="cb38-4"><a href="amplicon-bioinformatics.html#cb38-4"></a>                       <span class="dt">minBoot =</span> <span class="dv">50</span>) <span class="co"># minimal bootstrap confidence; default to 50</span></span>
 <span id="cb38-5"><a href="amplicon-bioinformatics.html#cb38-5"></a></span>
@@ -481,7 +479,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this point, you can additionally check the accuracy of DADA2 algorithm in inferring sequence variants by comparing the result of mock samples to the annotated sequence of mock samples <code>HMP_mock.v35 fasta</code>. I’ll leave it for you to explore the original documentation <a href="https://benjjneb.github.io/dada2/tutorial.html">here</a>.</p>
 </div>
 <div id="construct-phylogenetic-tree" class="section level2">
-<h2><span class="header-section-number">5.8</span> Construct Phylogenetic Tree</h2>
+<h2><span class="header-section-number">4.8</span> Construct Phylogenetic Tree</h2>
 <p>Phylogenetic relatedness is commonly used to inform downstream analyses, especially the calculation of phylogenyaware distances between microbial communities, such as when plotting multivariate projection among samples. We begin constructing phylogenetic tree by performing a <strong>multiple-alignment</strong> using the <code>DECIPHER</code> package <span class="citation">(Ben J. Callahan 2016)</span>.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="amplicon-bioinformatics.html#cb42-1"></a><span class="co"># obtain sequence</span></span>
 <span id="cb42-2"><a href="amplicon-bioinformatics.html#cb42-2"></a>seqs &lt;-<span class="st"> </span><span class="kw">getSequences</span>(seqtab_nochim)</span>
@@ -499,7 +497,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb44-3"><a href="amplicon-bioinformatics.html#cb44-3"></a><span class="dt">rearrangement =</span> <span class="st">&quot;stochastic&quot;</span>, <span class="dt">control =</span> <span class="kw">pml.control</span>(<span class="dt">trace =</span> <span class="dv">0</span>))</span></code></pre></div>
 </div>
 <div id="create-phyloseq-object" class="section level2">
-<h2><span class="header-section-number">5.9</span> Create Phyloseq Object</h2>
+<h2><span class="header-section-number">4.9</span> Create Phyloseq Object</h2>
 <p>After many process of amplicon bioinformatics, the last thing we can do is to combine all the processed data into a <strong>phyloseq object</strong>. A phyloseq object will contain all the processed raw data in a bundle, which will be easier for us to manipulate for microbiome analysis. We can create a phylosec object by combining several metadata and the result of our DADA2 process.</p>
 <p>We will use the sample names which stores the information. Keep in mind that we have to pay attention to where is the mock sample is located for it has different naming system and therefore needs special treatments.</p>
 <div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="amplicon-bioinformatics.html#cb45-1"></a>sample_names</span></code></pre></div>

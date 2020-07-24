@@ -316,7 +316,7 @@ and then place the files inside the same directory with our filtered sequences `
 
 ```{r eval=FALSE}
 # assign taxa until genus level
-  taxa <- assignTaxonomy(seqtab_nochim, # sequence table
+taxa <- assignTaxonomy(seqtab_nochim, # sequence table
                        refFasta = "data/filtered/silva_nr_v138_train_set.fa.gz", # reference sequence
                        minBoot = 50) # minimal bootstrap confidence; default to 50
 
@@ -362,7 +362,7 @@ treeNJ <- NJ(dm) # construct neighbor-joining tree
 fit <- pml(treeNJ, data = phang.align) # computes likelihood of phylogenetic tree
 ```
 
-```{r}
+```{r eval=FALSE}
 fitGTR <- update(fit, k=4, inv=0.2) # re-fit a model
 fitGTR <- optim.pml(fitGTR, model="GTR", optInv=TRUE, optGamma=TRUE,
 rearrangement = "stochastic", control = pml.control(trace = 0))

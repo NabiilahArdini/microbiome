@@ -201,9 +201,9 @@ plot
 
 The combined jitter and density plot above shown how each microbes (point) present in our samples based on its relative abundance for both early and late sampling period. The wider the size of a violin plot, the higher frequencies or possibility of our sample having that score of abundance.
 
-Based on the jitter visualization, we know that the Phylum *Firmicutes* dominates the mice gut microbiome compared to other taxa. That means the microbes present in the mice gut mostly comes from the Phylum *Firmicutes*, and then accompanied by some other microbes from the Phylum *Bacteroidota*, *Actinobacteria*, *Patescibacteria*, and *Proteobacteria*.
+Based on the jitter visualization, we know that the Phylum *Firmicutes* dominates the mice gut microbiome compared to other taxa. That means the microbes present in the mice gut mostly comes from the Phylum *Firmicutes*, and then accompanied by some other microbes mostly from the Phylum *Bacteroidota*, *Actinobacteria*.
 
-Although *Firmicutes* dominates the diversity of the mice gut microbiome, the violin plots also revealed that its abundance is highly varied from low to high abundance. Compared to *Bacteroidota* which, although only having some microbial species present in our sample, most of the species have a high abundance in our sample. Meanwhile, *Actinobacteria*, *Patescibacteria* and *Proteobacteria* present in a more lower abundance.
+Although *Firmicutes* dominates the diversity of the mice gut microbiome, the violin plots also revealed that its abundance is highly varied from low to high abundance. Compared to *Bacteroidota* which, although only having some microbial species present in our sample, most of the species have a high abundance in our sample. Meanwhile, *Actinobacteria*, *Patescibacteria* and *Proteobacteria* present in a more lower abundance. This applies to both early and late mice age.
 
 Another thing we can take from the plot is that the microbial community is slightly changing from the early to the late period of mice age. You can see that *Firmicutes* and *Bacteriodota* sligtly having lower abundance in its late period than its early one, and *Actinobacteria* which has slightly higher abundance in its late period.
 
@@ -213,7 +213,13 @@ You can try to detail the diversity even more. Below is the code to plot a more 
 
 
 ```r
-plot_ordo <- plot_abundance(ps_relav,
+# subset taxa for Phylum "Firmicutes"
+ps_firm <-  subset_taxa(ps_relav, Phylum == "Firmicutes")
+```
+
+
+```r
+plot_ordo <- plot_abundance(ps_firm,
                title = "Microbial Abundance on Firmicutes",
                Facet = "Order")
 ```
@@ -223,17 +229,20 @@ plot_ordo <- plot_abundance(ps_relav,
 plot_ordo
 ```
 
-<img src="06-EDA_files/figure-html/unnamed-chunk-17-1.png" width="768" />
+<img src="06-EDA_files/figure-html/unnamed-chunk-18-1.png" width="768" />
 
-From the plot above we know that among Firmicutes, the Order *Acholeplasmatales*, *Clostridiales*, *Enterobacterales*, *Erysipelotrichales*,, *Lactobacillales*, and *Oscillospirales* are some microbes that the abundace are different between early and late samples. Perhaps it can be used to distinguish between mice in its early age or in its late age.
+From the plot above we know that among *Firmicutes*, the order *Lachnospirales* and *Oscillospirales* dominates most of the microbes present in the community, although the relative abundance is quite varied. Instead, the order *Lactobacillales*, although only harbours a few microbes, most of the microbes from this order has higher abundance. This is especially happened during late period whereas all the microbes from this order has a high abundance in the community.
 
 Additionally, phyloseq also provides other plot types commonly used to plot microbial abundance data. Such as this abundance bar plot below:
 
 
 ```r
-plot2 <- plot_bar(ps_relav, 
-                  fill = "Phylum", 
-                  x = "reorder(Sample, Day)")
+plot2 <- plot_bar(ps_relav, # using all data (relative abundance)
+                  fill = "Phylum", # fill colour by Phylum.
+                  x = "reorder(Sample, Day)") + 
+  labs(title = "Microbial Abundance of Murine Gut",
+       subtitle = "Phylum Distribution",
+       x = NULL) # to remove x-axis title
 ```
 
 
@@ -241,6 +250,27 @@ plot2 <- plot_bar(ps_relav,
 plot2
 ```
 
-<img src="06-EDA_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="06-EDA_files/figure-html/unnamed-chunk-20-1.png" width="672" />
+
+Using this `plot_bar` function, we may see a better visulization on the dynamics of murine gut microbial community during mice growth respective to its introduced diet. 
+
+Below is the plot for the relative abundance of the phylum *Firmicutes*. We can confirm that the order *Lachnospirales* and *Lactobacillales* have the highest abundance among all other order. We can also see that the *Lactobacillales* relative abundance has increased at the late period, furthermore, the order *Erysipelotrichales* has only appeared at the late period.
+
+
+```r
+plot3 <- plot_bar(ps_firm, # using only firmicutes data
+                  fill = "Order", # fill colour by order.
+                  x = "reorder(Sample, Day)") + 
+  labs(title = "Microbial Abundance of Murine Gut",
+       subtitle = "Phylum Firmicutes",
+       x = NULL) # to remove x-axis title
+```
+
+
+```r
+plot3
+```
+
+<img src="06-EDA_files/figure-html/unnamed-chunk-22-1.png" width="672" />
 
 For more functions and visualization, you can go directly to the official demo page [here](http://joey711.github.io/phyloseq-demo/phyloseq-demo.html).

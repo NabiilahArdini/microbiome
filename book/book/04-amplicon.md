@@ -435,7 +435,7 @@ and then place the files inside the same directory with our filtered sequences `
 
 ```r
 # assign taxa until genus level
-  taxa <- assignTaxonomy(seqtab_nochim, # sequence table
+taxa <- assignTaxonomy(seqtab_nochim, # sequence table
                        refFasta = "data/filtered/silva_nr_v138_train_set.fa.gz", # reference sequence
                        minBoot = 50) # minimal bootstrap confidence; default to 50
 
